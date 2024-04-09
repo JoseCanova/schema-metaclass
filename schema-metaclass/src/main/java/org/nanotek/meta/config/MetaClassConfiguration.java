@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import schemacrawler.schemacrawler.LoadOptionsBuilder;
+import schemacrawler.schemacrawler.SchemaCrawlerOptions;
+import schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder;
+import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
+
 @SpringBootConfiguration
 public class MetaClassConfiguration {
 
@@ -36,7 +41,39 @@ public class MetaClassConfiguration {
 
 	@Bean
 	@Primary
-	JdbcTemplate jdbcTemplate(@Autowired DataSource dataSource) {
+	public JdbcTemplate jdbcTemplate(@Autowired DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
 	}
+	
+	
+	@Bean 
+	@Primary
+	public SchemaInfoLevelBuilder getSchemaBuilder() {
+		return SchemaInfoLevelBuilder.builder()
+				.setRetrieveAdditionalColumnAttributes(true)
+				.setRetrieveAdditionalColumnMetadata(false)
+				.setRetrieveColumnDataTypes(true)
+				.setRetrieveForeignKeys(false)
+				.setRetrieveIndexes(true)
+				.setRetrieveIndexInformation(true)
+				.setRetrieveTriggerInformation(false)
+				.setRetrievePrimaryKeys(true)
+				.setRetrieveTableColumns(true)
+				.setRetrieveTables(true);
+	}
+	
+	@Bean
+	@Primary
+	public LoadOptionsBuilder getLoadOptionsBuilder(@Autowired SchemaInfoLevelBuilder builder) {
+		return  LoadOptionsBuilder.builder()
+				.withSchemaInfoLevel(builder.toOptions());
+	}
+	
+	@Bean
+	@Primary
+	public SchemaCrawlerOptions getSchemaCrawlerOptions(@Autowired LoadOptionsBuilder loadOptionsBuilder) {
+		return SchemaCrawlerOptionsBuilder.newSchemaCrawlerOptions()
+				.withLoadOptions(loadOptionsBuilder.toOptions());
+	}
+	
 }
