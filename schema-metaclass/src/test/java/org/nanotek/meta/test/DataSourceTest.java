@@ -11,11 +11,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import schemacrawler.schemacrawler.LoadOptionsBuilder;
+import schemacrawler.schemacrawler.SchemaCrawlerOptions;
+import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
+
 @SpringBootTest
 public class DataSourceTest {
 
 	@Autowired 
 	DataSource defaultDataSource;
+	
+	@Autowired
+	SchemaInfoLevelBuilder schemaInfoLevelBuilder;
+	
+	@Autowired 
+	LoadOptionsBuilder loadOptionsBuilder;
+	
+	@Autowired 
+	SchemaCrawlerOptions schemaCrawlerOptions;
 	
 	public DataSourceTest() {
 	}
@@ -32,5 +45,18 @@ public class DataSourceTest {
 		assertNotNull(con);
 	}
 	
+	@Test
+	void testSchemaInfoLevelBuilder() {
+		assertNotNull(schemaInfoLevelBuilder);
+	}
 	
+	@Test
+	void testLoadOptionsBuilder() {
+		assertNotNull(loadOptionsBuilder);
+	}
+	
+	@Test
+	void testSchemaCrawlerOptions() {
+		assertNotNull(schemaCrawlerOptions);
+	}
 }
