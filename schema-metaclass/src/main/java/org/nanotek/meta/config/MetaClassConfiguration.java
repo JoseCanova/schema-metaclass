@@ -1,4 +1,4 @@
-package org.nanotek.meta.confg;
+package org.nanotek.meta.config;
 
 import javax.sql.DataSource;
 
