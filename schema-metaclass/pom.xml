@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.nanotek</groupId>
+  <artifactId>schema-metaclass</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Schema Crawler Metaclass...</name>
+  <description>Schema Crawler Model Transformation</description>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.8</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<properties>
+		<java.version>11</java.version>
+		<swagger.version>3.0.0</swagger.version>
+		<logstash-gelf.version>1.12.0</logstash-gelf.version>
+		<log4j2.version>2.17.1</log4j2.version>
+		<admin.version>2.6.7</admin.version>
+		<querydsl.version>5.0.0</querydsl.version>
+	</properties>
+	<dependencies>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-test</artifactId>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.7.3</version>
+		</dependency>
+	</dependencies>	
+</project>
