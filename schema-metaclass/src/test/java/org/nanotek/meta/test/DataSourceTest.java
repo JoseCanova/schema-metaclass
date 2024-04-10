@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import schemacrawler.schema.Catalog;
+import schemacrawler.schema.Table;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
@@ -64,19 +66,30 @@ public class DataSourceTest {
 		assertNotNull(schemaCrawlerOptions);
 	}
 	
+	@Test
+	void testPostgresConnection() throws SQLException {
+		assertNotNull(defaultDataSource);
+		Connection connection = defaultDataSource.getConnection();
+		assertNotNull(connection);
+	}
 	
 	//TODO: finish this unit test. 
-	void prepareThisTest() {
-		Connection connection = dataSource.getConnection();
+	@Test
+	void testSchemaCrawlerPostgresConnectionAndTablesRetrieval() throws SQLException {
+		assertNotNull(defaultDataSource);
+		Connection connection = defaultDataSource.getConnection();
 		
-		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, options);
+		assertNotNull(schemaCrawlerOptions);
+		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
 		Collection<schemacrawler.schema.Table> tables = catalog.getTables();
 		
-		return tables.parallelStream()
+		List<Table> theTablesList =  tables.parallelStream()
 						.filter(t1 -> t1.getColumns().size()>0)
-						.map(t -> processMetaClass(t))
-						.filter(m -> m.isPresent())
-						.map(m->m.get())
+						//.map(t -> processMetaClass(t))
+						//.filter(m -> m.isPresent())
+						//.map(m->m.get())
 						.collect(Collectors.toList());
+		assertNotNull(theTablesList);
+
 	}
 }
