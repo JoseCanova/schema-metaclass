@@ -1,6 +1,5 @@
 package org.nanotek.meta.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
+import org.nanotek.meta.rdbms.service.RdbmsMetaClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,7 +24,7 @@ import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 @SpringBootTest
-public class DataSourceTest {
+public class RdbmsMetaClassTest {
 
 	@Autowired 
 	DataSource defaultDataSource;
@@ -38,46 +38,14 @@ public class DataSourceTest {
 	@Autowired 
 	SchemaCrawlerOptions schemaCrawlerOptions;
 	
-	public DataSourceTest() {
+	@Autowired 
+	RdbmsMetaClassService rdbmsMetaClassService;
+	
+	public RdbmsMetaClassTest() {
 	}
 
 	@Test
-	void testDefaultDataSource() {
-		assertNotNull(defaultDataSource);
-	}
-	
-	@Test
-	void testDefaultDataSourceConnection() throws SQLException {
-		assertNotNull(defaultDataSource);
-		Connection con = defaultDataSource.getConnection();
-		assertNotNull(con);
-	}
-	
-	@Test
-	void testSchemaInfoLevelBuilder() {
-		assertNotNull(schemaInfoLevelBuilder);
-	}
-	
-	@Test
-	void testLoadOptionsBuilder() {
-		assertNotNull(loadOptionsBuilder);
-	}
-	
-	@Test
-	void testSchemaCrawlerOptions() {
-		assertNotNull(schemaCrawlerOptions);
-	}
-	
-	@Test
-	void testPostgresConnection() throws SQLException {
-		assertNotNull(defaultDataSource);
-		Connection connection = defaultDataSource.getConnection();
-		assertNotNull(connection);
-	}
-	
-	//TODO: finish this unit test. 
-	@Test
-	void testSchemaCrawlerPostgresConnectionAndTablesRetrieval() throws SQLException {
+	void testDefaultTableListSizeSchema() throws SQLException {
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();
 		
@@ -92,7 +60,11 @@ public class DataSourceTest {
 						//.map(m->m.get())
 						.collect(Collectors.toList());
 		assertNotNull(theTablesList);
-		assertTrue(theTablesList.size() >= 0);
+		assertTrue(theTablesList.size() >= 1);
 	}
 	
+	@Test
+	void testRdbmsMetaClassService() {
+		assertNotNull(rdbmsMetaClassService);
+	}
 }
