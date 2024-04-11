@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
+import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.rdbms.service.RdbmsMetaClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,7 +47,8 @@ public class RdbmsMetaClassTest {
 	}
 
 	@Test
-	void testDefaultTableListSizeSchema() throws SQLException {
+	void testRdbmsMetaClassService() throws SQLException {
+		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();
 		
@@ -61,10 +64,8 @@ public class RdbmsMetaClassTest {
 						.collect(Collectors.toList());
 		assertNotNull(theTablesList);
 		assertTrue(theTablesList.size() >= 1);
-	}
-	
-	@Test
-	void testRdbmsMetaClassService() {
-		assertNotNull(rdbmsMetaClassService);
+		List<MetaClass> metaClassList = new ArrayList<MetaClass>();
+		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
+		assertTrue(theTablesList.size() == metaClassList.size());;
 	}
 }
