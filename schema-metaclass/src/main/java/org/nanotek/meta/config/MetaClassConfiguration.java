@@ -8,6 +8,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -17,6 +18,7 @@ import schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 
 @SpringBootConfiguration
+@ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" ,"org.nanotek.meta.util" })
 public class MetaClassConfiguration {
 
 	public MetaClassConfiguration() {

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.rdbms.service.RdbmsMetaClassService;
@@ -47,6 +48,7 @@ public class RdbmsMetaClassTest {
 	}
 
 	@Test
+	@Order(5)
 	void testRdbmsMetaClassService() throws SQLException {
 		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
@@ -66,6 +68,29 @@ public class RdbmsMetaClassTest {
 		assertTrue(theTablesList.size() >= 1);
 		List<MetaClass> metaClassList = new ArrayList<MetaClass>();
 		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
-		assertTrue(theTablesList.size() == metaClassList.size());;
+		assertTrue(theTablesList.size() == metaClassList.size());
 	}
+	
+	@Test
+	void testRdbmsMetaClassAttributeCration() throws SQLException {
+		assertNotNull(rdbmsMetaClassService);
+		assertNotNull(defaultDataSource);
+		Connection connection = defaultDataSource.getConnection();
+		
+		assertNotNull(schemaCrawlerOptions);
+		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+		Collection<schemacrawler.schema.Table> tables = catalog.getTables();
+		
+		List<Table> theTablesList =  tables.parallelStream()
+						.filter(t1 -> t1.getColumns().size()>0)
+						//.map(t -> processMetaClass(t))
+						//.filter(m -> m.isPresent())
+						//.map(m->m.get())
+						.collect(Collectors.toList());
+		assertNotNull(theTablesList);
+		assertTrue(theTablesList.size() >= 1);
+		List<MetaClass> metaClassList = new ArrayList<MetaClass>();
+		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
+		assertTrue(theTablesList.size() == metaClassList.size());
+	} 
 }
