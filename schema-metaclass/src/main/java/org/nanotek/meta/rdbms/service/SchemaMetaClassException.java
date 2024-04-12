@@ -1,6 +1,6 @@
 package org.nanotek.meta.rdbms.service;
 
-public class SchemaMetaClassException extends Exception {
+public class SchemaMetaClassException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
