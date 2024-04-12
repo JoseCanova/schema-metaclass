@@ -75,6 +75,7 @@ public class RdbmsMetaClassTest {
 	}
 	
 	@Test
+	@Order(4)
 	void testRdbmsMetaClassAttributeCration() throws SQLException {
 		prepareTest();
 		assertNotNull(rdbmsMetaClassService);

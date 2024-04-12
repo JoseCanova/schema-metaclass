@@ -22,7 +22,7 @@ import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 
 @Service
-public class RdbmsMetaClassService {
+public class RdbmsSchemaMetaClassService {
 
 	@Autowired
 	ColumnNameTranslationStrategy columnNameTranslationStrategy; 
