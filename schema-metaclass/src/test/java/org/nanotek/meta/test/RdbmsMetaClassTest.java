@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,6 +51,7 @@ public class RdbmsMetaClassTest {
 	@Test
 	@Order(5)
 	void testRdbmsMetaClassService() throws SQLException {
+		prepareTest();
 		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();
@@ -69,10 +71,13 @@ public class RdbmsMetaClassTest {
 		List<MetaClass> metaClassList = new ArrayList<MetaClass>();
 		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
 		assertTrue(theTablesList.size() == metaClassList.size());
+		closeTest();
 	}
 	
 	@Test
+	@Order(4)
 	void testRdbmsMetaClassAttributeCration() throws SQLException {
+		prepareTest();
 		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();
@@ -92,5 +97,33 @@ public class RdbmsMetaClassTest {
 		List<MetaClass> metaClassList = new ArrayList<MetaClass>();
 		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
 		assertTrue(theTablesList.size() == metaClassList.size());
+		closeTest();
+	}
+
+	private void closeTest() throws SQLException {
+			assertNotNull(defaultDataSource);
+			Connection connection = defaultDataSource.getConnection();		
+	        Statement stmt = connection.createStatement();
+	        String sql = 
+	        		"DROP TABLE IF EXISTS accounts;"; 
+	        stmt.executeUpdate(sql);
+	        connection.close();		
+	}
+
+	private void prepareTest() throws SQLException {
+		assertNotNull(defaultDataSource);
+		Connection connection = defaultDataSource.getConnection();		
+        Statement stmt = connection.createStatement();
+        String sql = 
+        		"CREATE TABLE IF NOT EXISTS accounts (\r\n"
+        		+ "  user_id SERIAL PRIMARY KEY, \r\n"
+        		+ "  username VARCHAR (50) UNIQUE NOT NULL, \r\n"
+        		+ "  password VARCHAR (50) NOT NULL, \r\n"
+        		+ "  email VARCHAR (255) UNIQUE NOT NULL, \r\n"
+        		+ "  created_at TIMESTAMP NOT NULL, \r\n"
+        		+ "  last_login TIMESTAMP\r\n"
+        		+ ");"; 
+        stmt.executeUpdate(sql);
+        connection.close();
 	} 
 }
