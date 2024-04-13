@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaDataAttribute;
 import org.nanotek.meta.model.RdbmsClass;
+import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

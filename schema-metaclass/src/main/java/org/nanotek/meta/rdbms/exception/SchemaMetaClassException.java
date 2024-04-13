@@ -1,4 +1,4 @@
-package org.nanotek.meta.rdbms.service;
+package org.nanotek.meta.rdbms.exception;
 
 public class SchemaMetaClassException extends RuntimeException {
 
