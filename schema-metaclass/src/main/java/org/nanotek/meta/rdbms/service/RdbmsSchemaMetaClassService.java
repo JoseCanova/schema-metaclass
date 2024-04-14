@@ -1,7 +1,6 @@
 package org.nanotek.meta.rdbms.service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
 import org.nanotek.meta.model.RdbmsClass;
+import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
