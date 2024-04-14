@@ -2,6 +2,7 @@ package org.nanotek.meta.config;
 
 import javax.sql.DataSource;
 
+import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
@@ -76,6 +77,12 @@ public class MetaClassConfiguration {
 	public SchemaCrawlerOptions getSchemaCrawlerOptions(@Autowired LoadOptionsBuilder loadOptionsBuilder) {
 		return SchemaCrawlerOptionsBuilder.newSchemaCrawlerOptions()
 				.withLoadOptions(loadOptionsBuilder.toOptions());
+	}
+	
+	@Bean
+	@Primary
+	public SystemStaticMessageSource getSystemStaticMessageSour() {
+		return new SystemStaticMessageSource();
 	}
 	
 }
