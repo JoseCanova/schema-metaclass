@@ -22,7 +22,7 @@ public class MetaClass implements IClass {
 	@JsonProperty("className")
 	protected String className; 
 	
-	protected List<MetaDataAttribute> metaAttributes = new ArrayList<>();
+	protected List<MetaClassAttribute> metaAttributes = new ArrayList<>();
 
 	@JsonIgnore
 	protected MetaClassClassifier classifier;
@@ -44,7 +44,7 @@ public class MetaClass implements IClass {
 	}
 
 	public MetaClass(String tableName, String className, 
-			List<MetaDataAttribute> metaAttributes) {
+			List<MetaClassAttribute> metaAttributes) {
 		super();
 		this.tableName = tableName;
 		this.className = className;
@@ -85,12 +85,12 @@ public class MetaClass implements IClass {
 	}
 
 	@Override
-	public List<MetaDataAttribute> getMetaAttributes() {
+	public List<MetaClassAttribute> getMetaAttributes() {
 		return metaAttributes;
 	}
 
 	@Override
-	public boolean  addMetaAttribute(MetaDataAttribute attr) {
+	public boolean  addMetaAttribute(MetaClassAttribute attr) {
 		return metaAttributes.add(attr);
 	}
 
@@ -124,7 +124,7 @@ public class MetaClass implements IClass {
 		this.identity = identity;
 	}
 
-	public void setMetaAttributes(List<MetaDataAttribute> metaAttributes) {
+	public void setMetaAttributes(List<MetaClassAttribute> metaAttributes) {
 		this.metaAttributes = metaAttributes;
 	}
 

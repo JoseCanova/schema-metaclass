@@ -12,9 +12,9 @@ public interface IClass {
 
 	void setTableName(String tableName);
 
-	List<MetaDataAttribute> getMetaAttributes();
+	List<MetaClassAttribute> getMetaAttributes();
 
-	boolean addMetaAttribute(MetaDataAttribute attr);
+	boolean addMetaAttribute(MetaClassAttribute attr);
 
 
 }

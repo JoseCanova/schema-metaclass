@@ -3,13 +3,13 @@ package org.nanotek.meta.model;
 
 public class MetaRelation {
 
-	protected MetaDataAttribute from; 
+	protected MetaClassAttribute from; 
 	
-	protected MetaDataAttribute to;
+	protected MetaClassAttribute to;
 
 	
 	
-	public MetaRelation(MetaDataAttribute from, MetaDataAttribute to) {
+	public MetaRelation(MetaClassAttribute from, MetaClassAttribute to) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -19,19 +19,19 @@ public class MetaRelation {
 		super();
 	}
 
-	public MetaDataAttribute getFrom() {
+	public MetaClassAttribute getFrom() {
 		return from;
 	}
 
-	public void setFrom(MetaDataAttribute from) {
+	public void setFrom(MetaClassAttribute from) {
 		this.from = from;
 	}
 
-	public MetaDataAttribute getTo() {
+	public MetaClassAttribute getTo() {
 		return to;
 	}
 
-	public void setTo(MetaDataAttribute to) {
+	public void setTo(MetaClassAttribute to) {
 		this.to = to;
 	}
 	

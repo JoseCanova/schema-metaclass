@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
 @ToString
-public class MetaDataAttribute implements IDataAttribute {
+public class MetaClassAttribute implements IDataAttribute {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
@@ -34,11 +34,11 @@ public class MetaDataAttribute implements IDataAttribute {
 	private MetaClass metaClass;
 	
 	
-	public MetaDataAttribute() {
+	public MetaClassAttribute() {
 		super();
 	}
 
-	public MetaDataAttribute(MetaClass mc) {
+	public MetaClassAttribute(MetaClass mc) {
 		super();
 		this.metaClass=mc;
 	}
