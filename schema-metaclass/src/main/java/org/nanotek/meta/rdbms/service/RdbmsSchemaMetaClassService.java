@@ -1,15 +1,19 @@
 package org.nanotek.meta.rdbms.service;
 
+import static org.nanotek.meta.constants.SystemStaticMessageSource.NONOK;
+
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.nanotek.meta.constants.LocaleContext;
+import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
 import org.nanotek.meta.model.RdbmsClass;
+import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +37,9 @@ public class RdbmsSchemaMetaClassService {
 	@Autowired 
 	SchemaCrawlerOptions schemaCrawlerOptions;
 	
+	@Autowired
+	SystemStaticMessageSource messageSource;
+	
 	public List<schemacrawler.schema.Table> getSchemaTables(){
 		Catalog  catalog;
 		List<schemacrawler.schema.Table> tables = new ArrayList<schemacrawler.schema.Table>();
@@ -41,7 +48,7 @@ public class RdbmsSchemaMetaClassService {
 			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
 			catalog.getTables().forEach(t ->tables.add(t));;
 		} catch (Exception e) {
-			throw new SchemaMetaClassException(e);
+			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}
 		return tables;
 	}

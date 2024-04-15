@@ -1,18 +1,14 @@
 package org.nanotek.meta.rdbms.exception;
 
-public class SchemaMetaClassException extends RuntimeException {
+import org.springframework.core.NestedRuntimeException;
+
+public class SchemaMetaClassException extends NestedRuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public SchemaMetaClassException() {
-	}
 
 	public SchemaMetaClassException(String message) {
 		super(message);
-	}
-
-	public SchemaMetaClassException(Throwable cause) {
-		super(cause);
 	}
 
 	public SchemaMetaClassException(String message, Throwable cause) {
@@ -21,7 +17,7 @@ public class SchemaMetaClassException extends RuntimeException {
 
 	public SchemaMetaClassException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
+		super(message, cause);
 	}
 
 }
