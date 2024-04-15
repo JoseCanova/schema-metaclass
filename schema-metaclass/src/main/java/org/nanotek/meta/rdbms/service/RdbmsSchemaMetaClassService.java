@@ -12,7 +12,9 @@ import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
-import org.nanotek.meta.model.RdbmsClass;
+import org.nanotek.meta.model.rdbms.RdbmsClass;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +55,15 @@ public class RdbmsSchemaMetaClassService {
 		return tables;
 	}
 	
-	public MetaClass createMetaClass(schemacrawler.schema.Table t) {
-		MetaClass meta = new MetaClass();
+	public RdbmsMetaClass createMetaClass(schemacrawler.schema.Table t) {
+		RdbmsMetaClass meta = new RdbmsMetaClass();
 		meta.getRdbmsClass().setTable(t);
 		meta.setClassName(t.getFullName());	
 		return meta;
 	}
 	
-	public MetaClass populateMetaClassAttributes(MetaClass metaClass) {
-		final MetaClass mc = metaClass;
+	public MetaClass populateMetaClassAttributes(RdbmsMetaClass metaClass) {
+		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
 		List<Column> lc = rc.getTable().getColumns();
 		
