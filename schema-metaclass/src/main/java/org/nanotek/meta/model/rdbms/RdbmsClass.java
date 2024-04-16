@@ -1,4 +1,4 @@
-package org.nanotek.meta.model;
+package org.nanotek.meta.model.rdbms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class RdbmsClass {
 		super();
 		this.table = table;
 		this.referencedTables=new ArrayList<>();
+		
 	}
 	
 	

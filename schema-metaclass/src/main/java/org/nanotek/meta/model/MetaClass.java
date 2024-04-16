@@ -16,9 +16,6 @@ import schemacrawler.schema.Table;
 @JsonInclude(value = Include.NON_NULL)
 public class MetaClass implements IClass {
 
-	@JsonProperty("tableName")
-	protected String tableName;
-	
 	@JsonProperty("className")
 	protected String className; 
 	
@@ -34,36 +31,20 @@ public class MetaClass implements IClass {
 	 */
 	protected MetaIdentity identity;
 	
-	@JsonIgnore
-	protected RdbmsClass rdbmsClass;
-	
 	public MetaClass() {
 		super();
 		classifier = new MetaClassClassifier ();
-		this.rdbmsClass = new RdbmsClass();
 	}
 
-	public MetaClass(String tableName, String className, 
+	public MetaClass(String className, 
 			List<MetaClassAttribute> metaAttributes) {
 		super();
-		this.tableName = tableName;
 		this.className = className;
 		this.metaAttributes = metaAttributes;
-		this.rdbmsClass = new RdbmsClass();
 		classifier = new MetaClassClassifier ();
 	}
 
 	
-	
-	public MetaClass(String tableName, String className, 
-					Table table) {
-		super();
-		this.tableName = tableName;
-		this.className = className;
-		this.rdbmsClass = new RdbmsClass(table);
-		classifier = new MetaClassClassifier ();
-	}
-
 	@Override
 	public String getClassName() {
 		return className;
@@ -72,16 +53,6 @@ public class MetaClass implements IClass {
 	@Override
 	public void setClassName(String className) {
 		this.className = className;
-	}
-
-	@Override
-	public String getTableName() {
-		return tableName;
-	}
-
-	@Override
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
 	}
 
 	@Override
@@ -98,14 +69,6 @@ public class MetaClass implements IClass {
 		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
 	}
 	
-	public RdbmsClass getRdbmsClass() {
-		return rdbmsClass;
-	}
-
-	public void setRdbmsClass(RdbmsClass rdbmsClass) {
-		this.rdbmsClass = rdbmsClass;
-	}
-
 	public void addMetaRelationClass(MetaRelationClass mrc) {
 		this.classifier.addMetaRelationClass(mrc);
 		

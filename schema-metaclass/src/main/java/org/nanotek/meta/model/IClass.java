@@ -8,10 +8,6 @@ public interface IClass {
 
 	void setClassName(String className);
 
-	String getTableName();
-
-	void setTableName(String tableName);
-
 	List<MetaClassAttribute> getMetaAttributes();
 
 	boolean addMetaAttribute(MetaClassAttribute attr);
