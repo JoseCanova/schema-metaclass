@@ -14,7 +14,6 @@ import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
-import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +64,7 @@ public class RdbmsSchemaMetaClassService {
 	public MetaClass populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
-		List<Column> lc = rc.getTable().getColumns();
+		List<Column> lc = getColumns(rc);
 		
 		lc.forEach(c -> {
 			MetaClassAttribute md = new MetaClassAttribute();
@@ -75,6 +74,10 @@ public class RdbmsSchemaMetaClassService {
 			md.setFieldName(fieldName);
 		});
 		return mc;
+	}
+
+	private List<Column> getColumns(RdbmsClass rc) {
+		return rc.getTable().getColumns();
 	}
 
 }
