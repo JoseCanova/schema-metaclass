@@ -1,4 +1,4 @@
-package org.nanotek.meta.model;
+package org.nanotek;
 
 public interface Id<ID> {
 	

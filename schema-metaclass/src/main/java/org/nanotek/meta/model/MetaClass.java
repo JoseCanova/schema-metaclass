@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Document
 @JsonInclude(value = Include.NON_NULL)
-public class MetaClass extends MetaBase<MetaClass>  implements IClass {
+public class MetaClass extends MetaBase<MetaClass,String>  implements IClass {
 
 	/**
 	 * 
