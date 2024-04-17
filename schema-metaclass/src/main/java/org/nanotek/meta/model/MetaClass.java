@@ -8,13 +8,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import schemacrawler.schema.Table;
-
 /*
  * TODO: refactor code of definition for IdPrimaryKey classification.
  */
 @JsonInclude(value = Include.NON_NULL)
-public class MetaClass implements IClass {
+public class MetaClass extends MetaBase<MetaClass>  implements IClass {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6730971114783577367L;
 
 	@JsonProperty("className")
 	protected String className; 
