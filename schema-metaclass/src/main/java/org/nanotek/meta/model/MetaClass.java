@@ -3,6 +3,8 @@ package org.nanotek.meta.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /*
  * TODO: refactor code of definition for IdPrimaryKey classification.
  */
+@Document
 @JsonInclude(value = Include.NON_NULL)
 public class MetaClass extends MetaBase<MetaClass>  implements IClass {
 
