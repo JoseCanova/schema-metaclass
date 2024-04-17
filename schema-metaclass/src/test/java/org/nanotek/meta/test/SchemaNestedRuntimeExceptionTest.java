@@ -10,6 +10,8 @@ import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+
 @SpringBootTest
 public class SchemaNestedRuntimeExceptionTest {
 
