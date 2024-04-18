@@ -3,6 +3,7 @@ package org.nanotek.meta.model;
 import java.io.Serializable;
 
 import org.nanotek.Base;
+import org.nanotek.Id;
 
 public interface IdBase<K extends Base<K>,ID extends Serializable> extends Base<K> , Id<ID> {
 	
