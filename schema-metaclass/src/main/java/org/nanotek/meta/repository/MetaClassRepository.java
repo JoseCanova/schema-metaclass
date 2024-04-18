@@ -1,8 +1,8 @@
 package org.nanotek.meta.repository;
 
 import org.nanotek.meta.model.MetaClass;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface MetaClassRepository extends CrudRepository<MetaClass, String> {
+public interface MetaClassRepository extends MongoRepository<MetaClass<?>, String> {
 
 }
