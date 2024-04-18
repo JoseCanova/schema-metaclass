@@ -14,18 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class MetaClassRepositoryTest<K extends MetaClass<K>> {
+public class RdbmsMetaClassRepositoryTest<K extends RdbmsMetaClass> {
 
 	@Autowired
-	MetaClassRepository<K> rep;
+	MetaClassRepository<RdbmsMetaClass> rep;
 	
 	@Test
-	void testMetaClassRepositoryInsertDelete() {
+	void testRdbmsMetaClassRepositoryInsertDelete() {
 		assertNotNull(rep);
-		Optional<MetaClass<K>> omet = Optional.of(new MetaClass<K>());
+		Optional<RdbmsMetaClass> omet = Base.newInstance(RdbmsMetaClass.class);
 		MetaClass<?> met = omet.get();
 		assertNotNull(met);
-		K newMet = rep.save((K) met);
+		K newMet = rep.save((K)met);
 		assertNotNull(newMet.getId());
 		assertNotSame("", newMet.getId());
 		rep.delete(newMet);
