@@ -13,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import schemacrawler.schema.Table;
 
 //TODO: move attributes relative to rdbms here. 
-public class RdbmsMetaClass extends MetaClass implements IRdbmsClass{
+public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass> implements IRdbmsClass{
+
+	private static final long serialVersionUID = -4542645486119141998L;
 
 	@JsonProperty("tableName")
 	protected String tableName;
