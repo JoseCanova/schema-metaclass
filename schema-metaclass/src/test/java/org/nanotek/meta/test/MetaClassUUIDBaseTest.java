@@ -14,18 +14,18 @@ public class MetaClassUUIDBaseTest {
 
 	
 	@Test
-	<K extends MetaClass<K>> void testMetaClassUUIDBase() {
-		Optional<K> omet = (Optional<K>)Base.newInstance(MetaClass.class);
+	void testMetaClassUUIDBase() {
+		Optional<MetaClass> omet = Base.newInstance(MetaClass.class);
 		UUID metUUID = Base.withUUID(omet.get().getClass());
 		UUID metClassUUID = Base.withUUID(MetaClass.class);
 		assertEquals(metUUID, metClassUUID);
 		System.out.println(metClassUUID.toString());
-		K cmet = omet.get();
+		MetaClass cmet = omet.get();
 		UUID uid = cmet.withUUID();
 		System.out.println(uid.toString());
 //		cmet.setClassName("TheClassName");
-		Optional<K> omet1 = (Optional<K>)Base.newInstance(MetaClass.class);
-		K cmet1 = omet1.get();
+		Optional<MetaClass> omet1 = Base.newInstance(MetaClass.class);
+		MetaClass cmet1 = omet1.get();
 		UUID uid3 = cmet1.withUUID();
 		System.out.println(uid3.toString());
 		assertEquals(uid , uid3);
@@ -34,8 +34,6 @@ public class MetaClassUUIDBaseTest {
 		assertNotEquals(uid, uid4);
 		assertNotEquals(uid3, uid4);
 		System.out.print(uid4.toString());
-		
-		
 	}
 	
 	

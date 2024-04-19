@@ -25,6 +25,8 @@ public class MetaClassRepositoryTest<K extends MetaClass<K>> {
 		Optional<MetaClass<K>> omet = Optional.of(new MetaClass<K>());
 		MetaClass<?> met = omet.get();
 		assertNotNull(met);
+		met.setClassName("TheClassName");
+		met.setId(met.withUUID().toString());
 		K newMet = rep.save((K) met);
 		assertNotNull(newMet.getId());
 		assertNotSame("", newMet.getId());
