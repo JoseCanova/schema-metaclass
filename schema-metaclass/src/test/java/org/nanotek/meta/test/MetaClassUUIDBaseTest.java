@@ -14,7 +14,8 @@ public class MetaClassUUIDBaseTest {
 
 	
 	@Test
-	void testMetaClassUUIDBase() {
+	< K extends MetaClass<K>>void testMetaClassUUIDBase() {
+		@SuppressWarnings("rawtypes")
 		Optional<MetaClass> omet = Base.newInstance(MetaClass.class);
 		UUID metUUID = Base.withUUID(omet.get().getClass());
 		UUID metClassUUID = Base.withUUID(MetaClass.class);
