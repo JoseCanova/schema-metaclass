@@ -1,9 +1,10 @@
 package org.nanotek.meta.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetaClassClassifier implements Classifier<MetaClass> {
+public class MetaClassClassifier implements Classifier<MetaClass> , Serializable {
 
 	protected boolean hasPrimaryKey;
 
