@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
@@ -84,5 +87,22 @@ public class MetaClassConfiguration {
 	public SystemStaticMessageSource getSystemStaticMessageSour() {
 		return new SystemStaticMessageSource();
 	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	@Primary
+	public LocalValidatorFactoryBean getLocalValidatorFactoryBean() { 
+		LocalValidatorFactoryBean validatorFactoryBean =  new LocalValidatorFactoryBean();
+		validatorFactoryBean.setValidationMessageSource(messageSource());
+		return validatorFactoryBean;
+	}
+
 	
 }
