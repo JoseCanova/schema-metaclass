@@ -3,12 +3,16 @@ package org.nanotek.meta.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /*
  * TODO: refactor code of definition for IdPrimaryKey classification.
@@ -17,24 +21,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(value = Include.NON_NULL)
 public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  implements IClass {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6730971114783577367L;
 
 	@JsonProperty("className")
+	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	protected String className; 
 	
+	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	protected List<MetaClassAttribute> metaAttributes = new ArrayList<>();
 
 	@JsonIgnore
+	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaClassClassifier classifier;
 	
-	/*
-	 * @JsonIgnore private boolean hasPrimraryKey;
-	 * 
-	 * @JsonIgnore protected List<MetaRelationClass> metaRelationsClasses;
-	 */
+	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
 	
 	public MetaClass() {
