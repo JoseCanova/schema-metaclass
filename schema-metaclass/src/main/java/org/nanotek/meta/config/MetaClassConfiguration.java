@@ -13,9 +13,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.Ordered;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
+import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder;
@@ -102,6 +105,16 @@ public class MetaClassConfiguration {
 		LocalValidatorFactoryBean validatorFactoryBean =  new LocalValidatorFactoryBean();
 		validatorFactoryBean.setValidationMessageSource(messageSource());
 		return validatorFactoryBean;
+	}
+	
+	@Bean
+	@Primary
+	public MethodValidationPostProcessor methodValidationPostProcessor(@Autowired Validator validator) {
+		MethodValidationPostProcessor processor =  new MethodValidationPostProcessor();
+		processor.setValidator(validator);
+		processor.setProxyTargetClass(false);
+		processor.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		return processor;
 	}
 	
 }
