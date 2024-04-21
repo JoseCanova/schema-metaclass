@@ -103,6 +103,5 @@ public class MetaClassConfiguration {
 		validatorFactoryBean.setValidationMessageSource(messageSource());
 		return validatorFactoryBean;
 	}
-
 	
 }
