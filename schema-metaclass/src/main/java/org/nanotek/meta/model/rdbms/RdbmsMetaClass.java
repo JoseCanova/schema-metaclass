@@ -5,7 +5,7 @@ import java.util.List;
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
-import org.nanotek.meta.model.MetaClassClassifier;
+import org.nanotek.meta.model.RdbmsMetaClassClassifier;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,7 +42,7 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass> implements IRdbmsC
 		super(className, null);
 			this.className = className;
 			this.rdbmsClass = new RdbmsClass(table);
-			classifier = new MetaClassClassifier ();
+			classifier = new RdbmsMetaClassClassifier ();
 	}
 
 	@Override

@@ -32,14 +32,14 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
-	protected MetaClassClassifier classifier;
+	protected RdbmsMetaClassClassifier classifier;
 	
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
 	
 	public MetaClass() {
 		super();
-		classifier = new MetaClassClassifier ();
+		classifier = new RdbmsMetaClassClassifier ();
 	}
 
 	public MetaClass(String className, 
@@ -47,7 +47,7 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
-		classifier = new MetaClassClassifier ();
+		classifier = new RdbmsMetaClassClassifier ();
 	}
 
 	
@@ -101,11 +101,11 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 		this.classifier.setMetaRelationsClasses(metaRelationsClasses);
 	}
 	
-	public MetaClassClassifier getClassifier() {
+	public RdbmsMetaClassClassifier getClassifier() {
 		return classifier;
 	}
 
-	public void setClassifier(MetaClassClassifier classifier) {
+	public void setClassifier(RdbmsMetaClassClassifier classifier) {
 		this.classifier = classifier;
 	}
 }

@@ -31,14 +31,14 @@ public class MetaClassAttribute implements IDataAttribute {
 	private List<String> idAliases;
 	
 	@JsonIgnore
-	private MetaClass metaClass;
+	private MetaClass<?> metaClass;
 	
 	
 	public MetaClassAttribute() {
 		super();
 	}
 
-	public MetaClassAttribute(MetaClass mc) {
+	public MetaClassAttribute(MetaClass<?> mc) {
 		super();
 		this.metaClass=mc;
 	}
@@ -144,11 +144,11 @@ public class MetaClassAttribute implements IDataAttribute {
 		this.idAliases = idAliases;
 	}
 
-	public MetaClass getMetaClass() {
+	public MetaClass<?> getMetaClass() {
 		return metaClass;
 	}
 
-	public void setMetaClass(MetaClass metaClass) {
+	public void setMetaClass(MetaClass<?> metaClass) {
 		this.metaClass = metaClass;
 	}
 	

@@ -1,16 +1,22 @@
-package org.nanotek.meta.model;
+package org.nanotek.meta.model.rdbms;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetaClassClassifier implements Classifier<MetaClass> , Serializable {
+import org.nanotek.meta.model.Classifier;
+import org.nanotek.meta.model.MetaClass;
+import org.nanotek.meta.model.MetaRelationClass;
+
+public class RdbmsMetaClassClassifier implements Classifier<MetaClass<?>> , Serializable {
+
+	private static final long serialVersionUID = -9021748714452535636L;
 
 	protected boolean hasPrimaryKey;
 
 	protected List<MetaRelationClass> metaRelationsClasses;
 	
-	public MetaClassClassifier() {
+	public RdbmsMetaClassClassifier() {
 		super();
 		metaRelationsClasses = new ArrayList<MetaRelationClass>();
 	}
