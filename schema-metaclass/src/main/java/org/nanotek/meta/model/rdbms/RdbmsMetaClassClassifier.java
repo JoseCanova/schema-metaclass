@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.nanotek.meta.model.Classifier;
-import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaRelationClass;
 
-public class RdbmsMetaClassClassifier implements Classifier<MetaClass<?>> , Serializable {
+public class RdbmsMetaClassClassifier implements Classifier<RdbmsMetaClass> , Serializable {
 
 	private static final long serialVersionUID = -9021748714452535636L;
 
@@ -45,6 +44,5 @@ public class RdbmsMetaClassClassifier implements Classifier<MetaClass<?>> , Seri
 		this.metaRelationsClasses.add(mrc);
 		
 	}
-
 
 }
