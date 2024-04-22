@@ -19,7 +19,7 @@ import jakarta.validation.constraints.NotNull;
  */
 @Document
 @JsonInclude(value = Include.NON_NULL)
-public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  implements IClass {
+public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
@@ -32,14 +32,13 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
-	protected RdbmsMetaClassClassifier classifier;
+	protected C classifier;
 	
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
 	
 	public MetaClass() {
 		super();
-		classifier = new RdbmsMetaClassClassifier ();
 	}
 
 	public MetaClass(String className, 
@@ -47,7 +46,6 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
-		classifier = new RdbmsMetaClassClassifier ();
 	}
 
 	
@@ -75,16 +73,15 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
 	}
 	
-	public void addMetaRelationClass(MetaRelationClass mrc) {
-		this.classifier.addMetaRelationClass(mrc);
-		
-	}
-
-	@JsonIgnore
-	public List<MetaRelationClass> getMetaRelationsClasses() {
-		return this.classifier.getMetaRelationsClasses();
-	}
-
+	/*
+	 * public void addMetaRelationClass(MetaRelationClass mrc) {
+	 * this.classifier.addMetaRelationClass(mrc);
+	 * 
+	 * }
+	 * 
+	 * @JsonIgnore public List<MetaRelationClass> getMetaRelationsClasses() { return
+	 * this.classifier.getMetaRelationsClasses(); }
+	 */
 	public MetaIdentity getIdentity() {
 		return identity;
 	}
@@ -97,15 +94,4 @@ public class MetaClass<K extends MetaClass<K>> extends MetaBase<K,String>  imple
 		this.metaAttributes = metaAttributes;
 	}
 
-	public void setMetaRelationsClasses(List<MetaRelationClass> metaRelationsClasses) {
-		this.classifier.setMetaRelationsClasses(metaRelationsClasses);
-	}
-	
-	public RdbmsMetaClassClassifier getClassifier() {
-		return classifier;
-	}
-
-	public void setClassifier(RdbmsMetaClassClassifier classifier) {
-		this.classifier = classifier;
-	}
 }

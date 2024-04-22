@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nanotek.Base;
 import org.nanotek.meta.model.Classifier;
 import org.nanotek.meta.model.MetaRelationClass;
 
@@ -43,6 +44,12 @@ public class RdbmsMetaClassClassifier implements Classifier<RdbmsMetaClass> , Se
 	public void addMetaRelationClass(MetaRelationClass mrc) {
 		this.metaRelationsClasses.add(mrc);
 		
+	}
+
+	//TODO: implement classification Class.
+	@Override
+	public <CR extends Base<?>> CR classify(RdbmsMetaClass classified) {
+		return null;
 	}
 
 }

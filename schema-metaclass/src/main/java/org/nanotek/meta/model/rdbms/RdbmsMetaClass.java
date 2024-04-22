@@ -2,10 +2,10 @@ package org.nanotek.meta.model.rdbms;
 
 import java.util.List;
 
+import org.nanotek.meta.model.Classifier;
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
-import org.nanotek.meta.model.RdbmsMetaClassClassifier;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import schemacrawler.schema.Table;
 
 //TODO: move attributes relative to rdbms here. 
-public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass> implements IRdbmsClass{
+public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,Classifier<?>> implements IRdbmsClass{
 
 	private static final long serialVersionUID = -4542645486119141998L;
 
