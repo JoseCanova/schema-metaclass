@@ -38,21 +38,24 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
 	
-	@SuppressWarnings("unchecked")
 	public MetaClass() {
 		super();
-		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
+		postConstruct();
 	}
 
-	@SuppressWarnings("unchecked")
 	public MetaClass(String className, 
 			List<MetaClassAttribute> metaAttributes) {
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
-		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
+		postConstruct();
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	protected void postConstruct() {
+		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
+	}
 	
 	@Override
 	public String getClassName() {

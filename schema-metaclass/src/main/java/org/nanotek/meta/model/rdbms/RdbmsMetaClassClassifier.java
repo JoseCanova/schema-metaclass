@@ -1,6 +1,5 @@
 package org.nanotek.meta.model.rdbms;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +8,7 @@ import org.nanotek.Base;
 import org.nanotek.meta.model.Classifier;
 import org.nanotek.meta.model.MetaRelationClass;
 
-public class RdbmsMetaClassClassifier implements Classifier<RdbmsMetaClass> , Serializable {
+public class RdbmsMetaClassClassifier implements Base<RdbmsMetaClassClassifier> , Classifier<RdbmsMetaClass>  {
 
 	private static final long serialVersionUID = -9021748714452535636L;
 
