@@ -3,6 +3,7 @@ package org.nanotek.meta.model.rdbms;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.nanotek.Base;
 import org.nanotek.meta.model.Classifier;
@@ -48,7 +49,7 @@ public class RdbmsMetaClassClassifier implements Classifier<RdbmsMetaClass> , Se
 
 	//TODO: implement classification Class.
 	@Override
-	public <CR extends Base<?>> CR classify(RdbmsMetaClass classified) {
+	public <CR extends Base<?>> Optional<CR> classify(RdbmsMetaClass classified) {
 		return null;
 	}
 

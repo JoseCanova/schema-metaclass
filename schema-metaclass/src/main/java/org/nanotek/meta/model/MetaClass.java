@@ -3,6 +3,7 @@ package org.nanotek.meta.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nanotek.Base;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -37,15 +38,19 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
 	
+	@SuppressWarnings("unchecked")
 	public MetaClass() {
 		super();
+		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
 	}
 
+	@SuppressWarnings("unchecked")
 	public MetaClass(String className, 
 			List<MetaClassAttribute> metaAttributes) {
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
+		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
 	}
 
 	
@@ -94,4 +99,14 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 		this.metaAttributes = metaAttributes;
 	}
 
+
+	public C getClassifier() {
+		return classifier;
+	}
+
+	public void setClassifier(C classifier) {
+		this.classifier = classifier;
+	}
+
+	
 }
