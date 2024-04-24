@@ -17,6 +17,7 @@ import jakarta.validation.constraints.NotNull;
 
 /*
  * TODO: refactor code of definition for IdPrimaryKey classification.
+ * TODO: move class configuration on future to a Spring Configuration context as a prototype.
  */
 @Document
 @JsonInclude(value = Include.NON_NULL)

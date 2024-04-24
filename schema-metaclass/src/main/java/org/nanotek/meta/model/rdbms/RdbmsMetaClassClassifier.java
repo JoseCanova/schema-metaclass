@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.Base;
-import org.nanotek.meta.model.Classifier;
+import org.nanotek.meta.model.MetaClassClassifier;
 import org.nanotek.meta.model.MetaRelationClass;
 
-public class RdbmsMetaClassClassifier implements Base<RdbmsMetaClassClassifier> , Classifier<RdbmsMetaClass>  {
+public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass>  {
 
 	private static final long serialVersionUID = -9021748714452535636L;
 
