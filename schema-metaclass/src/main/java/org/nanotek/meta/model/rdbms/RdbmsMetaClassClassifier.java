@@ -58,7 +58,11 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 		.map(t -> {
 			TableKey key = new TableKey( t.getPrimaryKey());
 			TableColumns columns = new TableColumns(t.getColumns());
-			return new ClassificationData(key , columns);
+			TableForeignKeys fks = new TableForeignKeys(t.getForeignKeys());
+			return new ClassificationData(key , columns , fks);
+		})
+		.map(cd -> {
+			return null;
 		});
 		return null;
 	}
