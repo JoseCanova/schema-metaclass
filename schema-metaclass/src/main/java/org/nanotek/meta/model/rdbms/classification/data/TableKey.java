@@ -2,9 +2,9 @@ package org.nanotek.meta.model.rdbms.classification.data;
 
 import schemacrawler.schema.PrimaryKey;
 
-public record Key(PrimaryKey key) {
+public record TableKey(PrimaryKey key) {
 	
-	public Key (PrimaryKey key) {
+	public TableKey (final PrimaryKey key) {
 		this.key = key;
 	}
 }

@@ -56,7 +56,7 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 		.map(c -> c.getRdbmsClass())
 		.map(r -> r.getTable())
 		.map(t -> {
-			Key key = new Key( t.getPrimaryKey());
+			TableKey key = new TableKey( t.getPrimaryKey());
 			TableColumns columns = new TableColumns(t.getColumns());
 			return new ClassificationData(key , columns);
 		});

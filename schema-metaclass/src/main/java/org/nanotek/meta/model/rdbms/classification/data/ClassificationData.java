@@ -1,10 +1,11 @@
 package org.nanotek.meta.model.rdbms.classification.data;
 
-public record ClassificationData (Key key , TableColumns tableColumns) {
+public record ClassificationData (TableKey key , TableColumns tableColumns , TableForeignKeys foreignKeys) {
 	
-	public ClassificationData (Key key , TableColumns tableColumns) {
+	public ClassificationData (final TableKey key , final TableColumns tableColumns, final TableForeignKeys foreignKeys) {
 		this.key = key; 
 		this.tableColumns = tableColumns;
+		this.foreignKeys = foreignKeys;
 	}
 	
 }
