@@ -8,6 +8,9 @@ import org.nanotek.Base;
 import org.nanotek.meta.model.MetaClassClassifier;
 import org.nanotek.meta.model.MetaRelationClass;
 
+import schemacrawler.schema.Column;
+import schemacrawler.schema.PrimaryKey;
+
 public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass>  {
 
 	private static final long serialVersionUID = -9021748714452535636L;
@@ -49,7 +52,12 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 	//TODO: implement classification Class.
 	@Override
 	public <CR extends Base<?>> Optional<CR> classify(RdbmsMetaClass classified) {
+		Optional
+		.ofNullable(classified)
+		.map(c -> c.getRdbmsClass())
+		.map(t -> t.getTable());
+		
 		return null;
 	}
-
+	
 }
