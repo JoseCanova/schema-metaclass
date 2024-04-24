@@ -4,7 +4,7 @@ import java.util.List;
 
 import schemacrawler.schema.Column;
 
-record TableColumns (List<Column> columns) {
+public record TableColumns (List<Column> columns) {
 	public TableColumns(List<Column> columns) {
 		this.columns = columns;
 	}

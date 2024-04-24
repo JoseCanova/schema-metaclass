@@ -7,9 +7,8 @@ import java.util.Optional;
 import org.nanotek.Base;
 import org.nanotek.meta.model.MetaClassClassifier;
 import org.nanotek.meta.model.MetaRelationClass;
-
+import org.nanotek.meta.model.rdbms.classification.data.*;
 import schemacrawler.schema.Column;
-import schemacrawler.schema.PrimaryKey;
 
 public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass>  {
 
@@ -55,8 +54,12 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 		Optional
 		.ofNullable(classified)
 		.map(c -> c.getRdbmsClass())
-		.map(t -> t.getTable());
-		
+		.map(r -> r.getTable())
+		.map(t -> {
+			Key key = new Key( t.getPrimaryKey());
+			TableColumns columns = new TableColumns(t.getColumns());
+			return new ClassificationData(key , columns);
+		});
 		return null;
 	}
 	
