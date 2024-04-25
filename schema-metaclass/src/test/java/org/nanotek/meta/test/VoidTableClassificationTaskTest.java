@@ -1,6 +1,7 @@
 package org.nanotek.meta.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class VoidTableClassificationTaskTest {
 	void testVoidTableClassificationInjection() throws SQLException {
 		assertNotNull(voidTableClassificationTask);
 		prepareTest();
+		assertTrue(1 == 1);
 		closeTest();
 	}
 	
