@@ -1,40 +1,55 @@
 package org.nanotek.meta.test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.nanotek.meta.model.rdbms.classification.task.VoidTableClassificationTask;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import schemacrawler.schema.Column;
+import schemacrawler.schema.PrimaryKey;
+import schemacrawler.schema.Table;
 
-//TODO:finish this test.
 @SpringBootTest
-public class VoidTableClassificationTaskTest {
+public class SchemaCrawlerServiceTest {
 
+	
 	@Autowired 
 	DataSource defaultDataSource;
 	
 	@Autowired
-	VoidTableClassificationTask voidTableClassificationTask;
+	SchemaCrawlerService schemaCrawlerService;
 	
-	public VoidTableClassificationTaskTest() {
-	}
-
 	@Test
-	void testVoidTableClassificationInjection() throws SQLException {
-		assertNotNull(voidTableClassificationTask);
-		assertTrue(1 == 1);
+	void testSchemaCrawlerService() throws SQLException {
+		 assertNotNull(schemaCrawlerService);
+		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
+		 assertFalse(oTables.equals(Optional.empty()));
+		 oTables.get().forEach(t -> {
+			 Optional<List<Column>>ocl = schemaCrawlerService.getTableColumns(Optional.of(t));
+			 assertTrue(ocl.get().size() == 0);
+		 });
+		 oTables.get().forEach(t ->{
+			 PrimaryKey pk = t.getPrimaryKey();
+			 assertNull(pk);
+		 });
 	}
+	
 	
 	@BeforeEach
 	private void prepareTest() throws SQLException {
@@ -58,5 +73,5 @@ public class VoidTableClassificationTaskTest {
         stmt.executeUpdate(sql);
         connection.close();		
 	}
-
+	
 }
