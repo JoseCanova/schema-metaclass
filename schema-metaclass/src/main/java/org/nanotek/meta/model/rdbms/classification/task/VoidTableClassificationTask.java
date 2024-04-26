@@ -19,6 +19,12 @@ public class VoidTableClassificationTask implements TableClassificationTask {
 	
 	@Override
 	public <CR extends Base<?>> Optional<CR> evaluate(ClassificationData cd) {
-		return TableClassificationTask.super.evaluate(cd);
+		return Optional.ofNullable(cd).map(c -> {
+					if (cd.tableColumns().columns().equals(Optional.empty()) 
+							|| cd.key().opkey().equals(Optional.empty())) 
+						return null;
+					else 
+						return null;
+				});
 	}
 }
