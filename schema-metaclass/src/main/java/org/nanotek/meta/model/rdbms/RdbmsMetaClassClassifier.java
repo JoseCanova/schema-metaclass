@@ -51,19 +51,6 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 	//TODO: implement classification Class.
 	@Override
 	public <CR extends Base<?>> Optional<CR> classify(RdbmsMetaClass classified) {
-		Optional
-		.ofNullable(classified)
-		.map(c -> c.getRdbmsClass())
-		.map(r -> r.getTable())
-		.map(t -> {
-			TableKey key = new TableKey( t.getPrimaryKey());
-			TableColumns columns = new TableColumns(t.getColumns());
-			TableForeignKeys fks = new TableForeignKeys(t.getForeignKeys());
-			return new ClassificationData(key , columns , fks);
-		})
-		.map(cd -> {
-			return null;
-		});
 		return null;
 	}
 	

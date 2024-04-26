@@ -11,6 +11,10 @@ import javax.sql.DataSource;
 
 import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
+import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
+import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
+import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
+import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +55,14 @@ public class SchemaCrawlerService {
 	
 	public Optional<PrimaryKey> getTablePrimaryKey(Optional<Table> oTable){
 		return oTable.map(t -> t.getPrimaryKey());
+	}
+	
+	public Optional<ClassificationData> getTableClassificationData(Optional<Table> oTable) {
+		    return oTable.map(t ->{
+		    				return new ClassificationData(
+		    						new TableKey(   Optional.ofNullable(t.getPrimaryKey())),
+		    						new TableColumns( Optional.ofNullable(t.getColumns())),
+		    						new TableForeignKeys( Optional.ofNullable(t.getForeignKeys()))
+		    		);});
 	}
 }

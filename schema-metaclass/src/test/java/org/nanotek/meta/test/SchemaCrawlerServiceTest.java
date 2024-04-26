@@ -45,6 +45,8 @@ public class SchemaCrawlerServiceTest {
 			 assertTrue(ocl.get().size() == 0);
 			 Optional<PrimaryKey> opk = schemaCrawlerService.getTablePrimaryKey(Optional.of(t));
 			 assertTrue(opk.equals(Optional.empty()));
+			 assertNotNull(schemaCrawlerService.getTableClassificationData(Optional.of(t)));
+			 assertFalse(schemaCrawlerService.getTableClassificationData(Optional.of(t)).equals(Optional.empty()));
 		 });
 	}
 	
