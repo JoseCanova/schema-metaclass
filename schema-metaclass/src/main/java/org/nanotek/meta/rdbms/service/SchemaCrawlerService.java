@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Catalog;
 import schemacrawler.schema.Column;
+import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Table;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
@@ -46,5 +47,9 @@ public class SchemaCrawlerService {
 	
 	public Optional<List<Column>> getTableColumns(Optional<Table> oTable){
 		return oTable.map(t -> t.getColumns());
+	}
+	
+	public Optional<PrimaryKey> getTablePrimaryKey(Optional<Table> oTable){
+		return oTable.map(t -> t.getPrimaryKey());
 	}
 }

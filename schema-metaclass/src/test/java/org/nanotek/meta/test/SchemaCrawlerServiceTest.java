@@ -43,10 +43,8 @@ public class SchemaCrawlerServiceTest {
 		 oTables.get().forEach(t -> {
 			 Optional<List<Column>>ocl = schemaCrawlerService.getTableColumns(Optional.of(t));
 			 assertTrue(ocl.get().size() == 0);
-		 });
-		 oTables.get().forEach(t ->{
-			 PrimaryKey pk = t.getPrimaryKey();
-			 assertNull(pk);
+			 Optional<PrimaryKey> opk = schemaCrawlerService.getTablePrimaryKey(Optional.of(t));
+			 assertTrue(opk.equals(Optional.empty()));
 		 });
 	}
 	
