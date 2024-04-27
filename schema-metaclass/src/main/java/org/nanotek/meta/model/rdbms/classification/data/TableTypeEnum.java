@@ -1,6 +1,8 @@
 package org.nanotek.meta.model.rdbms.classification.data;
 
-public enum TableTypeEnum {
+import java.io.Serializable;
+
+public enum TableTypeEnum implements Serializable{
 
 	VOID_TABLE(1),
 	PK_TABLE(3), 
