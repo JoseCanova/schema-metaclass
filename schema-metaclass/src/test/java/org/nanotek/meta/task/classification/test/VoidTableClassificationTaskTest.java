@@ -1,4 +1,4 @@
-package org.nanotek.meta.test;
+package org.nanotek.meta.task.classification.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-//TODO:finish this test.
 @SpringBootTest
 public class VoidTableClassificationTaskTest {
 
