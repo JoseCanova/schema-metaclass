@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VoidTableClassificationTask implements TableClassificationTask {
+public class VoidTableClassificationTask implements TableClassificationTask<ClassificationData> {
 
 	@Autowired
 	protected SchemaCrawlerService schemaCrawlerService;
