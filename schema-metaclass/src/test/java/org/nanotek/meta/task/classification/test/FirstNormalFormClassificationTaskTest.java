@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.sql.DataSource;
@@ -47,6 +49,7 @@ public class FirstNormalFormClassificationTaskTest {
 	@Test
 	void testVoidTableClassificationInjection() throws SQLException {
 		assertNotNull(schemaCrawlerService);
+		List<Optional<ClassificationResult>> resultList = new ArrayList<Optional<ClassificationResult>>();
 		schemaCrawlerService
 		.getCatalogTables()
 		.ifPresentOrElse(t -> {
@@ -59,17 +62,18 @@ public class FirstNormalFormClassificationTaskTest {
 					ClassificationData cd2 = buildClassificationData (tary[j]);
 					ClassificationDataPair cdp = new ClassificationDataPair(Pair.of(cd1,cd2)) ;
 					Optional<ClassificationResult> cr = theTask.evaluate(cdp);
-					assertFalse(cr.equals(Optional.empty()));
+					resultList.add(cr);
 				}
 			}
 			}, new Runnable() {
 			@Override
 			public void run() {
-				throw new RuntimeException();
+				throw new RuntimeException("Problem on Test");
 			}
-			
 		});;
-		assertTrue(1 == 1);
+		assertTrue(resultList.size() == schemaCrawlerService
+				.getCatalogTables().get().size());
+		assertFalse(1 == 1);
 	}
 	
 	private ClassificationData buildClassificationData(Table table) {
