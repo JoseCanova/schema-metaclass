@@ -10,12 +10,12 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FirstNormalFormTableClassificatinTask implements TableClassificationTask<ClassificationDataPair> {
+public class FirstNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair> {
 
 	@Autowired
 	private VoidTableClassificationTask voidTableClassificationTask ;
 	
-	public FirstNormalFormTableClassificatinTask() {}
+	public FirstNormalFormClassificationTask() {}
 	
 	@Override
 	public Optional<ClassificationResult> evaluate(ClassificationDataPair cd) {
