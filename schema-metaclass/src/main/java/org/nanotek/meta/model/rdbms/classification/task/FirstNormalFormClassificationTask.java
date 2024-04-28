@@ -21,12 +21,18 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 	public Optional<ClassificationResult> evaluate(ClassificationDataPair cd) {
 		Pair<ClassificationData,ClassificationData> cdPair = cd.classificationDataPair();
 		Optional<ClassificationResult> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
-		Optional<ClassificationResult> ocr2 = voidTableClassificationTask.evaluate(cdPair.getFirst());
+		Optional<ClassificationResult> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
 		Optional<Boolean> preConditionResult = verifyPreCondition(ocr1 , ocr2);
+		preConditionResult
+		.filter(r->r == false)
+		.isPresent();
+		return verifyFirstNormalForm(cd);
 		
+	}
+
+	private Optional<ClassificationResult> verifyFirstNormalForm(ClassificationDataPair cdp) {
 		
-		return null;
-		
+		return Optional.empty();
 	}
 
 	private Optional<Boolean> verifyPreCondition(Optional<ClassificationResult> ocr1, Optional<ClassificationResult> ocr2) {
