@@ -3,11 +3,13 @@ package org.nanotek.meta.rdbms.service;
 import static org.nanotek.meta.constants.SystemStaticMessageSource.NONOK;
 
 import java.sql.Connection;
+import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -30,7 +32,7 @@ import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 @Service
-public class SchemaCrawlerService {
+public class SchemaCrawlerService<K> {
 
 	@Autowired
 	private DataSource defaultDataSource;
@@ -69,27 +71,29 @@ public class SchemaCrawlerService {
 		    		);});
 	}
 	
-	public Map<?,?> getCatalogClassificationMap(Optional<Collection<Table>> oTables){
-		ClassificationData a = null; 
+	@SuppressWarnings("unchecked")
+	public Map <Table,ClassificationData>  getCatalogClassificationMap(Optional<Collection<Table>> oTables){
+		Pair<K,ClassificationData>  a = null; 
 		
-		oTables
+		return oTables
+		.get()
 		.stream()
-		.map(t ->t.stream()
-				.map(t1 -> buildPairClassificationData(t1)))
-		.collect(Collectors.toList())
-		.stream();
-		return null;
+		.map(t ->buildClassificationDataEntry(t))
+		.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	private Pair<Table,ClassificationData> buildPairClassificationData(Table table) {
-		return  Pair.of(table, buildClassicationData(table));
+
+	
+	private Map.Entry<Table,ClassificationData> buildClassificationDataEntry(Table table) {
+		return  new AbstractMap.SimpleEntry<>(table, buildClassicationData(table));
 	}
 	
 	private ClassificationData buildClassicationData(Table table) {
+		Table theTable = Table.class.cast(table);
 		return new ClassificationData(
-				new TableKey(Optional.ofNullable(table.getPrimaryKey())),
-				new TableColumns(Optional.ofNullable(table.getColumns())),
-				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys()))
+				new TableKey(Optional.ofNullable(theTable.getPrimaryKey())),
+				new TableColumns(Optional.ofNullable(theTable.getColumns())),
+				new TableForeignKeys(Optional.ofNullable(theTable.getForeignKeys()))
 				);
 	}
 
