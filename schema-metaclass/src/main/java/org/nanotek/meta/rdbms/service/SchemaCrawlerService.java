@@ -5,7 +5,9 @@ import static org.nanotek.meta.constants.SystemStaticMessageSource.NONOK;
 import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -17,6 +19,7 @@ import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Catalog;
@@ -65,4 +68,29 @@ public class SchemaCrawlerService {
 		    						new TableForeignKeys( Optional.ofNullable(t.getForeignKeys()))
 		    		);});
 	}
+	
+	public Map<?,?> getCatalogClassificationMap(Optional<Collection<Table>> oTables){
+		ClassificationData a = null; 
+		
+		oTables
+		.stream()
+		.map(t ->t.stream()
+				.map(t1 -> buildPairClassificationData(t1)))
+		.collect(Collectors.toList())
+		.stream();
+		return null;
+	}
+
+	private Pair<Table,ClassificationData> buildPairClassificationData(Table table) {
+		return  Pair.of(table, buildClassicationData(table));
+	}
+	
+	private ClassificationData buildClassicationData(Table table) {
+		return new ClassificationData(
+				new TableKey(Optional.ofNullable(table.getPrimaryKey())),
+				new TableColumns(Optional.ofNullable(table.getColumns())),
+				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys()))
+				);
+	}
+
 }
