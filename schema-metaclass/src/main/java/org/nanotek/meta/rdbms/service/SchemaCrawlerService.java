@@ -32,7 +32,7 @@ import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 @Service
-public class SchemaCrawlerService<K> {
+public class SchemaCrawlerService {
 
 	@Autowired
 	private DataSource defaultDataSource;
@@ -76,7 +76,7 @@ public class SchemaCrawlerService<K> {
 		.get()
 		.stream()
 		.map(t ->buildClassificationDataEntry(t))
-		.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		.collect(Collectors.toMap(Map.Entry::getKey , Map.Entry::getValue));
 	}
 
 
