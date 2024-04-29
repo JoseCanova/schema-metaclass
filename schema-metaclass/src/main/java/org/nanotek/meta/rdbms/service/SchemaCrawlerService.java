@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -21,7 +20,6 @@ import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Catalog;
