@@ -71,10 +71,7 @@ public class SchemaCrawlerService<K> {
 		    		);});
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Map <Table,ClassificationData>  getCatalogClassificationMap(Optional<Collection<Table>> oTables){
-		Pair<K,ClassificationData>  a = null; 
-		
 		return oTables
 		.get()
 		.stream()
