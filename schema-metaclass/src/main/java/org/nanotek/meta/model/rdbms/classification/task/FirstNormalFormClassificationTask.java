@@ -35,6 +35,7 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 		
 	}
 
+	//TODO:Refactor method for return value
 	private  Optional<FirstNormalFormClassificationResult> verifyFirstNormalForm(ClassificationDataPair cdp) {
 		Pair<ClassificationData,ClassificationData> cdp1 = cdp.classificationDataPair();
 		Optional<Table> firstTable = cdp1
@@ -43,13 +44,16 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 										.opkey()
 										.map(k->k.getParent());
 		 Optional<Collection<ForeignKey>> oColKey = cdp1.getSecond().foreignKeys().keys();
+		 if (oColKey.isPresent() && oColKey
+					.filter(c ->c.size()>0).isPresent()) {
 		 return oColKey
 		.filter(c ->c.size()>0)
 		.get()
 		.stream()
 		.filter(fk -> fk.getReferencingTable().getFullName().equals(firstTable.get().getFullName()))
 		.map(fk ->new FirstNormalFormClassificationResult(fk.getParent().getFullName(),firstTable.get().getFullName())).findAny();
-		
+		 }else 
+			 return Optional.empty();
 	}
 
 	private Optional<Boolean> verifyPreCondition(Optional<ClassificationResult> ocr1, Optional<ClassificationResult> ocr2) {

@@ -62,7 +62,9 @@ public class FirstNormalFormClassificationTaskTest {
 					ClassificationData cd2 = buildClassificationData (tary[j]);
 					ClassificationDataPair cdp = new ClassificationDataPair(Pair.of(cd1,cd2)) ;
 					Optional<?> cr = theTask.evaluate(cdp);
-					resultList.add(cr);
+					cr.ifPresent(c -> {
+						resultList.add(Optional.of(c));
+					});
 				}
 			}
 			}, new Runnable() {
