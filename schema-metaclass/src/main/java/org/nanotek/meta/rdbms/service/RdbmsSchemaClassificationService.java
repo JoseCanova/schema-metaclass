@@ -41,7 +41,8 @@ public class RdbmsSchemaClassificationService {
 			Catalog  catalog;
 			Connection connection = dataSource.getConnection();
 			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
-			catalog.getTables().forEach(t ->tables.add(t));;
+			catalog.getTables().forEach(t ->tables.add(t));
+			connection.close();
 		}catch (SQLException se) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , se.getCause()) ;
 		}

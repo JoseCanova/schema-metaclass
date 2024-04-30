@@ -4,6 +4,7 @@ import static org.nanotek.meta.constants.SystemStaticMessageSource.NONOK;
 
 import java.sql.Connection;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Catalog;
@@ -46,6 +48,7 @@ public class SchemaCrawlerService {
 		try {
 			Connection connection = defaultDataSource.getConnection();
 			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+			connection.close();
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}
@@ -78,6 +81,20 @@ public class SchemaCrawlerService {
 	}
 
 
+	public List<Pair<ClassificationData,ClassificationData>> getDataPairList ( Map <Table,ClassificationData> dataMap){
+		List<Pair<ClassificationData,ClassificationData>> resultList = new ArrayList<Pair<ClassificationData,ClassificationData>>();
+		dataMap
+		.values()
+		.forEach(v -> {
+			resultList.addAll(dataMap
+			.values()
+			.stream()
+			.filter(vv -> !vv.equals(v))
+			.map(vv -> Pair.of(v,vv))
+			.collect(Collectors.toList()));
+		});
+		return resultList;
+	}
 	
 	private Map.Entry<Table,ClassificationData> buildClassificationDataEntry(Table table) {
 		return  new AbstractMap.SimpleEntry<>(table, buildClassicationData(table));

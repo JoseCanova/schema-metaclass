@@ -46,7 +46,8 @@ public class RdbmsMetaClassService {
 		try {
 			Connection connection = defaultDataSource.getConnection();
 			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
-			catalog.getTables().forEach(t ->tables.add(t));;
+			catalog.getTables().forEach(t ->tables.add(t));
+			connection.close();
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}

@@ -70,7 +70,7 @@ public class FirstNormalFormClassificationTaskTest {
 			public void run() {
 				throw new RuntimeException("Problem on Test");
 			}
-		});;
+		});
 		assertTrue(resultList.size() == schemaCrawlerService
 				.getCatalogTables().get().size());
 	}

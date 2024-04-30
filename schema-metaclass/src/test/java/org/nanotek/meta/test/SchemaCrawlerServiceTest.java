@@ -2,7 +2,6 @@ package org.nanotek.meta.test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
@@ -22,9 +21,9 @@ import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.util.Pair;
 
 import schemacrawler.schema.Column;
-import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Table;
 
 @SpringBootTest
@@ -55,6 +54,15 @@ public class SchemaCrawlerServiceTest {
 		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
 		 Map <Table,ClassificationData> classificationMap = schemaCrawlerService.getCatalogClassificationMap(oTables);
 		 assertTrue(classificationMap.keySet().size() == 3);
+	}
+	
+	@Test
+	void testGetDataPairList() {
+		 assertNotNull(schemaCrawlerService);
+		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
+		 Map <Table,ClassificationData> classificationMap = schemaCrawlerService.getCatalogClassificationMap(oTables);
+		 List<Pair<ClassificationData,ClassificationData>> theList = schemaCrawlerService.getDataPairList(classificationMap);
+		 assertTrue(theList.size() >= 3);
 	}
 	
 	@BeforeEach
