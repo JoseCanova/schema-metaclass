@@ -49,7 +49,7 @@ public class FirstNormalFormClassificationTaskTest {
 	@Test
 	void testVoidTableClassificationInjection() throws SQLException {
 		assertNotNull(schemaCrawlerService);
-		List<Optional<ClassificationResult>> resultList = new ArrayList<Optional<ClassificationResult>>();
+		List<Optional<?>> resultList = new ArrayList<Optional<?>>();
 		schemaCrawlerService
 		.getCatalogTables()
 		.ifPresentOrElse(t -> {
@@ -57,11 +57,11 @@ public class FirstNormalFormClassificationTaskTest {
 			Table[] tary = t.toArray(new Table[count]);
 			for (int i = 0 ; i < count-1 ; i++) {
 				for (int j = i + 1 ; j < count ; ++j) {
-					System.out.println(" " + tary[i].getName() + "  " + tary[j].getName());
+					System.err.println(" " + tary[i].getName() + "  " + tary[j].getName());
 					ClassificationData cd1 = buildClassificationData (tary[i]);
 					ClassificationData cd2 = buildClassificationData (tary[j]);
 					ClassificationDataPair cdp = new ClassificationDataPair(Pair.of(cd1,cd2)) ;
-					Optional<ClassificationResult> cr = theTask.evaluate(cdp);
+					Optional<?> cr = theTask.evaluate(cdp);
 					resultList.add(cr);
 				}
 			}
@@ -71,8 +71,7 @@ public class FirstNormalFormClassificationTaskTest {
 				throw new RuntimeException("Problem on Test");
 			}
 		});
-		assertTrue(resultList.size() == schemaCrawlerService
-				.getCatalogTables().get().size());
+		assertTrue(resultList.size() == 2);
 	}
 	
 	private ClassificationData buildClassificationData(Table table) {

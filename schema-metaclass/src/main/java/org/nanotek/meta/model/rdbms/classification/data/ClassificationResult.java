@@ -3,11 +3,11 @@ package org.nanotek.meta.model.rdbms.classification.data;
 import org.nanotek.Base;
 import org.nanotek.meta.model.IdBase;
 
-public class ClassificationResult implements Base<ClassificationResult> , IdBase<ClassificationResult , TableTypeEnum> {
+public class ClassificationResult<K extends ClassificationResult<K> > implements Base<K> , IdBase<K , TableTypeEnum> {
 
 	private static final long serialVersionUID = 7377567626660137773L;
 	
-	private TableTypeEnum id;
+	protected TableTypeEnum id;
 
 	public ClassificationResult() {
 	}

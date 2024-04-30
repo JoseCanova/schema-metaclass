@@ -7,6 +7,6 @@ import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 @FunctionalInterface
 public interface ClassificationTask<K extends Record> {
 
-	<CR extends ClassificationResult> Optional<CR> evaluate(K cd);
+	<CR extends ClassificationResult<CR>> Optional<CR> evaluate(K cd);
 	
 }

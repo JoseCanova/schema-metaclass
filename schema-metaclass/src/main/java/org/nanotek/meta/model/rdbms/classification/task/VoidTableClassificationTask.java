@@ -19,11 +19,16 @@ public class VoidTableClassificationTask implements TableClassificationTask<Clas
 	}
 	
 	@Override
-	public Optional<ClassificationResult> evaluate(ClassificationData cd) {
-		 return Optional.ofNullable(cd)
-				.filter(cda -> cda.tableColumns().columns().equals(Optional.empty()) 
-							|| cda.key().opkey().equals(Optional.empty()))
-				.map(cda -> new ClassificationResult(TableTypeEnum.VOID_TABLE));
-				
+	public <CR extends ClassificationResult<CR>> Optional<CR> evaluate(ClassificationData cd) {
+			 return Optional.ofNullable(cd)
+					.filter(cda -> cda.tableColumns().columns().equals(Optional.empty()) 
+								|| cda.key().opkey().equals(Optional.empty()))
+					.map(cda -> buildClassificationResult());
+	}
+
+	
+	private <CR extends ClassificationResult<CR>> CR buildClassificationResult() {
+		// TODO Finish implementation of ClassificationResult.
+		return null;
 	}
 }
