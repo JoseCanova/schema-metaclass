@@ -50,8 +50,8 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 		.filter(c ->c.size()>0)
 		.get()
 		.stream()
-		.filter(fk -> fk.getReferencingTable().getFullName().equals(firstTable.get().getFullName()))
-		.map(fk ->new FirstNormalFormClassificationResult(fk.getParent().getFullName(),firstTable.get().getFullName())).findAny();
+		.filter(fk -> fk.getPrimaryKeyTable().getFullName().equals(firstTable.get().getFullName()))
+		.map(fk ->new FirstNormalFormClassificationResult(fk.getParent().getFullName(),firstTable.get().getFullName() , fk.getColumns())).findAny();
 		 }else 
 			 return Optional.empty();
 	}
