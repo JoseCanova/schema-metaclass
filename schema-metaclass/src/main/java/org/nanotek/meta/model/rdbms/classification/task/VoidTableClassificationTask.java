@@ -5,9 +5,13 @@ import java.util.Optional;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
+import org.nanotek.meta.model.rdbms.classification.data.VoidTableClassificationResult;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import schemacrawler.schema.PrimaryKey;
+import schemacrawler.schema.Table;
 
 @Component
 public class VoidTableClassificationTask implements TableClassificationTask<ClassificationData> {
@@ -19,16 +23,18 @@ public class VoidTableClassificationTask implements TableClassificationTask<Clas
 	}
 	
 	@Override
-	public <CR extends ClassificationResult<CR>> Optional<CR> evaluate(ClassificationData cd) {
+	public Optional<ClassificationResult<?>> evaluate(ClassificationData cd) {
 			 return Optional.ofNullable(cd)
 					.filter(cda -> cda.tableColumns().columns().equals(Optional.empty()) 
 								|| cda.key().opkey().equals(Optional.empty()))
-					.map(cda -> buildClassificationResult());
+					.map(cda -> buildClassificationResult(cda.schemaTable().table()))
+					.map(ocr -> ocr.get())
+					.map(cr ->  ClassificationResult.class.cast(cr));
 	}
 
 	
-	private <CR extends ClassificationResult<CR>> CR buildClassificationResult() {
-		// TODO Finish implementation of ClassificationResult.
-		return null;
+	private  Optional<ClassificationResult<?>> buildClassificationResult(Optional<Table> oTable) {
+		return oTable.map(t -> new VoidTableClassificationResult(t.getFullName()));
 	}
+
 }

@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
+import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
@@ -66,6 +67,7 @@ public class SchemaCrawlerService {
 	public Optional<ClassificationData> getTableClassificationData(Optional<Table> oTable) {
 		    return oTable.map(t ->{
 		    				return new ClassificationData(
+		    						new SchemaTable(oTable),
 		    						new TableKey(   Optional.ofNullable(t.getPrimaryKey())),
 		    						new TableColumns( Optional.ofNullable(t.getColumns())),
 		    						new TableForeignKeys( Optional.ofNullable(t.getForeignKeys()))
@@ -103,6 +105,7 @@ public class SchemaCrawlerService {
 	private ClassificationData buildClassicationData(Table table) {
 		Table theTable = Table.class.cast(table);
 		return new ClassificationData(
+				new SchemaTable(Optional.ofNullable(theTable)),
 				new TableKey(Optional.ofNullable(theTable.getPrimaryKey())),
 				new TableColumns(Optional.ofNullable(theTable.getColumns())),
 				new TableForeignKeys(Optional.ofNullable(theTable.getForeignKeys()))

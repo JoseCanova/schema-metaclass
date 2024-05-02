@@ -14,8 +14,6 @@ public class FirstNormalFormClassificationResult extends ClassificationResult<Fi
 	
 	private List<TableConstraintColumn> foreignKeyColumns;
 	
-	public FirstNormalFormClassificationResult() {}
-	
 	public FirstNormalFormClassificationResult( String  tName , String fkTname) {
 		super(TableTypeEnum.FIRST_NORMAL_FORM_TABLE);
 		tableName = tName ;

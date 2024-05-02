@@ -64,7 +64,7 @@ public class MetaClassConfiguration {
 				.setRetrieveAdditionalColumnAttributes(true)
 				.setRetrieveAdditionalColumnMetadata(false)
 				.setRetrieveColumnDataTypes(true)
-				.setRetrieveForeignKeys(false)
+				.setRetrieveForeignKeys(true)
 				.setRetrieveIndexes(true)
 				.setRetrieveIndexInformation(true)
 				.setRetrieveTriggerInformation(false)
