@@ -3,6 +3,8 @@ package org.nanotek.meta.model.rdbms.classification.task;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.TruePredicate;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
@@ -23,16 +25,17 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 	public FirstNormalFormClassificationTask() {}
 	
 	@Override
-	public Optional<FirstNormalFormClassificationResult> evaluate(ClassificationDataPair cd) {
+	public Optional<ClassificationResult<?>> evaluate(ClassificationDataPair cd) {
 		Pair<ClassificationData,ClassificationData> cdPair = cd.classificationDataPair();
-		Optional<ClassificationResult> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
-		Optional<ClassificationResult> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
-		Optional<Boolean> preConditionResult = verifyPreCondition(ocr1 , ocr2);
-		preConditionResult
-		.filter(r->r == false)
-		.isPresent();
-		return verifyFirstNormalForm(cd);
+		Optional<ClassificationResult<?>> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
+		Optional<ClassificationResult<?>> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
+		Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> voidResultPair= Pair.of(ocr1, ocr2);
 		
+		return Optional
+			.ofNullable(ClassificationResultPairPredicate.of().evaluate(voidResultPair))
+			.filter(rp -> rp==true)
+			.map(r -> verifyFirstNormalForm(cd)).orElse(Optional.empty())
+			.map(r -> ClassificationResult.class.cast(r));
 	}
 
 	//TODO:Refactor method for return value
@@ -51,7 +54,7 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 		.get()
 		.stream()
 		.filter(fk -> fk.getPrimaryKeyTable().getFullName().equals(firstTable.get().getFullName()))
-		.map(fk ->new FirstNormalFormClassificationResult(fk.getParent().getFullName(),firstTable.get().getFullName() , fk.getColumns())).findAny();
+		.map(fk ->new FirstNormalFormClassificationResult(fk.getParent().getFullName(),firstTable.get().getFullName() , fk.getConstrainedColumns())).findAny();
 		 }else 
 			 return Optional.empty();
 	}
@@ -59,4 +62,22 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 	private Optional<Boolean> verifyPreCondition(Optional<ClassificationResult> ocr1, Optional<ClassificationResult> ocr2) {
 		return Optional.of(ocr1.isEmpty() && ocr2.isEmpty());
 	}
+	
+}
+
+class ClassificationResultPairPredicate implements Predicate<Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>>>{
+
+	private ClassificationResultPairPredicate() {}
+	
+	@Override
+	public boolean evaluate(Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> pair) {
+		
+		return pair
+				.getFirst().isEmpty() && pair.getSecond().isEmpty();
+	}
+	
+	public static ClassificationResultPairPredicate of() {
+		return new ClassificationResultPairPredicate();
+	}
+	
 }

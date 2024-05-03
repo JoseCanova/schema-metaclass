@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
@@ -78,6 +79,7 @@ public class FirstNormalFormClassificationTaskTest {
 	
 	private ClassificationData buildClassificationData(Table table) {
 		return new ClassificationData(
+				new SchemaTable(Optional.of(table)),
 				new TableKey(Optional.ofNullable(table.getPrimaryKey())),
 				new TableColumns(Optional.ofNullable(table.getColumns())),
 				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys()))
