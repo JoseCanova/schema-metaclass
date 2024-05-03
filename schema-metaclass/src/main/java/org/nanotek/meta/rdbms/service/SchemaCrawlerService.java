@@ -46,10 +46,8 @@ public class SchemaCrawlerService {
 	
 	public Optional<Collection<Table>> getCatalogTables(){
 		Catalog  catalog;
-		try {
-			Connection connection = defaultDataSource.getConnection();
+		try (Connection connection = defaultDataSource.getConnection()) {
 			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
-			connection.close();
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}
