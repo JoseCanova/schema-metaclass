@@ -19,6 +19,7 @@ import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
+import org.nanotek.meta.model.rdbms.classification.data.TableIndexes;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,8 @@ public class SchemaCrawlerService {
 		    						new SchemaTable(oTable),
 		    						new TableKey(   Optional.ofNullable(t.getPrimaryKey())),
 		    						new TableColumns( Optional.ofNullable(t.getColumns())),
-		    						new TableForeignKeys( Optional.ofNullable(t.getForeignKeys()))
+		    						new TableForeignKeys( Optional.ofNullable(t.getForeignKeys())),
+		    						new TableIndexes(Optional.ofNullable(t.getIndexes()))
 		    		);});
 	}
 	
@@ -106,7 +108,8 @@ public class SchemaCrawlerService {
 				new SchemaTable(Optional.ofNullable(theTable)),
 				new TableKey(Optional.ofNullable(theTable.getPrimaryKey())),
 				new TableColumns(Optional.ofNullable(theTable.getColumns())),
-				new TableForeignKeys(Optional.ofNullable(theTable.getForeignKeys()))
+				new TableForeignKeys(Optional.ofNullable(theTable.getForeignKeys())),
+				new TableIndexes(Optional.ofNullable(theTable.getIndexes()))
 				);
 	}
 

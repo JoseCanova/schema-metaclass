@@ -1,6 +1,5 @@
 package org.nanotek.meta.task.classification.test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,10 +17,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
-import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
+import org.nanotek.meta.model.rdbms.classification.data.TableIndexes;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
 import org.nanotek.meta.model.rdbms.classification.task.FirstNormalFormClassificationTask;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
@@ -82,7 +81,8 @@ public class FirstNormalFormClassificationTaskTest {
 				new SchemaTable(Optional.of(table)),
 				new TableKey(Optional.ofNullable(table.getPrimaryKey())),
 				new TableColumns(Optional.ofNullable(table.getColumns())),
-				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys()))
+				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys())), 
+				new TableIndexes(Optional.ofNullable(table.getIndexes()))
 				);
 	}
 

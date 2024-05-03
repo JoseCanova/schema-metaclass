@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 
+
+//TODO: prepare the evaluations of the method for unit test.
 public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair> {
 
 	
