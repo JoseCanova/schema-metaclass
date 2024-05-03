@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.apache.commons.collections4.Predicate;
-import org.apache.commons.collections4.functors.TruePredicate;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
@@ -59,10 +58,6 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 			 return Optional.empty();
 	}
 
-	private Optional<Boolean> verifyPreCondition(Optional<ClassificationResult> ocr1, Optional<ClassificationResult> ocr2) {
-		return Optional.of(ocr1.isEmpty() && ocr2.isEmpty());
-	}
-	
 }
 
 class ClassificationResultPairPredicate implements Predicate<Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>>>{
