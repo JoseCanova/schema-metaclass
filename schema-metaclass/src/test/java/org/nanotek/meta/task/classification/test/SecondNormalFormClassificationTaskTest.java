@@ -66,6 +66,7 @@ public class SecondNormalFormClassificationTaskTest {
 					ClassificationDataPair cdp = new ClassificationDataPair(Pair.of(cd1,cd2)) ;
 					Optional<?> cr = firstNormalFormTask.evaluate(cdp);
 					cr.ifPresent(c -> {
+						System.err.println("Entered on Second Normal Form Phase");
 						Optional<?> csf2 = secondNormalFormTask.evaluate(cd2);
 						csf2.ifPresent(c2->{
 							resultList.add(Optional.of(c2));
@@ -107,11 +108,14 @@ public class SecondNormalFormClassificationTaskTest {
        String sql4 = 
         		"alter table area_begin_date_join add constraint  FK6ejxgqiu1outyxf4qd2xqjfmj foreign key (date_id) references begin_dates;";
         String sql5 = "alter table area_begin_date_join add constraint  FKhxwhfi68h7pm6nw99q60kulwx foreign key (area_id) references area;";
+        String sql6 = "CREATE UNIQUE INDEX uk_area_begin_date_join ON public.area_begin_date_join (date_id, area_id);";
+
         stmt.executeUpdate(sql);
         stmt.executeUpdate(sql2);
         stmt.executeUpdate(sql3);
         stmt.executeUpdate(sql4);
         stmt.executeUpdate(sql5);
+        stmt.executeUpdate(sql6);
         connection.close();
 	} 
 	

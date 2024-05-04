@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import schemacrawler.schema.Index;
 
-public record TableIndexes(Optional<Collection<Index>> tableIndexes) {
+public record TableIndexes(Optional<Collection<Index>> indexes) {
 
-	public TableIndexes(final Optional<Collection<Index>> tableIndexes) {
-		this.tableIndexes= tableIndexes;
+	public TableIndexes(final Optional<Collection<Index>> indexes) {
+		this.indexes = indexes;
 	}
 	
 }
