@@ -48,7 +48,7 @@ public class SecondNormalFormClassificationTaskTest {
 	
 	//TODO: Fix the test of Classification - the iteration of table collection is providing double of the correct value
 	@Test
-	void testVoidTableClassificationInjection() throws SQLException {
+	void testSecondNormalFormClassificationResult() throws SQLException {
 		assertNotNull(defaultDataSource);
 		assertNotNull(schemaCrawlerService);
 		assertNotNull(firstNormalFormTask);
