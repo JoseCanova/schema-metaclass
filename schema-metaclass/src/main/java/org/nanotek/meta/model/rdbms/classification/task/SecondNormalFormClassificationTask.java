@@ -44,11 +44,8 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			
 			SecondNormalFormClassificationResult theClassificationResult=null;
 			if (theMapList.keySet().size() == theTableColumns.get().size()) {
-				TableIndexResult thePrimaryKeyResult  = mountPrimaryKeyTableIndexResult(cd);
+//				TableIndexResult thePrimaryKeyResult  = mountPrimaryKeyTableIndexResult(cd);
 				List<TableIndexResult> uniqueIndexTableIndexResult =  mountUniqueKeysTableIndexResultList(cd);
-				
-				uniqueIndexTableIndexResult.add(thePrimaryKeyResult);
-				
 				theClassificationResult = new SecondNormalFormClassificationResult(cd.schemaTable().table().get().getName() , uniqueIndexTableIndexResult , theMapList);
 			}
 		return Optional.ofNullable(theClassificationResult);

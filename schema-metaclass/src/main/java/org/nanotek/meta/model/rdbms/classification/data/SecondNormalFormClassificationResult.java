@@ -1,7 +1,6 @@
 package org.nanotek.meta.model.rdbms.classification.data;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
@@ -19,6 +18,7 @@ public class SecondNormalFormClassificationResult extends ClassificationResult<S
 		this.tableName = tableName1;
 		this.indexes=indexes1;
 		this.columnEvaluationIndex = columnEvaluationIndex1;
+		this.id = TableTypeEnum.SECOND_NORMAL_FORM_TABLE;
 	}
 
 	public ArrayListValuedHashMap<String, ?> getColumnEvaluationIndex() {
