@@ -28,26 +28,16 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	public SecondNormalFormClassificationTask() {
 	}
 	
-	//TODO:Finish the second iteration with indexes. 
+	//TODO: Change Result Data Structure to Suport a better Data Structure
 	//TODO: Generate bad case scenarios to refine algorithm.
 	@Override
 	public Optional<ClassificationResult<?>> evaluate(ClassificationData cd) {
 		
 			Optional<List<Column>> theTableColumns = cd.schemaTable().table().map(t -> t.getColumns());
 		
-			Map <String , Column> theKeyMap   = theTableColumns
-			.get()
-			.stream()
-			.map(c -> verifyColumnOnPrimaryKey(c,cd.key().opkey()))
-			.map(e -> e.get())
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+			Map <String , Column> theKeyMap   = evaluateTheTableColumns(theTableColumns , cd);
 			
-			Map <String , Column> theIndexMap=  theTableColumns
-			.get()
-			.stream()
-			.map(c -> verifyColumnOnTableIndexes(c,cd.tableIndexes().indexes()))
-			.map(e -> e.get())
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd);
 			
 			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
 			
@@ -57,6 +47,24 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return Optional.ofNullable(theClassificationResult);
 	}
 
+
+	private Map<String, Column> evaluateIndexColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
+		return theTableColumns
+				.get()
+				.stream()
+				.map(c -> verifyColumnOnTableIndexes(c,cd.tableIndexes().indexes()))
+				.map(e -> e.get())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+	}
+
+	private Map<String, Column> evaluateTheTableColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
+		return  theTableColumns
+				.get()
+				.stream()
+				.map(c -> verifyColumnOnPrimaryKey(c,cd.key().opkey()))
+				.map(e -> e.get())
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+	}
 
 	private ArrayListValuedHashMap<String,Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
 		int initialCapacity = theKeyMap.size() + theIndexMap.size() + 1;
