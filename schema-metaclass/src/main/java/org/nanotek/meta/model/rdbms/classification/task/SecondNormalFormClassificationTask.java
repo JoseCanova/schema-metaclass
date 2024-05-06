@@ -1,7 +1,6 @@
 package org.nanotek.meta.model.rdbms.classification.task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.IndexTypeEnum;
 import org.nanotek.meta.model.rdbms.classification.data.SecondNormalFormClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.TableIndexResult;
 import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.Column;
@@ -39,14 +40,57 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			
 			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd);
 			
-			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
+			Map<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
 			
 			SecondNormalFormClassificationResult theClassificationResult=null;
-			if (theMapList.keySet().size() == theTableColumns.get().size())
-				theClassificationResult = new SecondNormalFormClassificationResult(cd.schemaTable().table().get().getName() , null);
+			if (theMapList.keySet().size() == theTableColumns.get().size()) {
+				TableIndexResult thePrimaryKeyResult  = mountPrimaryKeyTableIndexResult(cd);
+				List<TableIndexResult> uniqueIndexTableIndexResult =  mountUniqueKeysTableIndexResultList(cd);
+				
+				uniqueIndexTableIndexResult.add(thePrimaryKeyResult);
+				
+				theClassificationResult = new SecondNormalFormClassificationResult(cd.schemaTable().table().get().getName() , uniqueIndexTableIndexResult , theMapList);
+			}
 		return Optional.ofNullable(theClassificationResult);
 	}
 
+
+	private List<TableIndexResult> mountUniqueKeysTableIndexResultList(ClassificationData cd) {
+		List<TableIndexResult> uniqueIndexTableIndexResult = new ArrayList<TableIndexResult> ();
+		
+		cd
+		.tableIndexes()
+		.indexes()
+		.filter(i -> i!=null)
+		.get()
+		.stream()
+		.filter(i->
+			i.isUnique()
+		)
+		.forEach(ui -> {
+			Optional.ofNullable(ui
+			.getColumns())
+			.ifPresent(cl -> { 
+				List<Column> uiIndexList = cl.stream().map(ic -> Column.class.cast(ic)).collect(Collectors.toList());
+				TableIndexResult tir = new TableIndexResult(cd.schemaTable().table().get().getName() , IndexTypeEnum.UNIQUE_INDEX , uiIndexList);
+				uniqueIndexTableIndexResult.add(tir);
+			});
+			
+		});
+		return uniqueIndexTableIndexResult;
+	}
+
+	private TableIndexResult mountPrimaryKeyTableIndexResult(ClassificationData cd) {
+		List<Column> pkeyColumns = cd.key()
+		.opkey()
+		.map( k-> k.getConstrainedColumns())
+		.get()
+		.stream()
+		.map(c -> Column.class.cast(c))
+		.collect(Collectors.toList());
+		
+		return new TableIndexResult(cd.schemaTable().table().get().getName() , IndexTypeEnum.PRIMARY_KEY , pkeyColumns);
+	}
 
 	private Map<String, Column> evaluateIndexColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
 		return theTableColumns
@@ -66,7 +110,8 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	private ArrayListValuedHashMap<String,Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
+	@SuppressWarnings("unchecked")
+	private Map<String,Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
 		int initialCapacity = theKeyMap.size() + theIndexMap.size() + 1;
 		ArrayListValuedHashMap<String,Column> theMapList = new ArrayListValuedHashMap<String,Column>(initialCapacity, 16);
 		
@@ -95,7 +140,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			});
 		});
 		
-		return theMapList;
+		return Map.class.cast(theMapList);
 	}
 
 	private Optional<Map.Entry<String, Column>> verifyColumnOnTableIndexes(Column c, Optional<Collection<Index>> indexes) {
