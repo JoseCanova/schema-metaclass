@@ -3,6 +3,8 @@ package org.nanotek.meta.model.rdbms.classification.data;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+
 public class SecondNormalFormClassificationResult extends ClassificationResult<SecondNormalFormClassificationResult> {
 
 	private static final long serialVersionUID = -737695342685537514L;
@@ -11,15 +13,15 @@ public class SecondNormalFormClassificationResult extends ClassificationResult<S
 	
 	private List<TableIndexResult> indexes;
 	
-	private Map<String , ?> columnEvaluationIndex;
+	private ArrayListValuedHashMap<String , ?> columnEvaluationIndex;
 	
-	public SecondNormalFormClassificationResult(String tableName1 , List<TableIndexResult> indexes1 , Map<String , ?> columnEvaluationIndex1) {
+	public SecondNormalFormClassificationResult(String tableName1 , List<TableIndexResult> indexes1 , ArrayListValuedHashMap<String , ?> columnEvaluationIndex1) {
 		this.tableName = tableName1;
 		this.indexes=indexes1;
 		this.columnEvaluationIndex = columnEvaluationIndex1;
 	}
 
-	public Map<String, ?> getColumnEvaluationIndex() {
+	public ArrayListValuedHashMap<String, ?> getColumnEvaluationIndex() {
 		return columnEvaluationIndex;
 	}
 

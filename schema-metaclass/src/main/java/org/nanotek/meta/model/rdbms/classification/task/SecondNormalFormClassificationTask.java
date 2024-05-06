@@ -40,7 +40,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			
 			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd);
 			
-			Map<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
+			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
 			
 			SecondNormalFormClassificationResult theClassificationResult=null;
 			if (theMapList.keySet().size() == theTableColumns.get().size()) {
@@ -111,7 +111,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String,Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
+	private ArrayListValuedHashMap<String, Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
 		int initialCapacity = theKeyMap.size() + theIndexMap.size() + 1;
 		ArrayListValuedHashMap<String,Column> theMapList = new ArrayListValuedHashMap<String,Column>(initialCapacity, 16);
 		
@@ -140,7 +140,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			});
 		});
 		
-		return Map.class.cast(theMapList);
+		return theMapList;
 	}
 
 	private Optional<Map.Entry<String, Column>> verifyColumnOnTableIndexes(Column c, Optional<Collection<Index>> indexes) {
