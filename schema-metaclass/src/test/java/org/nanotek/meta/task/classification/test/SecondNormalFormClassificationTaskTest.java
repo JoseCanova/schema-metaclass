@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
+import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
@@ -53,28 +54,23 @@ public class SecondNormalFormClassificationTaskTest {
 		assertNotNull(schemaCrawlerService);
 		assertNotNull(firstNormalFormTask);
 		assertNotNull(secondNormalFormTask);
-		List<Optional<?>> resultList = new ArrayList<Optional<?>>();
+		List<Optional<ClassificationResult<?>>> resultList = new ArrayList<Optional<ClassificationResult<?>>>();
 		schemaCrawlerService
 		.getCatalogTables()
 		.ifPresentOrElse(t -> {
 			int count = t.size();
 			Table[] tary = t.toArray(new Table[count]);
 			for (int i = 0 ; i < count-1 ; i++) {
-				for (int j = i + 1 ; j < count ; ++j) {
-					System.err.println(" " + tary[i].getName() + "  " + tary[j].getName());
+//				for (int j = i + 1 ; j < count ; ++j) {
+//					System.err.println(" " + tary[i].getName() + "  " + tary[j].getName());
 					ClassificationData cd1 = buildClassificationData (tary[i]);
-					ClassificationData cd2 = buildClassificationData (tary[j]);
-					ClassificationDataPair cdp = new ClassificationDataPair(Pair.of(cd1,cd2)) ;
-					Optional<?> cr = firstNormalFormTask.evaluate(cdp);
-					cr.ifPresent(c -> {
-						System.err.println("Entered on Second Normal Form Phase");
-						Optional<?> csf2 = secondNormalFormTask.evaluate(cd2);
-						csf2.ifPresent(c2->{
+						Optional<ClassificationResult<?>> csf2 = secondNormalFormTask.evaluate(cd1);
+						csf2
+						.ifPresent(c2->{
 							resultList.add(Optional.of(c2));
 						});
-					});
 				}
-			}
+//			}
 			}, new Runnable() {
 			@Override
 			public void run() {
@@ -83,7 +79,7 @@ public class SecondNormalFormClassificationTaskTest {
 		});
 		assertTrue(resultList.size() > 0);
 	}
-	
+
 	private ClassificationData buildClassificationData(Table table) {
 		return new ClassificationData(
 				new SchemaTable(Optional.of(table)),

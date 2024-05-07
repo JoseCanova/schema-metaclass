@@ -140,6 +140,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return theMapList;
 	}
 
+	//TODO: Refactor this method.
 	private Optional<Map.Entry<String, Column>> verifyColumnOnTableIndexes(Column c, Optional<Collection<Index>> indexes) {
 		List<IndexColumn> a = new ArrayList<IndexColumn>();
 		return indexes
@@ -154,8 +155,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		.reduce(a , (b,cc) -> addAllColumns(a,cc))
 		.stream()
 		.filter(cc->c.getName().equalsIgnoreCase(cc.getName()))
-		.map(cc -> createIndexMapEntry(c.getName(),cc))
-		.findFirst().get();
+		.map(cc -> createIndexMapEntry(c.getName(),cc));
 	}
 
 	private Optional<Map.Entry<String,Column>> createIndexMapEntry(String name, IndexColumn cc) {
