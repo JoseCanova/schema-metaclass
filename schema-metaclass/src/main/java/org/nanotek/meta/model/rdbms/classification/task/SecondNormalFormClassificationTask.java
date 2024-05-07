@@ -22,7 +22,7 @@ import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.TableConstraintColumn;
 
 
-//TODO: prepare the evaluations of the method for unit test.
+//TODO: Refactor all, review report datastructure.
 @Component
 public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationData> {
 	
@@ -36,15 +36,12 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		
 			Optional<List<Column>> theTableColumns = cd.schemaTable().table().map(t -> t.getColumns());
 		
-			Map <String , Column> theKeyMap   = evaluateTheTableColumns(theTableColumns , cd);
+			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd.tableIndexes().indexes());
 			
-			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd);
-			
-			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theKeyMap , theIndexMap);
+			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theIndexMap);
 			
 			SecondNormalFormClassificationResult theClassificationResult=null;
 			if (theMapList.keySet().size() == theTableColumns.get().size()) {
-//				TableIndexResult thePrimaryKeyResult  = mountPrimaryKeyTableIndexResult(cd);
 				List<TableIndexResult> uniqueIndexTableIndexResult =  mountUniqueKeysTableIndexResultList(cd);
 				theClassificationResult = new SecondNormalFormClassificationResult(cd.schemaTable().table().get().getName() , uniqueIndexTableIndexResult , theMapList);
 			}
@@ -52,6 +49,17 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	}
 
 
+	private Map<String, Column> evaluateIndexColumns(Optional<List<Column>> theTableColumns, 
+			Optional<Collection<Index>> indexes) {
+		theTableColumns
+		.get()
+		.stream()
+		.map(c -> evaluateColumnOnIndex (c , indexes));
+		return null;
+	}
+
+	
+	
 	private List<TableIndexResult> mountUniqueKeysTableIndexResultList(ClassificationData cd) {
 		List<TableIndexResult> uniqueIndexTableIndexResult = new ArrayList<TableIndexResult> ();
 		
@@ -77,49 +85,28 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return uniqueIndexTableIndexResult;
 	}
 
-	private TableIndexResult mountPrimaryKeyTableIndexResult(ClassificationData cd) {
-		List<Column> pkeyColumns = cd.key()
-		.opkey()
-		.map( k-> k.getConstrainedColumns())
-		.get()
-		.stream()
-		.map(c -> Column.class.cast(c))
-		.collect(Collectors.toList());
-		
-		return new TableIndexResult(cd.schemaTable().table().get().getName() , IndexTypeEnum.PRIMARY_KEY , pkeyColumns);
-	}
 
-	private Map<String, Column> evaluateIndexColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
-		return theTableColumns
-				.get()
-				.stream()
-				.map(c -> verifyColumnOnTableIndexes(c,cd.tableIndexes().indexes()))
-				.map(e -> e.get())
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-	}
+//	private Map<String, Column> evaluateIndexColumns(Optional<List<Column>> theTableColumns, Column c) {
+//		return theTableColumns
+//				.get()
+//				.stream()
+//				.map(c -> verifyColumnOnTableIndexes(c,cd.tableIndexes().indexes()))
+//				.map(e -> e.get())
+//				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//	}
 
-	private Map<String, Column> evaluateTheTableColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
-		return  theTableColumns
-				.get()
-				.stream()
-				.map(c -> verifyColumnOnPrimaryKey(c,cd.key().opkey()))
-				.map(e -> e.get())
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-	}
+//	private Map<String, Column> evaluateTheTableColumns(Optional<List<Column>> theTableColumns, ClassificationData cd) {
+//		return  theTableColumns
+//				.get()
+//				.stream()
+//				.map(c -> verifyColumnOnPrimaryKey(c,cd.key().opkey()))
+//				.map(e -> e.get())
+//				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//	}
 
-	@SuppressWarnings("unchecked")
-	private ArrayListValuedHashMap<String, Column> prepareKeyIndexMap(Map<String, Column> theKeyMap, Map<String, Column> theIndexMap) {
-		int initialCapacity = theKeyMap.size() + theIndexMap.size() + 1;
+	private ArrayListValuedHashMap<String, Column> prepareKeyIndexMap(Map<String, Column> theIndexMap) {
+		int initialCapacity = theIndexMap.size() +  1;
 		ArrayListValuedHashMap<String,Column> theMapList = new ArrayListValuedHashMap<String,Column>(initialCapacity, 16);
-		
-		
-		theKeyMap
-		.keySet()
-		.stream()
-		.forEach(s ->{
-			Column c = theKeyMap.get(s);
-			theMapList.put(s , c);
-		});
 		
 		theIndexMap
 		.keySet()
@@ -140,42 +127,16 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return theMapList;
 	}
 
-	//TODO: Refactor this method.
-	private Optional<Map.Entry<String, Column>> verifyColumnOnTableIndexes(Column c, Optional<Collection<Index>> indexes) {
-		List<IndexColumn> a = new ArrayList<IndexColumn>();
-		return indexes
-		.get()
-		.stream()
-		.filter(i ->i.isUnique())
-		.collect(Collectors.toList())
-		.stream()
-		.map(i -> i.getColumns())
-		.collect(Collectors.toList())
-		.stream()
-		.reduce(a , (b,cc) -> addAllColumns(a,cc))
-		.stream()
-		.filter(cc->c.getName().equalsIgnoreCase(cc.getName()))
-		.map(cc -> createIndexMapEntry(c.getName(),cc));
-	}
+//	//TODO: Refactor this method.
+//	private Optional<Map.Entry<String, Column>> verifyColumnOnTableIndexes(Column c, Optional<Collection<Index>> indexes) {
+//		List<IndexColumn> a = new ArrayList<IndexColumn>();
+//		
+//		if (indexes.isPresent()) {
+//			Collection<Index> cIndexes = indexes.get();
+//		}
+//		return Optional.empty();
+//	}
 
-	private Optional<Map.Entry<String,Column>> createIndexMapEntry(String name, IndexColumn cc) {
-		return Optional.ofNullable(Map.entry(name, cc) );
-	}
-
-	private List<IndexColumn> addAllColumns(List<IndexColumn> a, List<IndexColumn> cc) {
-		a.addAll(cc);
-		return a;
-	}
-
-	private Optional<Map.Entry<String,Column>> verifyColumnOnPrimaryKey(Column c, Optional<PrimaryKey> opkey) {
-		return opkey
-		.get()
-		.getConstrainedColumns()
-		.stream()
-		.filter(cc -> c.getName().equalsIgnoreCase(c.getName()))
-		.findFirst()
-		.map(ccc -> createMapEntry(c.getName(), ccc));
-	}
 
 	private Map.Entry<String,Column>  createMapEntry(String name, TableConstraintColumn ccc) {
 		return Map.entry(name , ccc);
