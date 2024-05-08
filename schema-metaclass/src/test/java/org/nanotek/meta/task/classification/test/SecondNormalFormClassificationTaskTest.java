@@ -41,9 +41,6 @@ public class SecondNormalFormClassificationTaskTest {
 	SchemaCrawlerService schemaCrawlerService;
 	
 	@Autowired
-	FirstNormalFormClassificationTask firstNormalFormTask;
-	
-	@Autowired
 	SecondNormalFormClassificationTask secondNormalFormTask;
 	
 	//TODO: Fix the test of Classification - the iteration of table collection is providing double of the correct value

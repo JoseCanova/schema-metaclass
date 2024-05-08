@@ -19,6 +19,7 @@ import schemacrawler.schema.Column;
 import schemacrawler.schema.Index;
 import schemacrawler.schema.IndexColumn;
 import schemacrawler.schema.PrimaryKey;
+import schemacrawler.schema.Table;
 import schemacrawler.schema.TableConstraintColumn;
 
 
@@ -29,24 +30,28 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	public SecondNormalFormClassificationTask() {
 	}
 	
-	//TODO: Change Result Data Structure to Suport a better Data Structure
 	@SuppressWarnings("unchecked")
-	//TODO: Generate bad case scenarios to refine algorithm.
 	@Override
 	public Optional<SecondNormalFormClassificationResult> evaluate(ClassificationData cd) {
 		
-//			Optional<List<Column>> theTableColumns = cd.schemaTable().table().map(t -> t.getColumns());
-//		
-//			Map <String , Column> theIndexMap=  evaluateIndexColumns(theTableColumns,cd.tableIndexes().indexes());
-//			
-//			ArrayListValuedHashMap<String,Column>  theMapList = prepareKeyIndexMap(theIndexMap);
-//			
-//			SecondNormalFormClassificationResult theClassificationResult=null;
-//			if (theMapList.keySet().size() == theTableColumns.get().size()) {
-//				List<TableIndexResult> uniqueIndexTableIndexResult =  mountUniqueKeysTableIndexResultList(cd);
-//				theClassificationResult = new SecondNormalFormClassificationResult(cd.schemaTable().table().get().getName() , uniqueIndexTableIndexResult , theMapList);
-//			}
+		List<Column> tableColumns = cd.schemaTable()
+										.table()
+										.filter(t ->t.getColumns() !=null && t.getColumns().size() > 0)
+										.map(t -> t.getColumns())
+										.orElse(new ArrayList<Column>());
+		List<Index> uniqueTableIndexes  = retrieveUniqueTableIndexes(cd.schemaTable().table());
 		return Optional.empty();
+	}
+
+	private List<Index> retrieveUniqueTableIndexes(Optional<Table> table) {
+		Collection<Index> indexCollection =  retrieveTableIndexes(table.get());
+		return  indexCollection
+				.stream()
+				.filter(i-> i.isUnique()).collect(Collectors.toList());
+	}
+
+	private Collection<Index> retrieveTableIndexes(Table table) {
+		return Optional.ofNullable(table.getIndexes()).orElse(new ArrayList<>());
 	}
 
 
