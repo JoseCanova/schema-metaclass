@@ -8,7 +8,7 @@ import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 public interface TableClassificationTask<R extends Record> extends ClassificationTask<R>{
 
 	@Override
-	default Optional<ClassificationResult<?>> evaluate(R cd) {
+	default <K extends ClassificationResult<?>> Optional<K> evaluate(R cd) {
 		return Optional.empty();
 	}
 }

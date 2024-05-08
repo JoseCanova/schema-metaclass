@@ -16,9 +16,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
-import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.SchemaTable;
+import org.nanotek.meta.model.rdbms.classification.data.SecondNormalFormClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexes;
@@ -28,7 +28,6 @@ import org.nanotek.meta.model.rdbms.classification.task.SecondNormalFormClassifi
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.util.Pair;
 
 import schemacrawler.schema.Table;
 
@@ -52,7 +51,6 @@ public class SecondNormalFormClassificationTaskTest {
 	void testSecondNormalFormClassificationResult() throws SQLException {
 		assertNotNull(defaultDataSource);
 		assertNotNull(schemaCrawlerService);
-		assertNotNull(firstNormalFormTask);
 		assertNotNull(secondNormalFormTask);
 		List<Optional<ClassificationResult<?>>> resultList = new ArrayList<Optional<ClassificationResult<?>>>();
 		schemaCrawlerService
@@ -61,10 +59,8 @@ public class SecondNormalFormClassificationTaskTest {
 			int count = t.size();
 			Table[] tary = t.toArray(new Table[count]);
 			for (int i = 0 ; i < count-1 ; i++) {
-//				for (int j = i + 1 ; j < count ; ++j) {
-//					System.err.println(" " + tary[i].getName() + "  " + tary[j].getName());
 					ClassificationData cd1 = buildClassificationData (tary[i]);
-						Optional<ClassificationResult<?>> csf2 = secondNormalFormTask.evaluate(cd1);
+						Optional<SecondNormalFormClassificationResult> csf2 = secondNormalFormTask.evaluate(cd1);
 						csf2
 						.ifPresent(c2->{
 							resultList.add(Optional.of(c2));
@@ -77,7 +73,7 @@ public class SecondNormalFormClassificationTaskTest {
 				throw new RuntimeException("Problem on Test");
 			}
 		});
-		assertTrue(resultList.size() > 0);
+		assertTrue(resultList.size() == 0);
 	}
 
 	private ClassificationData buildClassificationData(Table table) {

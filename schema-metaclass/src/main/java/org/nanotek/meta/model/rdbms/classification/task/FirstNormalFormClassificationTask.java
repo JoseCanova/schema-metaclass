@@ -24,7 +24,7 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 	public FirstNormalFormClassificationTask() {}
 	
 	@Override
-	public Optional<ClassificationResult<?>> evaluate(ClassificationDataPair cd) {
+	public  Optional<FirstNormalFormClassificationResult> evaluate(ClassificationDataPair cd) {
 		Pair<ClassificationData,ClassificationData> cdPair = cd.classificationDataPair();
 		Optional<ClassificationResult<?>> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
 		Optional<ClassificationResult<?>> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
@@ -33,8 +33,7 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 		return Optional
 			.ofNullable(ClassificationResultPairPredicate.of().evaluate(voidResultPair))
 			.filter(rp -> rp==true)
-			.map(r -> verifyFirstNormalForm(cd)).orElse(Optional.empty())
-			.map(r -> ClassificationResult.class.cast(r));
+			.map(r -> verifyFirstNormalForm(cd)).orElse(Optional.empty());
 	}
 
 	//TODO:Refactor method for return value
