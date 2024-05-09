@@ -3,25 +3,19 @@ package org.nanotek.meta.model.rdbms.classification.task;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
-import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.IndexTypeEnum;
+import org.nanotek.meta.model.rdbms.classification.data.Result;
 import org.nanotek.meta.model.rdbms.classification.data.SecondNormalFormClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexResult;
-import org.nanotek.meta.model.rdbms.classification.data.Result;
 import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Index;
-import schemacrawler.schema.IndexColumn;
-import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Table;
-import schemacrawler.schema.TableConstraintColumn;
 
 
 //TODO: Refactor all, review report datastructure.
@@ -51,14 +45,15 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		    return new Result<List<Index>,Column>(indexResultList , cc);
 		})
 		.collect(Collectors.toList());
-		String tableName = cd.schemaTable().table().get().getName();
 		TableIndexResult theResult = new TableIndexResult (IndexTypeEnum.UNIQUE_INDEX , columnsIndexResult);
-		
-		return Optional.of(evaluateTableIndexResult(tableName , theResult));
+		return evaluateTableIndexResult(cd.schemaTable().table() , theResult);
 	}
 
-	private SecondNormalFormClassificationResult evaluateTableIndexResult(String tableName, TableIndexResult theResult) {
-		return null;
+	private Optional<SecondNormalFormClassificationResult> evaluateTableIndexResult(Optional<Table> oTable, TableIndexResult theResult) {
+		if (theResult.columnsIndexResult().size() == oTable.get().getColumns().size())
+			return Optional.of(new SecondNormalFormClassificationResult(oTable.get().getName(),  theResult));
+		else 
+			return Optional.empty();
 	}
 
 	private  List<Index> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
