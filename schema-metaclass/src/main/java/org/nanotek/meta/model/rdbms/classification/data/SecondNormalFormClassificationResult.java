@@ -1,35 +1,24 @@
 package org.nanotek.meta.model.rdbms.classification.data;
 
-import java.util.List;
-
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
-
 public class SecondNormalFormClassificationResult extends ClassificationResult<SecondNormalFormClassificationResult> {
 
 	private static final long serialVersionUID = -737695342685537514L;
 	
 	private String tableName;
 	
-	private List<TableIndexResult> indexes;
+	private TableIndexResult indexes;
 	
-	private ArrayListValuedHashMap<String , ?> columnEvaluationIndex;
-	
-	public SecondNormalFormClassificationResult(String tableName1 , List<TableIndexResult> indexes1 , ArrayListValuedHashMap<String , ?> columnEvaluationIndex1) {
+	public SecondNormalFormClassificationResult(String tableName1 , TableIndexResult indexes1 ) {
 		this.tableName = tableName1;
 		this.indexes=indexes1;
-		this.columnEvaluationIndex = columnEvaluationIndex1;
 		this.id = TableTypeEnum.SECOND_NORMAL_FORM_TABLE;
-	}
-
-	public ArrayListValuedHashMap<String, ?> getColumnEvaluationIndex() {
-		return columnEvaluationIndex;
 	}
 
 	public String getTableName() {
 		return tableName;
 	}
 
-	public List<TableIndexResult> getIndexes() {
+	public TableIndexResult getIndexes() {
 		return indexes;
 	}
 

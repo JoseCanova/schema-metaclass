@@ -3,14 +3,13 @@ package org.nanotek.meta.model.rdbms.classification.data;
 import java.util.List;
 
 import schemacrawler.schema.Column;
+import schemacrawler.schema.Index;
 
-public record TableIndexResult(String tablename, IndexTypeEnum indexType , List<Column> columns) {
+public record TableIndexResult(IndexTypeEnum indexType , List<Result<List<Index>,Column>> columnsIndexResult) {
 
-	
-	public TableIndexResult(String tablename, IndexTypeEnum indexType , List<Column> columns) {
-		this.tablename=tablename;
+	public TableIndexResult(IndexTypeEnum indexType , List<Result<List<Index>,Column>> columnsIndexResult) {
 		this.indexType=indexType;
-		this.columns=columns;
+		this.columnsIndexResult=columnsIndexResult;
 	}
 	
 }
