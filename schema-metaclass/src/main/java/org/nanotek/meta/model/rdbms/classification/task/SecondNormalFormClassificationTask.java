@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.IndexTypeEnum;
-import org.nanotek.meta.model.rdbms.classification.data.Result;
+import org.nanotek.meta.model.rdbms.classification.data.ResultInfo;
 import org.nanotek.meta.model.rdbms.classification.data.SecondNormalFormClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexResult;
 import org.springframework.stereotype.Component;
@@ -38,11 +38,11 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		List<Index> uniqueTableIndexes  = retrieveUniqueTableIndexes(cd.schemaTable().table());
 		
 		
-		List<Result<List<Index>,Column>> columnsIndexResult =  tableColumns
+		List<ResultInfo<List<Index>,Column>> columnsIndexResult =  tableColumns
 		.stream()
 		.map(cc -> {
 		    List<Index>  indexResultList =	mountColumnIndexResult(cc , uniqueTableIndexes);
-		    return new Result<List<Index>,Column>(indexResultList , cc);
+		    return new ResultInfo<List<Index>,Column>(indexResultList , cc);
 		})
 		.collect(Collectors.toList());
 		TableIndexResult theResult = new TableIndexResult (IndexTypeEnum.UNIQUE_INDEX , columnsIndexResult);
