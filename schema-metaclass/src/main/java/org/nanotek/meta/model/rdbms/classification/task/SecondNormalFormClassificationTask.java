@@ -49,6 +49,8 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return evaluateTableIndexResult(cd.schemaTable().table() , theResult);
 	}
 
+	
+	//TODO:Review this method, its inverting the result of second normal form.
 	private Optional<SecondNormalFormClassificationResult> evaluateTableIndexResult(Optional<Table> oTable, TableIndexResult theResult) {
 		if (theResult.columnsIndexResult().size() == oTable.get().getColumns().size())
 			return Optional.of(new SecondNormalFormClassificationResult(oTable.get().getName(),  theResult));
