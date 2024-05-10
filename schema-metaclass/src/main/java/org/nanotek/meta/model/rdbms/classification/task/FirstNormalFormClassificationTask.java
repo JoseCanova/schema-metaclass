@@ -63,15 +63,17 @@ class ClassificationResultPairPredicate implements Predicate<Pair<Optional<Class
 
 	private ClassificationResultPairPredicate() {}
 	
-	@Override
-	public boolean evaluate(Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> pair) {
-		
-		return pair
-				.getFirst().isEmpty() && pair.getSecond().isEmpty();
-	}
+	
 	
 	public static ClassificationResultPairPredicate of() {
 		return new ClassificationResultPairPredicate();
+	}
+
+
+	@Override
+	public boolean evaluate(Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> pair) {
+		return pair
+				.getFirst().isEmpty() && pair.getSecond().isEmpty();
 	}
 	
 }

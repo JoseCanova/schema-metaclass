@@ -23,7 +23,6 @@ import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexes;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
-import org.nanotek.meta.model.rdbms.classification.task.FirstNormalFormClassificationTask;
 import org.nanotek.meta.model.rdbms.classification.task.SecondNormalFormClassificationTask;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +69,7 @@ public class SecondNormalFormClassificationTaskTest {
 				throw new RuntimeException("Problem on Test");
 			}
 		});
-		assertTrue(resultList.size() > 0);
+		assertTrue(resultList.size() == 1);
 	}
 
 	private ClassificationData buildClassificationData(Table table) {

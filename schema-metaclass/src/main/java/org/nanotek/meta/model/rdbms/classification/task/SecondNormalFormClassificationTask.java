@@ -59,7 +59,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	private  List<Index> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
 		return uniqueTableIndexes
 		.stream()
-		.filter(i -> indexContainsColumn(i , cc))
+		.filter(i -> !indexContainsColumn(i , cc))
 		.collect(Collectors.toList());
 	}
 
@@ -67,7 +67,8 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		return i
 		.getColumns()
 		.stream()
-		.anyMatch(ci -> ci.getName().equalsIgnoreCase(cc.getName()));
+		.filter(ci -> ci.getName().equalsIgnoreCase(cc.getName()))
+		.count() > 0;
 	}
 
 	private List<Index> retrieveUniqueTableIndexes(Optional<Table> table) {
