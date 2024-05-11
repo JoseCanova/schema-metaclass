@@ -2,7 +2,9 @@ package org.nanotek.meta.model.rdbms.classification.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		
 		List<Index> uniqueTableIndexes  = retrieveUniqueTableIndexes(cd.schemaTable().table());
 		
-		
+		//TODO: Refactor the map method ... 
 		List<ResultInfo<List<Index>,Column>> columnsIndexResult =  tableColumns
 		.stream()
 		.map(cc -> {
@@ -58,19 +60,21 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			return Optional.empty();
 	}
 
-	private  List<Index> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
+	private List<Index> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
+		String columnName = cc.getName();
+		Map<String,Index> theColumnIndexMap = new HashMap<String,Index>();
 		return uniqueTableIndexes
 		.stream()
-		.filter(i -> !indexContainsColumn(i , cc))
+		.filter(i -> indexContainsColumn(columnName , i))
 		.collect(Collectors.toList());
 	}
 
-	private boolean indexContainsColumn(Index i, Column cc) {
-		return i
-		.getColumns()
+	private boolean indexContainsColumn(String columnName  , Index i) {
+		return 
+		i.getColumns()
 		.stream()
-		.filter(ci -> ci.getName().equalsIgnoreCase(cc.getName()))
-		.count() > 0;
+		.filter(ci -> ci.getName().equalsIgnoreCase(columnName))
+		.count() >= 1;
 	}
 
 	private List<Index> retrieveUniqueTableIndexes(Optional<Table> table) {
