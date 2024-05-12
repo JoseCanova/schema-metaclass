@@ -1,11 +1,6 @@
 package org.nanotek.meta.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @EqualsAndHashCode
 public class PkColumn {
@@ -14,7 +9,6 @@ public class PkColumn {
 
 	public PkColumn() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PkColumn(String name) {

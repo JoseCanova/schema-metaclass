@@ -77,7 +77,6 @@ public class DataSourceTest {
 		assertNotNull(connection);
 	}
 	
-	//TODO: finish this unit test. 
 	@Test
 	void testSchemaCrawlerPostgresConnectionAndTablesRetrieval() throws SQLException {
 		assertNotNull(defaultDataSource);

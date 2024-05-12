@@ -36,7 +36,6 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 			.map(r -> verifyFirstNormalForm(cd)).orElse(Optional.empty());
 	}
 
-	//TODO:Refactor method for return value
 	private  Optional<FirstNormalFormClassificationResult> verifyFirstNormalForm(ClassificationDataPair cdp) {
 		Pair<ClassificationData,ClassificationData> cdp1 = cdp.classificationDataPair();
 		Optional<Table> firstTable = cdp1

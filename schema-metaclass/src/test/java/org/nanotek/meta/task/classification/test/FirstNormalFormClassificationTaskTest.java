@@ -30,7 +30,6 @@ import org.springframework.data.util.Pair;
 
 import schemacrawler.schema.Table;
 
-//TODO: Finish task and unit test.
 @SpringBootTest
 public class FirstNormalFormClassificationTaskTest {
 

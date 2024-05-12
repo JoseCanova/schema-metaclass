@@ -20,7 +20,6 @@ import schemacrawler.schema.Index;
 import schemacrawler.schema.Table;
 
 
-//TODO: Refactor all, review report datastructure.
 @Component
 public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationData> {
 	
@@ -39,7 +38,6 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		
 		List<Index> uniqueTableIndexes  = retrieveUniqueTableIndexes(cd.schemaTable().table());
 		
-		//TODO: Refactor the map method ... 
 		Map<String,List<Index>> columnsIndexResult = tableColumns
 		.stream()
 		.map(cc -> mountColumnIndexResult(cc , uniqueTableIndexes))
@@ -51,7 +49,6 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	}
 
 	
-	//TODO:Review this method, its inverting the result of second normal form.
 	private Optional<SecondNormalFormClassificationResult> evaluateTableIndexResult(Optional<Table> oTable, TableIndexResult theResult) {
 		if (theResult.columnsIndexResult().values().size() == oTable.get().getColumns().size())
 			return Optional.of(new SecondNormalFormClassificationResult(oTable.get().getName(),  theResult));
