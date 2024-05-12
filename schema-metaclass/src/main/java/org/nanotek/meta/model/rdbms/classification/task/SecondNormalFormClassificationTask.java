@@ -40,13 +40,11 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		List<Index> uniqueTableIndexes  = retrieveUniqueTableIndexes(cd.schemaTable().table());
 		
 		//TODO: Refactor the map method ... 
-		List<ResultInfo<List<Index>,Column>> columnsIndexResult =  tableColumns
+		Map<String,List<Index>> columnsIndexResult = tableColumns
 		.stream()
-		.map(cc -> {
-		    List<Index>  indexResultList =	mountColumnIndexResult(cc , uniqueTableIndexes);
-		    return new ResultInfo<List<Index>,Column>(indexResultList , cc);
-		})
-		.collect(Collectors.toList());
+		.map(cc -> mountColumnIndexResult(cc , uniqueTableIndexes))
+		.map(ir -> Map.entry(ir.informed(), ir.resulted()))
+		.collect(Collectors.toMap(Map.Entry::getKey , Map.Entry::getValue));
 		TableIndexResult theResult = new TableIndexResult (IndexTypeEnum.UNIQUE_INDEX , columnsIndexResult);
 		return evaluateTableIndexResult(cd.schemaTable().table() , theResult);
 	}
@@ -60,13 +58,11 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 			return Optional.empty();
 	}
 
-	private List<Index> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
-		String columnName = cc.getName();
-		Map<String,Index> theColumnIndexMap = new HashMap<String,Index>();
-		return uniqueTableIndexes
+	private ResultInfo<List<Index> , String> mountColumnIndexResult(Column cc, List<Index> uniqueTableIndexes) {
+		return  new ResultInfo<List<Index> , String>( uniqueTableIndexes
 		.stream()
-		.filter(i -> indexContainsColumn(columnName , i))
-		.collect(Collectors.toList());
+		.filter(i -> indexContainsColumn(cc.getName() , i))
+		.collect(Collectors.toList()),cc.getName() );
 	}
 
 	private boolean indexContainsColumn(String columnName  , Index i) {
