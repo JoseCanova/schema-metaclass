@@ -50,7 +50,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 
 	
 	private Optional<SecondNormalFormClassificationResult> evaluateTableIndexResult(Optional<Table> oTable, TableIndexResult theResult) {
-		if (theResult.columnsIndexResult().values().size() == oTable.get().getColumns().size())
+		if (theResult.columnsIndexResult().size() == oTable.get().getColumns().size())
 			return Optional.of(new SecondNormalFormClassificationResult(oTable.get().getName(),  theResult));
 		else 
 			return Optional.empty();
