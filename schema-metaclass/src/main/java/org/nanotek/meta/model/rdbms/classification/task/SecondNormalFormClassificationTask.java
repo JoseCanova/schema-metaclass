@@ -44,6 +44,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 		.stream()
 		.map(cc -> mountColumnIndexResult(cc , uniqueTableIndexes))
 		.map(ir -> Map.entry(ir.informed(), ir.resulted()))
+		.filter(erl -> erl.getValue() != null && erl.getValue().size() > 0)
 		.collect(Collectors.toMap(Map.Entry::getKey , Map.Entry::getValue));
 		TableIndexResult theResult = new TableIndexResult (IndexTypeEnum.UNIQUE_INDEX , columnsIndexResult);
 		return evaluateTableIndexResult(cd.schemaTable().table() , theResult);
@@ -52,7 +53,7 @@ public class SecondNormalFormClassificationTask implements TableClassificationTa
 	
 	//TODO:Review this method, its inverting the result of second normal form.
 	private Optional<SecondNormalFormClassificationResult> evaluateTableIndexResult(Optional<Table> oTable, TableIndexResult theResult) {
-		if (theResult.columnsIndexResult().size() == oTable.get().getColumns().size())
+		if (theResult.columnsIndexResult().values().size() == oTable.get().getColumns().size())
 			return Optional.of(new SecondNormalFormClassificationResult(oTable.get().getName(),  theResult));
 		else 
 			return Optional.empty();

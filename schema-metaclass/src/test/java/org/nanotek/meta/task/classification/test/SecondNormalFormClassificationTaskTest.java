@@ -54,7 +54,7 @@ public class SecondNormalFormClassificationTaskTest {
 		.ifPresentOrElse(t -> {
 			int count = t.size();
 			Table[] tary = t.toArray(new Table[count]);
-			for (int i = 0 ; i < count-1 ; i++) {
+			for (int i = 0 ; i < count ; i++) {
 					ClassificationData cd1 = buildClassificationData (tary[i]);
 						Optional<SecondNormalFormClassificationResult> csf2 = secondNormalFormTask.evaluate(cd1);
 						csf2
@@ -69,7 +69,7 @@ public class SecondNormalFormClassificationTaskTest {
 				throw new RuntimeException("Problem on Test");
 			}
 		});
-		assertTrue(resultList.size() == 0);
+		assertTrue(resultList.size() == 1);
 	}
 
 	private ClassificationData buildClassificationData(Table table) {
