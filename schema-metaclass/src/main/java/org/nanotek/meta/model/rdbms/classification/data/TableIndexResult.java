@@ -12,7 +12,7 @@ public record TableIndexResult(IndexTypeEnum indexType , Map<String,List<Index>>
 
 	public TableIndexResult(IndexTypeEnum indexType , Map<String,List<Index>> columnsIndexResult) {
 		this.indexType=indexType;
-		this.columnsIndexResult=columnsIndexResult;
+		this.columnsIndexResult= Collections.unmodifiableMap(columnsIndexResult);
 	}
 
 	@Override
