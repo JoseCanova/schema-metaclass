@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
-import org.nanotek.meta.model.rdbms.classification.data.VoidTableClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.result.VoidTableClassificationResult;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

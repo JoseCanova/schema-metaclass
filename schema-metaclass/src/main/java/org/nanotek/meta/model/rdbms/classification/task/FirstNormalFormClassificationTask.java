@@ -7,7 +7,7 @@ import org.apache.commons.collections4.Predicate;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
-import org.nanotek.meta.model.rdbms.classification.data.FirstNormalFormClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.result.FirstNormalFormClassificationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;

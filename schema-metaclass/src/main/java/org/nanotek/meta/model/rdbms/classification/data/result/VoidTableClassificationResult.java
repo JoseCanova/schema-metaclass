@@ -1,4 +1,7 @@
-package org.nanotek.meta.model.rdbms.classification.data;
+package org.nanotek.meta.model.rdbms.classification.data.result;
+
+import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
 
 public class VoidTableClassificationResult extends ClassificationResult<VoidTableClassificationResult>{
 

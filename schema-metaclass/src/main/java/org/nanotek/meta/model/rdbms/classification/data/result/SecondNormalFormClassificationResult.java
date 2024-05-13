@@ -1,4 +1,8 @@
-package org.nanotek.meta.model.rdbms.classification.data;
+package org.nanotek.meta.model.rdbms.classification.data.result;
+
+import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.TableIndexResult;
+import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
 
 public class SecondNormalFormClassificationResult extends ClassificationResult<SecondNormalFormClassificationResult> {
 

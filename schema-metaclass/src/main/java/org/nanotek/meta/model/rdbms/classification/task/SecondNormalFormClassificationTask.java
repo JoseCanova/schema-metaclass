@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.IndexTypeEnum;
 import org.nanotek.meta.model.rdbms.classification.data.ResultInfo;
-import org.nanotek.meta.model.rdbms.classification.data.SecondNormalFormClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexResult;
+import org.nanotek.meta.model.rdbms.classification.data.result.SecondNormalFormClassificationResult;
 import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.Column;
