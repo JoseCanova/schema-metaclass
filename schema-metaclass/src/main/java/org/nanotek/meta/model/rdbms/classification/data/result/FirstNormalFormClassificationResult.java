@@ -3,6 +3,7 @@ package org.nanotek.meta.model.rdbms.classification.data.result;
 import java.util.List;
 
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
 
 import schemacrawler.schema.TableConstraintColumn;
 

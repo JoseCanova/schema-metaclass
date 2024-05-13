@@ -8,16 +8,20 @@ public class SecondNormalFormClassificationResult extends ClassificationResult<S
 
 	private static final long serialVersionUID = -737695342685537514L;
 	
-	private String tableName;
+	protected String tableName;
 	
-	private TableIndexResult indexes;
+	protected TableIndexResult indexes;
 	
 	public SecondNormalFormClassificationResult(String tableName1 , TableIndexResult indexes1 ) {
+		postConstruct( tableName1 ,  indexes1);
+	}
+
+	protected void postConstruct(String tableName1 , TableIndexResult indexes1) {
 		this.tableName = tableName1;
 		this.indexes=indexes1;
 		this.id = TableTypeEnum.SECOND_NORMAL_FORM_TABLE;
 	}
-
+	
 	public String getTableName() {
 		return tableName;
 	}
