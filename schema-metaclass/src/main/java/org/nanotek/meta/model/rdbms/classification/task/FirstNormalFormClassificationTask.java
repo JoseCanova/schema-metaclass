@@ -8,6 +8,7 @@ import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 import org.nanotek.meta.model.rdbms.classification.data.result.FirstNormalFormClassificationResult;
+import org.nanotek.meta.model.rdbms.classification.data.result.VoidTableClassificationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,9 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 	@Override
 	public  Optional<FirstNormalFormClassificationResult> evaluate(ClassificationDataPair cd) {
 		Pair<ClassificationData,ClassificationData> cdPair = cd.classificationDataPair();
-		Optional<ClassificationResult<?>> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
-		Optional<ClassificationResult<?>> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
-		Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> voidResultPair= Pair.of(ocr1, ocr2);
+		Optional<VoidTableClassificationResult> ocr1 = voidTableClassificationTask.evaluate(cdPair.getFirst());
+		Optional<VoidTableClassificationResult> ocr2 = voidTableClassificationTask.evaluate(cdPair.getSecond());
+		Pair<Optional<VoidTableClassificationResult>, Optional<VoidTableClassificationResult>> voidResultPair= Pair.of(ocr1, ocr2);
 		
 		return Optional
 			.ofNullable(ClassificationResultPairPredicate.of().evaluate(voidResultPair))
@@ -58,7 +59,7 @@ public class FirstNormalFormClassificationTask implements TableClassificationTas
 
 }
 
-class ClassificationResultPairPredicate implements Predicate<Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>>>{
+class ClassificationResultPairPredicate implements Predicate<Pair<Optional<VoidTableClassificationResult>, Optional<VoidTableClassificationResult>>>{
 
 	private ClassificationResultPairPredicate() {}
 	
@@ -70,7 +71,7 @@ class ClassificationResultPairPredicate implements Predicate<Pair<Optional<Class
 
 
 	@Override
-	public boolean evaluate(Pair<Optional<ClassificationResult<?>>, Optional<ClassificationResult<?>>> pair) {
+	public boolean evaluate(Pair<Optional<VoidTableClassificationResult>, Optional<VoidTableClassificationResult>> pair) {
 		return pair
 				.getFirst().isEmpty() && pair.getSecond().isEmpty();
 	}

@@ -9,7 +9,10 @@ public enum TableTypeEnum implements Serializable{
 	COMMON_TABLE(5),
 	FIRST_NORMAL_FORM_TABLE(7),
 	SECOND_NORMAL_FORM_TABLE(17),
-	THIRD_NORMAL_FORM(41);
+	THIRD_NORMAL_FORM(41), 
+	FACT_TABLE(43), 
+	DIMENSION_TABLE(47),
+	INTEGRATION_TABLE(53);
 	
 	private Integer type;
 
