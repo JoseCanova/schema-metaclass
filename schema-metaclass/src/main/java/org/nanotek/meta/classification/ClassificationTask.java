@@ -4,9 +4,11 @@ import java.util.Optional;
 
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationResult;
 
-@FunctionalInterface
-public interface ClassificationTask<R extends Record> {
+public interface ClassificationTask<R extends Record , K extends ClassificationResult<?>> extends Task<R,K>{
 
-  <K extends ClassificationResult<?>> Optional<K> evaluate(R cd);
+  @Override	
+  default Optional<K> evaluate(R cd){
+	  return Optional.empty();
+  }
 	
 }
