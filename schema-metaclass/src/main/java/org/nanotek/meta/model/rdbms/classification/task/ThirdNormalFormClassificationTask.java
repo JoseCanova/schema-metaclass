@@ -19,11 +19,10 @@ import schemacrawler.schema.Index;
 import schemacrawler.schema.Table;
 
 @Component
-public class ThirdNormalFormClassificationTask implements TableClassificationTask<ClassificationData>{
+public class ThirdNormalFormClassificationTask implements TableClassificationTask<ClassificationData , ThirdNormalFormClassificationResult>{
 
 	public ThirdNormalFormClassificationTask() {}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Optional<ThirdNormalFormClassificationResult> evaluate(ClassificationData cd) {
 		List<Column> tableColumns = cd.schemaTable()

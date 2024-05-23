@@ -2,7 +2,6 @@ package org.nanotek.meta.model.rdbms.classification.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,12 +20,11 @@ import schemacrawler.schema.Table;
 
 
 @Component
-public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationData> {
+public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationData , SecondNormalFormClassificationResult> {
 	
 	public SecondNormalFormClassificationTask() {
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Optional<SecondNormalFormClassificationResult> evaluate(ClassificationData cd) {
 		

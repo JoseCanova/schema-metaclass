@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.handler.AbstractMessageHandler;
 import org.springframework.messaging.Message;
 
-public class RdbmsTaskMessageHandler<T extends TableClassificationTask<ClassificationData>> extends AbstractMessageHandler {
+public class RdbmsTaskMessageHandler<T extends TableClassificationTask<ClassificationData,ClassificationResult<?>>> extends AbstractMessageHandler {
 
 	
 	private T task;

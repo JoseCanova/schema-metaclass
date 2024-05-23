@@ -17,7 +17,7 @@ import schemacrawler.schema.ForeignKey;
 import schemacrawler.schema.Table;
 
 @Component
-public class FirstNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair> {
+public class FirstNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair , FirstNormalFormClassificationResult> {
 
 	@Autowired
 	private VoidTableClassificationTask voidTableClassificationTask ;

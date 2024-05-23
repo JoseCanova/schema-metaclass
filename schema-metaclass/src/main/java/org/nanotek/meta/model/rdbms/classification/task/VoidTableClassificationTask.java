@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import schemacrawler.schema.Table;
 
 @Component
-public class VoidTableClassificationTask implements TableClassificationTask<ClassificationData> {
+public class VoidTableClassificationTask implements TableClassificationTask<ClassificationData,VoidTableClassificationResult> {
 
 	@Autowired
 	protected SchemaCrawlerService schemaCrawlerService;
@@ -19,7 +19,6 @@ public class VoidTableClassificationTask implements TableClassificationTask<Clas
 	public VoidTableClassificationTask() {
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Optional<VoidTableClassificationResult> evaluate(ClassificationData cd) {
 			 return Optional.ofNullable(cd)
