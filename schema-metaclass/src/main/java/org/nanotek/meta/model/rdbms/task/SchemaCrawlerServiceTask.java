@@ -3,7 +3,7 @@ package org.nanotek.meta.model.rdbms.task;
 import java.util.Optional;
 
 import org.nanotek.meta.classification.SchemaCrawlerTask;
-import org.nanotek.meta.model.rdbms.classification.data.SchemaCrawlerResult;
+import org.nanotek.meta.model.rdbms.schema.result.SchemaCrawlerResult;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 

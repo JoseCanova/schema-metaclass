@@ -1,4 +1,4 @@
-package org.nanotek.meta.model.rdbms.classification.data;
+package org.nanotek.meta.model.rdbms.schema.result;
 
 import java.util.Optional;
 
