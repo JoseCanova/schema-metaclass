@@ -16,6 +16,11 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 public class MetaClassSpringIntegrationConfiguration {
 
 	
+	@Bean
+	public MessageChannel firstChannel() {
+		return new DirectChannel();
+	}
+	
 	@Bean 
 	public MessageChannel voidMessageChannel() {
 		return new DirectChannel();
