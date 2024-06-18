@@ -58,10 +58,12 @@ public class MetaClassSpringIntegrationConfiguration {
 	}
 	
 
-	
+	@Bean
 	public IntegrationFlow dataModelIntegrationFlow(@Autowired SchemaCrawlerService schemaCrawlerService) {
-		return IntegrationFlow.from(() -> new GenericMessage<>(schemaCrawlerService.getCatalogTables()) {} 
-											, e -> e.poller(p -> p.fixedRate(5000))).get();
+		return IntegrationFlow
+				.from("initChannel")
+				.channel(firstChannel())
+				.get();
 	}
 	
 }

@@ -27,7 +27,8 @@ import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 @SpringBootConfiguration
 @ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" 
 								,"org.nanotek.meta.util",
-								"org.nanotek.meta.model.rdbms.classification.task" })
+								"org.nanotek.meta.model.rdbms.classification.task",
+								"org.nanotek.meta.integration.handler"})
 public class MetaClassConfiguration {
 
 	public MetaClassConfiguration() {
