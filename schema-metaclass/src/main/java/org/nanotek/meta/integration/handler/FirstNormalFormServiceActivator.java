@@ -33,7 +33,7 @@ public class FirstNormalFormServiceActivator {
 	}
 
 
-	@ServiceActivator(inputChannel = "firstNormalFormMessageChannel" , outputChannel = "secondNormalFormMessageChannel")
+	@ServiceActivator(inputChannel = "firstNormalFormMessageChannel" , outputChannel = "splitCatalogMessageChannel")
 	public Message<List<Table>> firstNormalFormServiceActivator(Message<?> message) {
 		Object oPayload = message.getPayload();
 		Optional<?> optPayload = Optional.class.cast(oPayload);
