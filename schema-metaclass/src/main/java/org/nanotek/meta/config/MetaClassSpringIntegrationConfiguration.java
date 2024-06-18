@@ -99,6 +99,7 @@ public class MetaClassSpringIntegrationConfiguration {
 					Optional<?> csf2 = Optional.class.cast(result);
 					return csf2.isPresent();
 				})
+				.channel(thirdNormalFormMessageChannel())
 				.get();
 	}
 	
