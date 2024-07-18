@@ -1,5 +1,6 @@
 package org.nanotek.meta.integration.handler;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
@@ -16,7 +17,9 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Table;
+import schemacrawler.schema.TableConstraintColumn;
 
 @Component
 public class SecondNormalFormServiceActivator {
@@ -41,11 +44,16 @@ public class SecondNormalFormServiceActivator {
 	private ClassificationData buildClassificationData(Table table) {
 		return new ClassificationData(
 				new SchemaTable(Optional.of(table)),
-				new TableKey(Optional.ofNullable(table.getPrimaryKey())),
+				prepareTableKey(table.getPrimaryKey()),
 				new TableColumns(Optional.ofNullable(table.getColumns())),
 				new TableForeignKeys(Optional.ofNullable(table.getForeignKeys())), 
 				new TableIndexes(Optional.ofNullable(table.getIndexes()))
 				);
+	}
+
+	//TODO: Create record column to unify with table columns.
+	private TableKey prepareTableKey(PrimaryKey primaryKey) {
+		return new TableKey(Optional.of(primaryKey));
 	}
 	
 }
