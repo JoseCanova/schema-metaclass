@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.nanotek.meta.model.MetaClass;
+import org.nanotek.meta.model.MetaClassAttribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
 @ToString
-public class RdbmsMetaClassAttribute  {
+public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
@@ -33,14 +34,14 @@ public class RdbmsMetaClassAttribute  {
 	private List<String> idAliases;
 	
 	@JsonIgnore
-	private MetaClass<?,?> metaClass;
+	private MetaClass<?,?,?> metaClass;
 	
 	
 	public RdbmsMetaClassAttribute() {
 		super();
 	}
 
-	public RdbmsMetaClassAttribute(MetaClass<?,?> mc) {
+	public RdbmsMetaClassAttribute(MetaClass<?,?,?> mc) {
 		super();
 		this.metaClass=mc;
 	}
@@ -146,11 +147,11 @@ public class RdbmsMetaClassAttribute  {
 		this.idAliases = idAliases;
 	}
 
-	public MetaClass<?,?> getMetaClass() {
+	public MetaClass<?,?,?> getMetaClass() {
 		return metaClass;
 	}
 
-	public void setMetaClass(MetaClass<?,?> metaClass) {
+	public void setMetaClass(MetaClass<?,?,?> metaClass) {
 		this.metaClass = metaClass;
 	}
 	

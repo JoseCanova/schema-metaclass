@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
  */
 @Document
 @JsonInclude(value = Include.NON_NULL)
-public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> extends MetaBase<K,String>  implements IClass {
+public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T extends MetaClassAttribute<?>> extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
@@ -31,7 +31,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	protected String className; 
 	
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
-	protected List<RdbmsMetaClassAttribute> metaAttributes = new ArrayList<>();
+	protected List<T> metaAttributes = new ArrayList<>();
 
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
@@ -46,7 +46,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	}
 
 	public MetaClass(String className, 
-			List<RdbmsMetaClassAttribute> metaAttributes) {
+			List<T> metaAttributes) {
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
@@ -69,20 +69,14 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 		this.className = className;
 	}
 
-	@Override
-	public List<RdbmsMetaClassAttribute> getMetaAttributes() {
+	public List<T> getMetaAttributes() {
 		return metaAttributes;
 	}
 
-	@Override
-	public boolean  addMetaAttribute(RdbmsMetaClassAttribute attr) {
+	public boolean  addMetaAttribute(T attr) {
 		return metaAttributes.add(attr);
 	}
 
-	public boolean isHasPrimaryKey() {
-		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
-	}
-	
 	/*
 	 * public void addMetaRelationClass(MetaRelationClass mrc) {
 	 * this.classifier.addMetaRelationClass(mrc);
@@ -100,7 +94,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 		this.identity = identity;
 	}
 
-	public void setMetaAttributes(List<RdbmsMetaClassAttribute> metaAttributes) {
+	public void setMetaAttributes(List<T> metaAttributes) {
 		this.metaAttributes = metaAttributes;
 	}
 
