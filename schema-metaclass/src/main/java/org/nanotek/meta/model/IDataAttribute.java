@@ -3,6 +3,9 @@ package org.nanotek.meta.model;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @deprecated
+ */
 public interface IDataAttribute {
 
 	java.lang.String toString();

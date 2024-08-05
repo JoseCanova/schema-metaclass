@@ -26,8 +26,6 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	protected boolean required;
 	@JsonProperty("sqlType")
 	private String sqlType;
-	@JsonProperty("fieldName")
-	private String fieldName;
 	@JsonProperty("attributes")
 	private Map<String, Object> attributes;
 	
@@ -115,16 +113,6 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	
 	public void setRequired(boolean required) {
 		this.required = required;
-	}
-
-	
-	public void setFieldName(String name) {
-		this.fieldName = name;
-	}
-
-	
-	public String getFieldName() {
-		return fieldName;
 	}
 
 	
