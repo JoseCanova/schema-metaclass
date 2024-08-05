@@ -11,13 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.ToString;
 
+//TODO: move clazz attribute to attributes map.
 @ToString
 public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
-	@JsonProperty("clazz")
-	protected Class<?> clazz;
+//	@JsonProperty("clazz")
+//	protected Class<?> clazz;
 	@JsonProperty("columnName")
 	protected String columnName;
 	@JsonProperty("length")
@@ -71,20 +72,15 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 		this.columnName = columnName;
 	}
 
-
-
-
-	
-	public void setClazz(Class<?> clazz) {
-		this.clazz = clazz;
-	}
-
-
-	
-	public Class<?> getClazz(){
-		return this.clazz;
-	}
-
+//	public void setClazz(Class<?> clazz) {
+//		this.clazz = clazz;
+//	}
+//
+//
+//	
+//	public Class<?> getClazz(){
+//		return this.clazz;
+//	}
 	
 	public String getSqlType() {
 		return sqlType;
