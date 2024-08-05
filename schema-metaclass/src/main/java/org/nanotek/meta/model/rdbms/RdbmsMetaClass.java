@@ -48,7 +48,6 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 	}
 
 	protected void postConstruct(Table table) {
-		super.postConstruct();
 		Optional
 		.ofNullable(table)
 		.ifPresentOrElse(
