@@ -1,6 +1,7 @@
 package org.nanotek.meta.model.rdbms;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
@@ -42,11 +43,17 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 
 	public RdbmsMetaClass(String tableName, String className, Table table) {
 		super(className, null);
+		this.tableName = tableName;
+		this.postConstruct(table);
 	}
 
-	protected void postConstruct() {
+	protected void postConstruct(Table table) {
 		super.postConstruct();
-		this.rdbmsClass = new RdbmsClass();
+		Optional
+		.ofNullable(table)
+		.ifPresentOrElse(
+				t -> this.rdbmsClass = new RdbmsClass(t)
+		, () -> this.rdbmsClass = new RdbmsClass());
 		classifier = new RdbmsMetaClassClassifier ();
 	}
 	
