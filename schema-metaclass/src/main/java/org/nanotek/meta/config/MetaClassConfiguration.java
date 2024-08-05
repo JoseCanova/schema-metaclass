@@ -1,8 +1,12 @@
 package org.nanotek.meta.config;
 
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+
 import javax.sql.DataSource;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
+import org.nanotek.meta.controller.RdbmsMetaClassHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
@@ -14,15 +18,20 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
+
 
 @SpringBootConfiguration
 @ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" 
@@ -119,5 +128,12 @@ public class MetaClassConfiguration {
 		processor.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return processor;
 	}
+	
+	 @Bean
+	  public RouterFunction<ServerResponse> route(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
+
+	    return RouterFunctions
+	      .route(GET("/meta-class").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
+	  }
 	
 }

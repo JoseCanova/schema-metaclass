@@ -2,6 +2,7 @@ package org.nanotek.meta.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.nanotek.Base;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
@@ -56,6 +57,8 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 	
 	@SuppressWarnings("unchecked")
 	protected void postConstruct() {
+		if(this.metaAttributes==null)
+			this.metaAttributes = new ArrayList<>();
 		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
 	}
 	

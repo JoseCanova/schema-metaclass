@@ -1,7 +1,4 @@
-package org.nanotek.meta.rdbms.test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+package org.nanotek.meta.rdbms.service;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,56 +6,49 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
+import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
-import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
+@Component
+public class RdbmsSchemaCrawlerService {
 
-@SpringBootTest
-public class RdbmsMetaClassTest {
-	
-	
 	@Autowired
 	ColumnNameTranslationStrategy columnNameTranslationStrategy; 
 	
 	@Autowired
 	SchemaCrawlerService schemaCrawlerService;
 	
-	@Test
-	void testRdbmsMetaClass() {
-		assertNotNull(schemaCrawlerService);
-		assertNotNull(columnNameTranslationStrategy);
+	@Autowired
+	SystemStaticMessageSource messageSource;
+	
+	public RdbmsSchemaCrawlerService() {
+	}
+
+	
+	public List<?> getMetaClassList(){
 		Optional<Collection<Table>> ocTables = getCatalogTables();
+
 		
-		assertTrue(ocTables.isPresent());
+		List<?> metaClassList =  ocTables
+					.map(ct -> toStream(ct))
+					.orElseThrow()
+					.map(t -> createMetaClass(t))
+					.collect(Collectors.toList());
 		
-		int tablesSize = ocTables.get().size();
-		
-		List<?> metaClassList = ocTables
-		.map(ct -> toStream(ct))
-		.orElseThrow()
-		.map(t -> createMetaClass(t))
-		.collect(Collectors.toList());
-		
-		
-		assertTrue(tablesSize == metaClassList.size());
+		return metaClassList;
 	}
 	
-	
 	private RdbmsMetaClass createMetaClass(Table table) {
-		String tableName = Optional.ofNullable(table.getFullName()).orElse(table.getName());
-		assertNotNull(tableName);
+		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , tableName , table);
-		assertNotNull(metaClass.getTableName());
-		assertNotNull(metaClass.getRdbmsClass());
 		populateMetaClassAttributes(metaClass);
 		return metaClass;
 	}
@@ -76,14 +66,17 @@ public class RdbmsMetaClassTest {
 			md.setColumnName(c.getName());
 			String fieldName = columnNameTranslationStrategy.processNameTranslationStrategy(c.getName());
 			md.setFieldName(fieldName);
+			metaClass.addMetaAttribute(md);
 		});
 	}
+	
 	private Stream<Table> toStream(Collection<Table> ct) {
 		return ct.stream();
 	}
 
 
-	public Optional<Collection<Table>> getCatalogTables(){
+	private Optional<Collection<Table>> getCatalogTables(){
 		return schemaCrawlerService.getCatalogTables();
 	}
+	
 }

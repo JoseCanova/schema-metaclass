@@ -6,7 +6,9 @@ import org.nanotek.Base;
 import org.nanotek.MutableIdentity;
 import org.springframework.data.annotation.Id;
 
-public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implements Base<K> , IdBase<K,ID> , MutableIdentity<ID>{
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implements  IdBase<K,ID> , MutableIdentity<ID>{
 
 	/**
 	 * 
