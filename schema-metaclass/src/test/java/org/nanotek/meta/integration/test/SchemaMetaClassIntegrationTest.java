@@ -1,4 +1,4 @@
-package org.nanotek.meta.integratoin.test;
+package org.nanotek.meta.integration.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

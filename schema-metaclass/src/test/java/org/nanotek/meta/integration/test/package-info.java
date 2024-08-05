@@ -1,1 +1,1 @@
-package org.nanotek.meta.integratoin.test;
+package org.nanotek.meta.integration.test;

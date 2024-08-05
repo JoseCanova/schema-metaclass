@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class MetaClassRepositoryTest<K extends MetaClass<K,?>> {
+public class MetaClassRepositoryTest<K extends MetaClass<K,?,?>> {
 
 	@Autowired
 	MetaClassRepository<K> rep;
@@ -24,7 +24,7 @@ public class MetaClassRepositoryTest<K extends MetaClass<K,?>> {
 		assertNotNull(rep);
 		@SuppressWarnings("rawtypes")
 		Optional<MetaClass> omet = Base.newInstance(MetaClass.class);
-		MetaClass<?,?> met = omet.get();
+		MetaClass<?,?,?> met = omet.get();
 		assertNotNull(met);
 		met.setClassName("TheClassName");
 		met.setId(met.withUUID().toString());
