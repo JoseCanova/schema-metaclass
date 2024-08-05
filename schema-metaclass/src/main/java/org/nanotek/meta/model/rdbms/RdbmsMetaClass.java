@@ -68,4 +68,7 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		this.rdbmsClass = rdbmsClass;
 	}
 
+	public boolean isHasPrimaryKey() {
+			return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
+	}
 }
