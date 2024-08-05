@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
 @ToString
-public class MetaClassAttribute  {
+public class RdbmsMetaClassAttribute  {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
@@ -36,11 +36,11 @@ public class MetaClassAttribute  {
 	private MetaClass<?,?> metaClass;
 	
 	
-	public MetaClassAttribute() {
+	public RdbmsMetaClassAttribute() {
 		super();
 	}
 
-	public MetaClassAttribute(MetaClass<?,?> mc) {
+	public RdbmsMetaClassAttribute(MetaClass<?,?> mc) {
 		super();
 		this.metaClass=mc;
 	}

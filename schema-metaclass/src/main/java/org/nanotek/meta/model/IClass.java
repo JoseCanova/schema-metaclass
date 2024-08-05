@@ -2,7 +2,7 @@ package org.nanotek.meta.model;
 
 import java.util.List;
 
-import org.nanotek.meta.model.rdbms.MetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 
 public interface IClass {
 
@@ -10,9 +10,9 @@ public interface IClass {
 
 	void setClassName(String className);
 
-	List<MetaClassAttribute> getMetaAttributes();
+	List<RdbmsMetaClassAttribute> getMetaAttributes();
 
-	boolean addMetaAttribute(MetaClassAttribute attr);
+	boolean addMetaAttribute(RdbmsMetaClassAttribute attr);
 
 
 }

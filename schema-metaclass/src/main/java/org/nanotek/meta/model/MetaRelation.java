@@ -1,16 +1,16 @@
 package org.nanotek.meta.model;
 
-import org.nanotek.meta.model.rdbms.MetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 
 public class MetaRelation {
 
-	protected MetaClassAttribute from; 
+	protected RdbmsMetaClassAttribute from; 
 	
-	protected MetaClassAttribute to;
+	protected RdbmsMetaClassAttribute to;
 
 	
 	
-	public MetaRelation(MetaClassAttribute from, MetaClassAttribute to) {
+	public MetaRelation(RdbmsMetaClassAttribute from, RdbmsMetaClassAttribute to) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -20,19 +20,19 @@ public class MetaRelation {
 		super();
 	}
 
-	public MetaClassAttribute getFrom() {
+	public RdbmsMetaClassAttribute getFrom() {
 		return from;
 	}
 
-	public void setFrom(MetaClassAttribute from) {
+	public void setFrom(RdbmsMetaClassAttribute from) {
 		this.from = from;
 	}
 
-	public MetaClassAttribute getTo() {
+	public RdbmsMetaClassAttribute getTo() {
 		return to;
 	}
 
-	public void setTo(MetaClassAttribute to) {
+	public void setTo(RdbmsMetaClassAttribute to) {
 		this.to = to;
 	}
 	

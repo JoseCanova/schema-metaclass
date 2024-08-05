@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.MetaClass;
-import org.nanotek.meta.model.rdbms.MetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
@@ -68,7 +68,7 @@ public class RdbmsSchemaMetaClassService {
 		List<Column> lc = getColumns(rc);
 		
 		lc.forEach(c -> {
-			MetaClassAttribute md = new MetaClassAttribute();
+			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
 			md.setClazz(c.getColumnDataType().getTypeMappedClass());
 			md.setColumnName(c.getName());
 			String fieldName = columnNameTranslationStrategy.processNameTranslationStrategy(c.getName());

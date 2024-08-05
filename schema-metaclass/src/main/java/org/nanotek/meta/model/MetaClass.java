@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.nanotek.Base;
-import org.nanotek.meta.model.rdbms.MetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -31,7 +31,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	protected String className; 
 	
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
-	protected List<MetaClassAttribute> metaAttributes = new ArrayList<>();
+	protected List<RdbmsMetaClassAttribute> metaAttributes = new ArrayList<>();
 
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
@@ -46,7 +46,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	}
 
 	public MetaClass(String className, 
-			List<MetaClassAttribute> metaAttributes) {
+			List<RdbmsMetaClassAttribute> metaAttributes) {
 		super();
 		this.className = className;
 		this.metaAttributes = metaAttributes;
@@ -70,12 +70,12 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 	}
 
 	@Override
-	public List<MetaClassAttribute> getMetaAttributes() {
+	public List<RdbmsMetaClassAttribute> getMetaAttributes() {
 		return metaAttributes;
 	}
 
 	@Override
-	public boolean  addMetaAttribute(MetaClassAttribute attr) {
+	public boolean  addMetaAttribute(RdbmsMetaClassAttribute attr) {
 		return metaAttributes.add(attr);
 	}
 
@@ -100,7 +100,7 @@ public class MetaClass<K extends MetaClass<K,C> , C extends Classifier<?>> exten
 		this.identity = identity;
 	}
 
-	public void setMetaAttributes(List<MetaClassAttribute> metaAttributes) {
+	public void setMetaAttributes(List<RdbmsMetaClassAttribute> metaAttributes) {
 		this.metaAttributes = metaAttributes;
 	}
 
