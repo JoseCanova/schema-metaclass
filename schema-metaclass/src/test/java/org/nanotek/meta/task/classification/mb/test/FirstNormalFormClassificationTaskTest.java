@@ -3,17 +3,11 @@ package org.nanotek.meta.task.classification.mb.test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationDataPair;
@@ -33,8 +27,6 @@ import schemacrawler.schema.Table;
 @SpringBootTest
 public class FirstNormalFormClassificationTaskTest {
 
-	@Autowired 
-	DataSource defaultDataSource;
 	
 	@Autowired
 	SchemaCrawlerService schemaCrawlerService;
