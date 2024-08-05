@@ -50,15 +50,13 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 			List<T> metaAttributes) {
 		super();
 		this.className = className;
-		this.metaAttributes = metaAttributes;
+		this.metaAttributes = Optional.ofNullable(metaAttributes).orElse(new ArrayList<>());
 		postConstruct();
 	}
 
 	
 	@SuppressWarnings("unchecked")
 	protected void postConstruct() {
-		if(this.metaAttributes==null)
-			this.metaAttributes = new ArrayList<>();
 		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
 	}
 	
