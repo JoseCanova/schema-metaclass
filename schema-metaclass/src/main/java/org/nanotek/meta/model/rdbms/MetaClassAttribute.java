@@ -1,7 +1,9 @@
-package org.nanotek.meta.model;
+package org.nanotek.meta.model.rdbms;
 
 import java.util.List;
 import java.util.Map;
+
+import org.nanotek.meta.model.MetaClass;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 
 @ToString
-public class MetaClassAttribute implements IDataAttribute {
+public class MetaClassAttribute  {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
@@ -43,21 +45,21 @@ public class MetaClassAttribute implements IDataAttribute {
 		this.metaClass=mc;
 	}
 	
-	@Override
+	
 	public boolean isId() {
 		return isId;
 	}
 
 
 
-	@Override
+	
 	public void setId(boolean isId) {
 		this.isId = isId;
 	}
 
 
 
-	@Override
+	
 	public String getColumnName() {
 		return columnName;
 	}
@@ -65,7 +67,7 @@ public class MetaClassAttribute implements IDataAttribute {
 
 
 
-	@Override
+	
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
@@ -73,73 +75,73 @@ public class MetaClassAttribute implements IDataAttribute {
 
 
 
-	@Override
+	
 	public void setClazz(Class<?> clazz) {
 		this.clazz = clazz;
 	}
 
 
-	@Override
+	
 	public Class<?> getClazz(){
 		return this.clazz;
 	}
 
-	@Override
+	
 	public String getSqlType() {
 		return sqlType;
 	}
 
-	@Override
+	
 	public void setSqlType(String string) {
 		this.sqlType = string;
 	}
 
-	@Override
+	
 	public String getLength() {
 		return length;
 	}
 
-	@Override
+	
 	public void setLength(String length) {
 		this.length = length;
 	}
 
-	@Override
+	
 	public boolean isRequired() {
 		return required;
 	}
 
-	@Override
+	
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
 
-	@Override
+	
 	public void setFieldName(String name) {
 		this.fieldName = name;
 	}
 
-	@Override
+	
 	public String getFieldName() {
 		return fieldName;
 	}
 
-	@Override
+	
 	public void setAttributes(Map<String, Object> attributes) {
 		this.attributes = attributes;
 	}
 
-	@Override
+	
 	public Map<String, Object> getAttributes() {
 		return attributes;
 	}
 
-	@Override
+	
 	public List<String> getIdAliases() {
 		return idAliases;
 	}
 
-	@Override
+	
 	public void setIdAliases(List<String> idAliases) {
 		this.idAliases = idAliases;
 	}

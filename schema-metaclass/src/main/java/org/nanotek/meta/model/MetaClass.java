@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.nanotek.Base;
+import org.nanotek.meta.model.rdbms.MetaClassAttribute;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.mongodb.core.mapping.Document;
 

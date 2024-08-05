@@ -5,7 +5,6 @@ import java.util.List;
 import org.nanotek.meta.model.Classifier;
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
-import org.nanotek.meta.model.MetaClassAttribute;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

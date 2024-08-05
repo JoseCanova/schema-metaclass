@@ -1,5 +1,6 @@
 package org.nanotek.meta.model;
 
+import org.nanotek.meta.model.rdbms.MetaClassAttribute;
 
 public class MetaRelation {
 

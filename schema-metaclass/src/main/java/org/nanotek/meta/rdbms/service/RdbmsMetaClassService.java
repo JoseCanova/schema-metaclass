@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.MetaClass;
-import org.nanotek.meta.model.MetaClassAttribute;
+import org.nanotek.meta.model.rdbms.MetaClassAttribute;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
