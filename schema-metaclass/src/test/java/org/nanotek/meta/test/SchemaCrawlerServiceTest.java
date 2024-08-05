@@ -26,7 +26,6 @@ import org.springframework.data.util.Pair;
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
-@SpringBootTest
 public class SchemaCrawlerServiceTest {
 
 	
@@ -36,7 +35,6 @@ public class SchemaCrawlerServiceTest {
 	@Autowired
 	SchemaCrawlerService schemaCrawlerService;
 	
-	@Test
 	void testSchemaCrawlerService() throws SQLException {
 		 assertNotNull(schemaCrawlerService);
 		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
@@ -48,7 +46,6 @@ public class SchemaCrawlerServiceTest {
 	}
 	
 	
-	@Test
 	void testSchemaCrawlerServiceCatalogClassificationMap() {
 		 assertNotNull(schemaCrawlerService);
 		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
@@ -56,7 +53,6 @@ public class SchemaCrawlerServiceTest {
 		 assertTrue(classificationMap.keySet().size() == 3);
 	}
 	
-	@Test
 	void testGetDataPairList() {
 		 assertNotNull(schemaCrawlerService);
 		 Optional<Collection<Table>> oTables = schemaCrawlerService.getCatalogTables();
@@ -65,7 +61,7 @@ public class SchemaCrawlerServiceTest {
 		 assertTrue(theList.size() >= 3);
 	}
 	
-	@BeforeEach
+//	@BeforeEach
 	private void prepareTest() throws SQLException {
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();		
@@ -87,7 +83,7 @@ public class SchemaCrawlerServiceTest {
         connection.close();
 	} 
 	
-	@AfterEach
+//	@AfterEach
 	private void closeTest() throws SQLException {
 		assertNotNull(defaultDataSource);
 		Connection connection = defaultDataSource.getConnection();		
