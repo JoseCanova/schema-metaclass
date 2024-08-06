@@ -1,6 +1,6 @@
 package org.nanotek.meta.controller;
 
-import org.nanotek.meta.rdbms.service.RdbmsSchemaCrawlerService;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public class RdbmsMetaClassHandler {
 
 	@Autowired
-	RdbmsSchemaCrawlerService rdbmsSchemaCrawlerService;
+	SchemaCrawlerRdbmsMetaClassService rdbmsSchemaCrawlerService;
 	
 	public RdbmsMetaClassHandler() {
 	}

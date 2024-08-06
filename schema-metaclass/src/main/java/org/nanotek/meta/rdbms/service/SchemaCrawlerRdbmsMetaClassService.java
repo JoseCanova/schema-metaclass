@@ -18,7 +18,7 @@ import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
 @Component
-public class RdbmsSchemaCrawlerService {
+public class SchemaCrawlerRdbmsMetaClassService {
 
 	@Autowired
 	ColumnNameTranslationStrategy columnNameTranslationStrategy; 
@@ -29,7 +29,7 @@ public class RdbmsSchemaCrawlerService {
 	@Autowired
 	SystemStaticMessageSource messageSource;
 	
-	public RdbmsSchemaCrawlerService() {
+	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
 	
