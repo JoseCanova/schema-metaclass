@@ -19,12 +19,15 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
@@ -136,4 +139,8 @@ public class MetaClassConfiguration {
 	      .route(GET("/meta-class").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
 	  }
 	
+	 @Bean
+	 public Jackson2ObjectMapperBuilder configureObjectMapper() {
+			return new Jackson2ObjectMapperBuilder();
+	 }
 }
