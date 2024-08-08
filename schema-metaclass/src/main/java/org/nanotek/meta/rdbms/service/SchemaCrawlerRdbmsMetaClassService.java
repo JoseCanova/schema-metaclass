@@ -55,7 +55,6 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		return metaClass;
 	}
 
-
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
@@ -68,10 +67,18 @@ public class SchemaCrawlerRdbmsMetaClassService {
 			md.setFieldName(fieldName);
 			Map<String,Object> attributes = c.getAttributes();
 			verifyAttributes(c,attributes);
+			md.setId(c.isPartOfPrimaryKey());
+			md.setPartOfIndex(c.isPartOfIndex());
+			md.setPartOfForeignKey(c.isPartOfForeignKey());
 			metaClass.addMetaAttribute(md);
 		});
+		processMetaAttributesIds(metaClass);
 	}
 	
+	private void processMetaAttributesIds(RdbmsMetaClass metaClass) {
+	}
+
+
 	//TODO:Inspect attributes to check additional information on column.
 	private void verifyAttributes(Column c, Map<String, Object> attributes) {
 		System.out.println(attributes);

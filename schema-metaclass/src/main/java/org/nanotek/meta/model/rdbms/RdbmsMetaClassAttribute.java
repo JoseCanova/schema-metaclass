@@ -25,9 +25,15 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	@JsonProperty("required")
 	protected boolean required;
 	@JsonProperty("sqlType")
-	private String sqlType;
+	protected String sqlType;
 	@JsonProperty("attributes")
-	private Map<String, Object> attributes;
+	protected Map<String, Object> attributes;
+	@JsonProperty("isPartOfIndex")
+	protected boolean partOfIndex;
+	@JsonProperty("isGenerated")
+	protected boolean generated;
+	@JsonProperty("isPartOfForeignKey")
+	protected boolean partOfForeignKey;
 	
 	private List<String> idAliases;
 	
@@ -50,23 +56,14 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	}
 
 
-
-	
 	public void setId(boolean isId) {
 		this.isId = isId;
 	}
 
-
-
-	
 	public String getColumnName() {
 		return columnName;
 	}
 
-
-
-
-	
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
@@ -138,5 +135,27 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 		this.metaClass = metaClass;
 	}
 	
+	public boolean isPartOfIndex() {
+		return partOfIndex;
+	}
+
+	public void setPartOfIndex(boolean partOfIndex) {
+		this.partOfIndex = partOfIndex;
+	}
 	
+	public boolean isGenerated() {
+		return generated;
+	}
+
+	public void setGenerated(boolean generated) {
+		this.generated = generated;
+	}
+	
+	public boolean isPartOfForeignKey() {
+		return partOfForeignKey;
+	}
+
+	public void setPartOfForeignKey(boolean partOfForeignKey) {
+		this.partOfForeignKey = partOfForeignKey;
+	}
 }
