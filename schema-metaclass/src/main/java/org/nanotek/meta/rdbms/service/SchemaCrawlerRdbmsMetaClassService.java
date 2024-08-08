@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
+//TODO: change visibility of postConstruct auxiliary methods upon implementation of JpaRdbmsMetaClass.
 @Component
 public class SchemaCrawlerRdbmsMetaClassService {
 
@@ -51,19 +52,8 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	private RdbmsMetaClass createMetaClass(Table table) {
 		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , tableName , table);
-		verifyMetaClassIdentity(metaClass,table);
 		populateMetaClassAttributes(metaClass);
 		return metaClass;
-	}
-
-
-	//TODO:Add valitation to metaidentity creation
-	private void verifyMetaClassIdentity(RdbmsMetaClass metaClass, Table table) {
-		Optional.ofNullable(table.getPrimaryKey())
-		.ifPresent(id -> {
-			MetaIdentity mi = new MetaIdentity(id);
-			metaClass.setIdentity(mi);
-		});
 	}
 
 

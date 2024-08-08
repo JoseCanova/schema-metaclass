@@ -46,13 +46,13 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 		postConstruct();
 	}
 
-	public MetaClass(String className, 
-			List<T> metaAttributes) {
-		super();
-		this.className = className;
-		this.metaAttributes = Optional.ofNullable(metaAttributes).orElse(new ArrayList<>());
-		postConstruct();
-	}
+//	public MetaClass(String className, 
+//			List<T> metaAttributes) {
+//		super();
+//		this.className = className;
+//		this.metaAttributes = Optional.ofNullable(metaAttributes).orElse(new ArrayList<>());
+//		postConstruct();
+//	}
 
 	
 	@SuppressWarnings("unchecked")

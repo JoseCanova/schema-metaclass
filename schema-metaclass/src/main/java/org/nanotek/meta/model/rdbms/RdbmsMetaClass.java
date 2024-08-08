@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
+import org.nanotek.meta.model.MetaIdentity;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,12 +38,19 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		super();
 	}
 
-	public RdbmsMetaClass(String tableName, String className, List<RdbmsMetaClassAttribute> metaAttributes) {
-		super(className, metaAttributes);
-	}
+	
+	//TODO:Refactor to deperecate this construct and remove it.
+	/**
+	 * @param tableName
+	 * @param className
+	 * @param metaAttributes
+	 
+//	public RdbmsMetaClass(String tableName, String className, List<RdbmsMetaClassAttribute> metaAttributes) {
+//		super(className, metaAttributes);
+//	}*/
 
 	public RdbmsMetaClass(String tableName, String className, Table table) {
-		super(className, null);
+		super();
 		this.tableName = tableName;
 		this.postConstruct(table);
 	}
@@ -51,9 +59,22 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		Optional
 		.ofNullable(table)
 		.ifPresentOrElse(
-				t -> this.rdbmsClass = new RdbmsClass(t)
+				t -> { 
+					this.rdbmsClass = new RdbmsClass(t);
+					verifyMetaClassIdentity(table);
+				}
 		, () -> this.rdbmsClass = new RdbmsClass());
 		classifier = new RdbmsMetaClassClassifier ();
+	}
+	
+	
+	
+	private void verifyMetaClassIdentity(Table table) {
+		Optional.ofNullable(table.getPrimaryKey())
+		.ifPresent(id -> {
+			MetaIdentity mi = new MetaIdentity(id);
+			this.setIdentity(mi);
+		});
 	}
 	
 	@Override
