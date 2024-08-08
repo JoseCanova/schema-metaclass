@@ -2,11 +2,8 @@ package org.nanotek.meta.model;
 
 import java.io.Serializable;
 
-import org.nanotek.Base;
 import org.nanotek.MutableIdentity;
 import org.springframework.data.annotation.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implements  IdBase<K,ID> , MutableIdentity<ID>{
 

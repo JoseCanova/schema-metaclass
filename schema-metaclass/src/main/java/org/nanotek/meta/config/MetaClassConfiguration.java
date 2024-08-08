@@ -27,8 +27,6 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;

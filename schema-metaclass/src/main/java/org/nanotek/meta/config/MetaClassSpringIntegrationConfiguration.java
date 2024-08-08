@@ -2,8 +2,6 @@ package org.nanotek.meta.config;
 
 import java.util.Optional;
 
-import org.nanotek.meta.model.rdbms.classification.data.TableTypeEnum;
-import org.nanotek.meta.model.rdbms.classification.data.result.SecondNormalFormClassificationResult;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
@@ -13,7 +11,6 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.util.CompoundTrigger;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.PeriodicTrigger;
 

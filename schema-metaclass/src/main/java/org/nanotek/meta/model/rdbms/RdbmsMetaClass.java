@@ -1,6 +1,5 @@
 package org.nanotek.meta.model.rdbms;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.meta.model.IRdbmsClass;
@@ -85,7 +84,11 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		this.rdbmsClass = rdbmsClass;
 	}
 
+	/**
+	 * 
+	 * @return true if all is ok with RdbmsMetaclass construction of pk verification.
+	 */
 	public boolean isHasPrimaryKey() {
-			return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
+			return  this.identity !=null && this.metaAttributes !=null;
 	}
 }

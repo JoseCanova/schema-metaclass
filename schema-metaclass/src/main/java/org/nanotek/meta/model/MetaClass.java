@@ -2,10 +2,8 @@ package org.nanotek.meta.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.nanotek.Base;
-import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.mongodb.core.mapping.Document;
 

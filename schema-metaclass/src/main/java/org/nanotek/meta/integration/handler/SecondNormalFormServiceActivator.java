@@ -1,6 +1,5 @@
 package org.nanotek.meta.integration.handler;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.meta.model.rdbms.classification.data.ClassificationData;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Table;
-import schemacrawler.schema.TableConstraintColumn;
 
 @Component
 public class SecondNormalFormServiceActivator {

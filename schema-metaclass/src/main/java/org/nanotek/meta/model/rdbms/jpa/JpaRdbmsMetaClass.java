@@ -1,9 +1,6 @@
 package org.nanotek.meta.model.rdbms.jpa;
 
-import java.util.List;
-
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
-import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 
 import schemacrawler.schema.Table;
 
