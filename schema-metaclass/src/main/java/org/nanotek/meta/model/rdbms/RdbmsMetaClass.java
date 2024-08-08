@@ -41,6 +41,7 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 	public RdbmsMetaClass(String tableName, String className, Table table) {
 		super();
 		this.tableName = tableName;
+		this.className=className;
 		this.postConstruct(table);
 	}
 

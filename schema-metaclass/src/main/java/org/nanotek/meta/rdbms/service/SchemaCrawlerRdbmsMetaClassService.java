@@ -19,6 +19,7 @@ import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
 //TODO: change visibility of postConstruct auxiliary methods upon implementation of JpaRdbmsMetaClass.
+//TODO: implement persistence on mongodb for model_relation classes.
 @Component
 public class SchemaCrawlerRdbmsMetaClassService {
 
@@ -34,12 +35,16 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
+	public List<RdbmsMetaClass> persistMetaClassList(){
+		List<RdbmsMetaClass> metaClassList = getMetaClassList();
+		return metaClassList;
+	}	
 	
-	public List<?> getMetaClassList(){
+	public List<RdbmsMetaClass> getMetaClassList(){
 		Optional<Collection<Table>> ocTables = getCatalogTables();
 
 		
-		List<?> metaClassList =  ocTables
+		List<RdbmsMetaClass> metaClassList =  ocTables
 					.map(ct -> toStream(ct))
 					.orElseThrow()
 					.map(t -> createMetaClass(t))

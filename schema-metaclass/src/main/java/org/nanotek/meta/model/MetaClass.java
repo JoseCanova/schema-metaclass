@@ -41,7 +41,6 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 	
 	public MetaClass() {
 		super();
-		postConstruct();
 	}
 
 //	public MetaClass(String className, 

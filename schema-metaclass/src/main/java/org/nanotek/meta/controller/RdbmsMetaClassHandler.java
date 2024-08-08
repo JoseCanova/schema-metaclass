@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Mono;
 
+//TODO: implement URL for a list of available metaclasses. http://localhost:4200/api/model_relations/classes
 @Component
 public class RdbmsMetaClassHandler {
 
