@@ -120,7 +120,8 @@
 "columns":[{"name":"id"}]},
 "hasPrimaryKey":true,
 "tableName":"artist_credit"},
-{"metaAttributes":[{"idAliases":null,
+{"metaAttributes":
+[{"idAliases":null,
 "id":true,
 "name":"id",
 "isId":true,
