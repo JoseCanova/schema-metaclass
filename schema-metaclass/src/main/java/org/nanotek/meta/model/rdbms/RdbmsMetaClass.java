@@ -39,16 +39,6 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 	}
 
 	
-	//TODO:Refactor to deperecate this construct and remove it.
-	/**
-	 * @param tableName
-	 * @param className
-	 * @param metaAttributes
-	 
-//	public RdbmsMetaClass(String tableName, String className, List<RdbmsMetaClassAttribute> metaAttributes) {
-//		super(className, metaAttributes);
-//	}*/
-
 	public RdbmsMetaClass(String tableName, String className, Table table) {
 		super();
 		this.tableName = tableName;
