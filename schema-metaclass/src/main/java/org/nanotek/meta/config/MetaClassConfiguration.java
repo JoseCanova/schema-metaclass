@@ -33,7 +33,7 @@ import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 
-
+//TODO: implement a router function to provide a metaclass based on its id.
 @SpringBootConfiguration
 @ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" 
 								,"org.nanotek.meta.util",
@@ -142,7 +142,7 @@ public class MetaClassConfiguration {
 	  public RouterFunction<ServerResponse> routeTableClassNameList(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
 
 	    return RouterFunctions
-	    		.route(GET("/table-classname").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
+	    		.route(GET("/table-classname").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getTableClassNameList);
 	 }
 	
 	 @Bean

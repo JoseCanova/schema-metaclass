@@ -19,6 +19,8 @@ import org.springframework.stereotype.Component;
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
+//TODO: implement a "symbolic package name" and the classname strategy for camel case.
+//TODO: implement a metaclass method to provide information about a single metaclass present on "metaclass list".
 //TODO: change visibility of postConstruct auxiliary methods upon implementation of JpaRdbmsMetaClass.
 //TODO: implement persistence on mongodb for model_relation classes.
 @Component
