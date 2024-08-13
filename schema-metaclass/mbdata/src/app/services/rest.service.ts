@@ -11,7 +11,7 @@ export class RestService {
 
 	
   homeUrl = 'http://localhost:4200/api' 	
-  classesUrl = '/model_relations/classes';	
+  classesUrl = '/table-classname';	
   mappingsUrl = '/actuator/mappings';	
 	
   constructor(protected client2 : HttpClient) { 

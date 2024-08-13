@@ -213,8 +213,8 @@ export class ClassConfigComponent implements OnInit , AfterViewInit {
      let i = 0;
      for(var key in response){
     	 console.log(key + ' ' + response[key] );
-    	 this.classes.push ({key: key,
-    		 				 value : response[key]});
+    	 this.classes.push ({key: response[tableName],
+    		 				 value : response[className]});
      }
       }catch(e){console.log('an error');}
       this.dataSource = new MatTableDataSource<any>(this.classes);

@@ -69,7 +69,7 @@ export class CrawlerClassesComponent implements OnInit {
 	  try {
 		     let i = 0;
 		     for(var key in response){
-		    	 let clazz = { classAlias: key , className : response[key]};
+		    	 let clazz = { classAlias: response[key].tableName , className : response[key].className};
 		    	 this.classes.push (clazz);
 		     }
 		      }catch(e){console.log('an error');}
