@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 //TODO: implement URL for a list of available metaclasses. http://localhost:4200/api/model_relations/classes
+//TODO: refactor to a package of specific handler classes
 @Component
 public class RdbmsMetaClassHandler {
 
@@ -25,4 +26,9 @@ public class RdbmsMetaClassHandler {
 	      .body(BodyInserters.fromValue(rdbmsSchemaCrawlerService.getMetaClassList()));
 	  }
 
+	public Mono<ServerResponse> getTableClassNameList(ServerRequest request){
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+			      .body(BodyInserters.fromValue(rdbmsSchemaCrawlerService.getTableClassNameList()));
+	}
+	
 }

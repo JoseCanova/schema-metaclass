@@ -132,11 +132,18 @@ public class MetaClassConfiguration {
 	}
 	
 	 @Bean
-	  public RouterFunction<ServerResponse> route(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
+	  public RouterFunction<ServerResponse> routeMetaClassList(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
 
 	    return RouterFunctions
-	      .route(GET("/meta-class").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
-	  }
+	    		.route(GET("/meta-class").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
+	 }
+	 
+	 @Bean
+	  public RouterFunction<ServerResponse> routeTableClassNameList(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
+
+	    return RouterFunctions
+	    		.route(GET("/table-classname").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getMetaClassList);
+	 }
 	
 	 @Bean
 	 public Jackson2ObjectMapperBuilder configureObjectMapper() {

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
+import org.nanotek.meta.model.TableClassName;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
@@ -35,6 +36,13 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
+	
+	public List<TableClassName> getTableClassNameList(){
+			return getMetaClassList()
+						.stream()
+						.map(mtc -> new TableClassName(mtc.getTableName(),mtc.getClassName()))
+						.collect(Collectors.toList());
+	}
 	
 	//TODO: implement this method to allow persistence over a metaclass model.
 	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
