@@ -1,5 +1,6 @@
 package org.nanotek.meta.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import schemacrawler.schema.TableConstraintColumn;
 @Data
 @EqualsAndHashCode
 @ToString
-public class MetaIdentity {
+public class MetaIdentity implements Serializable{
 
 	
 	private String definition;

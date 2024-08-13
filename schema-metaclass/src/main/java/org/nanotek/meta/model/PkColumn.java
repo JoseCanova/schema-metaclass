@@ -1,9 +1,11 @@
 package org.nanotek.meta.model;
 
+import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public class PkColumn {
+public class PkColumn implements Serializable {
 
 	protected String name;
 

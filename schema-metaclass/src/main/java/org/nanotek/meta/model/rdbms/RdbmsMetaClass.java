@@ -6,6 +6,7 @@ import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaIdentity;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
+import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,9 +30,11 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 	@JsonProperty("tableName")
 	protected String tableName;
 	
+	//TODO: Refactor RdbmsClass to permits to be a persistent class on Spring Data Model.
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
-	protected RdbmsClass rdbmsClass;
+	@Transient
+	protected transient RdbmsClass rdbmsClass;
 	
 	public RdbmsMetaClass() {
 		super();
@@ -44,7 +47,15 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		this.className=className;
 		this.postConstruct(table);
 	}
+	
+	public RdbmsMetaClass(String id , String tableName, String className, Table table) {
+		super(id);
+		this.tableName = tableName;
+		this.className=className;
+		this.postConstruct(table);
+	}
 
+	
 	protected void postConstruct(Table table) {
 		Optional
 		.ofNullable(table)

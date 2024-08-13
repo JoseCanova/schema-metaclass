@@ -14,13 +14,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 
 /*
- * TODO: refactor code of definition for IdPrimaryKey classification.
  * TODO: move class configuration on future to a Spring Configuration context as a prototype.
  */
 @Document
 @JsonInclude(value = Include.NON_NULL)
+@AllArgsConstructor
 public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T extends MetaClassAttribute<?>> extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
@@ -41,6 +42,21 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 	
 	public MetaClass() {
 		super();
+	}
+
+	public MetaClass(String id) {
+		super(id);
+	}
+
+	
+	public MetaClass(@NotEmpty(groups = MetaClassDefaultValidationGroup.class) String className,
+			@NotEmpty(groups = MetaClassDefaultValidationGroup.class) List<T> metaAttributes,
+			@NotNull(groups = MetaClassDefaultValidationGroup.class) MetaIdentity identity) {
+		super();
+		this.className = className;
+		this.metaAttributes = metaAttributes;
+		this.identity = identity;
+		postConstruct();
 	}
 
 //	public MetaClass(String className, 

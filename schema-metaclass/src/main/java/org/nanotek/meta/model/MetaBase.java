@@ -14,7 +14,14 @@ public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implemen
 	
 	@Id
 	ID id;
+	
+	
+	public MetaBase() {
+	}
 
+	public MetaBase(ID id) {
+		this.id = id;
+	}
 	@Override
 	public ID getId() {
 		return id;

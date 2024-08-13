@@ -35,8 +35,10 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
-	public List<RdbmsMetaClass> persistMetaClassList(){
-		List<RdbmsMetaClass> metaClassList = getMetaClassList();
+	
+	//TODO: implement this method to allow persistence over a metaclass model.
+	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
+		List<RdbmsMetaClass> metaClassList = theList;
 		return metaClassList;
 	}	
 	

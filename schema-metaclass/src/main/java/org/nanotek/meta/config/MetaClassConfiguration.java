@@ -38,7 +38,8 @@ import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 @ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" 
 								,"org.nanotek.meta.util",
 								"org.nanotek.meta.model.rdbms.classification.task",
-								"org.nanotek.meta.integration.handler"})
+								"org.nanotek.meta.integration.handler", 
+								"org.nanotek.meta.repository"})
 public class MetaClassConfiguration {
 
 	public MetaClassConfiguration() {

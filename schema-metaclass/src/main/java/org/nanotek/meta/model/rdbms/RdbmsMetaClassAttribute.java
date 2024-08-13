@@ -1,22 +1,26 @@
 package org.nanotek.meta.model.rdbms;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
+import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.ToString;
 
+//TODO: Fix Class property codec for MongoDb persistence.
 @ToString
-public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> {
+public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 
 	@JsonProperty("isId")
 	protected boolean isId = false;
 	@JsonProperty("clazz")
+	@Transient
 	protected Class<?> clazz;
 	@JsonProperty("columnName")
 	protected String columnName;
@@ -27,7 +31,8 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	@JsonProperty("sqlType")
 	protected String sqlType;
 	@JsonProperty("attributes")
-	protected Map<String, Object> attributes;
+	@Transient
+	protected transient Map<String, Object> attributes;
 	@JsonProperty("isPartOfIndex")
 	protected boolean partOfIndex;
 	@JsonProperty("isGenerated")
@@ -38,7 +43,8 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	private List<String> idAliases;
 	
 	@JsonIgnore
-	private MetaClass<?,?,?> metaClass;
+	@Transient
+	private transient MetaClass<?,?,?> metaClass;
 	
 	
 	public RdbmsMetaClassAttribute() {
