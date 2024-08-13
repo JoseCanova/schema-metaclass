@@ -1,10 +1,10 @@
 package org.nanotek.meta.model.rdbms.jpa;
 
-import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
+import org.nanotek.meta.model.rdbms.orm.OrmRdbmsMetaClass;
 
 import schemacrawler.schema.Table;
 
-public class JpaRdbmsMetaClass extends RdbmsMetaClass {
+public class JpaRdbmsMetaClass extends OrmRdbmsMetaClass {
 
 	/**
 	 * 

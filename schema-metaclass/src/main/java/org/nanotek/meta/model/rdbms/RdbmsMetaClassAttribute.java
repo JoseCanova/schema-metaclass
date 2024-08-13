@@ -79,8 +79,6 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 		this.clazz = clazz;
 	}
 
-
-	
 	public Class<?> getClazz(){
 		return this.clazz;
 	}
