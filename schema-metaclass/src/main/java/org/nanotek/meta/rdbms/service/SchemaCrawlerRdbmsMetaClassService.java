@@ -16,6 +16,7 @@ import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import reactor.core.publisher.Mono;
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
@@ -106,6 +107,10 @@ public class SchemaCrawlerRdbmsMetaClassService {
 
 	private Optional<Collection<Table>> getCatalogTables(){
 		return schemaCrawlerService.getCatalogTables();
+	}
+
+	public void getRdbmsMetaClass(Mono<TableClassName> tableClassNameMono) {
+		
 	}
 	
 }

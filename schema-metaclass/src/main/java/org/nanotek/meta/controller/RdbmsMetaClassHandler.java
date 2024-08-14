@@ -1,5 +1,6 @@
 package org.nanotek.meta.controller;
 
+import org.nanotek.meta.model.TableClassName;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,4 +31,10 @@ public class RdbmsMetaClassHandler {
 			      .body(BodyInserters.fromValue(rdbmsSchemaCrawlerService.getTableClassNameList()));
 	}
 	
+	public Mono<ServerResponse> getRdbmsMetaClass(ServerRequest request){
+		Mono<TableClassName> tableClassNameMono = request.bind(TableClassName.class);
+		rdbmsSchemaCrawlerService.getRdbmsMetaClass(tableClassNameMono);
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+			      .body(BodyInserters.fromValue(rdbmsSchemaCrawlerService.getTableClassNameList()));
+	}
 }
