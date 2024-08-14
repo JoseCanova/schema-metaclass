@@ -26,7 +26,6 @@ public class SecondNormalFormServiceActivator {
 	SecondNormalFormClassificationTask secondNormalFormTask;
 	
 	public SecondNormalFormServiceActivator() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@ServiceActivator(inputChannel = "secondNormalFormMessageChannel" , outputChannel = "secondNormalFormChannelResultChannel" )

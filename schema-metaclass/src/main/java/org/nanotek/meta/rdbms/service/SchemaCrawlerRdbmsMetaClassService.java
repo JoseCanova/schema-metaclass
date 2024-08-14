@@ -21,7 +21,6 @@ import schemacrawler.schema.Table;
 
 //TODO: implement a "symbolic package name" and the classname strategy for camel case.
 //TODO: implement a metaclass method to provide information about a single metaclass present on "metaclass list".
-//TODO: change visibility of postConstruct auxiliary methods upon implementation of JpaRdbmsMetaClass.
 //TODO: implement persistence on mongodb for model_relation classes.
 @Component
 public class SchemaCrawlerRdbmsMetaClassService {
@@ -38,7 +37,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
-	
+	//TODO:Verify pagination for large set of TableClasses if necessary.
 	public List<TableClassName> getTableClassNameList(){
 			return getMetaClassList()
 						.stream()

@@ -16,9 +16,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
-/*
- * TODO: move class configuration on future to a Spring Configuration context as a prototype.
- */
 @Document
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor

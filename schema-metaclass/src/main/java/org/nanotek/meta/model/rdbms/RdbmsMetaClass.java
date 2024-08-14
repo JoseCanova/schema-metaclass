@@ -21,7 +21,6 @@ import schemacrawler.schema.Table;
 		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
 	}
  */
-//TODO: move attributes relative to rdbms here. 
 public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClassifier,RdbmsMetaClassAttribute> implements IRdbmsClass{
 
 	private static final long serialVersionUID = -4542645486119141998L;
