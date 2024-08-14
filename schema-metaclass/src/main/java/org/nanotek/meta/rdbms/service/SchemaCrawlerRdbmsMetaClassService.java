@@ -109,8 +109,18 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		return schemaCrawlerService.getCatalogTables();
 	}
 
-	public void getRdbmsMetaClass(Mono<TableClassName> tableClassNameMono) {
-		
+	public Mono<RdbmsMetaClass> getRdbmsMetaClass(Mono<TableClassName> tableClassNameMono) {
+		return tableClassNameMono
+					.flatMap(tcn -> getRdbmsMetaClass(tcn)
+							.onErrorMap(o -> new RuntimeException("" , o)
+					));
+	}
+
+	private Mono<RdbmsMetaClass> getRdbmsMetaClass(TableClassName tcn) {
+		return Mono
+				.just(getMetaClassList().stream()
+				.filter(c -> c.getClassName().equals(tcn.className()) && c.getTableName().equals(tcn.tableName()))
+				.findAny()).flatMap(Mono::justOrEmpty);
 	}
 	
 }

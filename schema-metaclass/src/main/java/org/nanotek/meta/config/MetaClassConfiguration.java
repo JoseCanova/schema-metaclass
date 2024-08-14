@@ -1,6 +1,7 @@
 package org.nanotek.meta.config;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
 import javax.sql.DataSource;
@@ -145,6 +146,13 @@ public class MetaClassConfiguration {
 	    		.route(GET("/table-classname").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getTableClassNameList);
 	 }
 	
+	 @Bean
+	 public RouterFunction<ServerResponse> routeRdbmsMetaClassByTableClassName(@Autowired RdbmsMetaClassHandler rdbmsMetaClassHandler) {
+
+	    return RouterFunctions
+	    		.route(POST("/rdbms-metaclass").and(accept(MediaType.APPLICATION_JSON)), rdbmsMetaClassHandler::getRdbmsMetaClass);
+	 }
+	 
 	 @Bean
 	 public Jackson2ObjectMapperBuilder configureObjectMapper() {
 			return new Jackson2ObjectMapperBuilder();
