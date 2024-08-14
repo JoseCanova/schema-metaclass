@@ -33,7 +33,8 @@ public class RdbmsMetaClassHandler {
 	}
 	
 	public Mono<ServerResponse> getRdbmsMetaClass(ServerRequest request){
-		Mono<TableClassName> tableClassNameMono = request.bind(TableClassName.class); 
+		Mono<TableClassName> tableClassNameMono = request.
+													bodyToMono(TableClassName.class); 
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 			      .body(rdbmsSchemaCrawlerService.getRdbmsMetaClass(tableClassNameMono) , RdbmsMetaClass.class);
 	}
