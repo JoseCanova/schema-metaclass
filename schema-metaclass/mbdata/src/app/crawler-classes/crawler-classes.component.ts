@@ -105,7 +105,7 @@ export class CrawlerClassesComponent implements OnInit {
 	  	.restService
 	  	.proccessMetaClassUrl(classAlias.toLowerCase() + "/metaclass")
 	  	.subscribe({
-	  		next: next => this.processMetaClass(classAlias , className, next)
+	  		next: theNext => this.processMetaClass(classAlias , className, theNext)
 	  	});
 	  
   }
