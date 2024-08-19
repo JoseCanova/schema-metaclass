@@ -75,7 +75,10 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	}
 
 	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
-		return metaClassRepository.saveAll(theList);
+		return theList
+		.stream()
+		.map(r -> metaClassRepository.save(r))
+		.collect(Collectors.toList());
 	}	
 	
 	public List<RdbmsMetaClass> getMetaClassList(){

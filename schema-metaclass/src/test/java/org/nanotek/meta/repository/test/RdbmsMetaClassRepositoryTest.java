@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
-import org.nanotek.meta.repository.MetaClassRepository;
+import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,7 +18,7 @@ public class RdbmsMetaClassRepositoryTest {
 	SchemaCrawlerRdbmsMetaClassService schemaCrawlerRdbmsMetaClassService;
 	
 	@Autowired
-	MetaClassRepository<RdbmsMetaClass> metaClassRepository;
+	RdbmsMetaClassRepository  metaClassRepository;
 	
 	public RdbmsMetaClassRepositoryTest() {
 	}
