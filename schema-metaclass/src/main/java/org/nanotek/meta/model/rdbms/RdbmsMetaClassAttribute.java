@@ -22,8 +22,8 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	@JsonProperty("isId")
 	protected boolean isId = false;
 	@JsonProperty("clazz")
-	@Transient
-	protected Class<?> clazz;
+	protected String clazz;
+//	protected Class<?> clazz;
 	@JsonProperty("columnName")
 	protected String columnName;
 	@JsonProperty("length")
@@ -76,11 +76,11 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 		this.columnName = columnName;
 	}
 
-	public void setClazz(Class<?> clazz) {
+	public void setClazz(String clazz) {
 		this.clazz = clazz;
 	}
 
-	public Class<?> getClazz(){
+	public String getClazz(){
 		return this.clazz;
 	}
 	

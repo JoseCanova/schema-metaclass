@@ -6,8 +6,11 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 import javax.sql.DataSource;
 
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.controller.RdbmsMetaClassHandler;
+import org.nanotek.meta.util.BsonJavaClassCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
@@ -19,6 +22,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
+import org.springframework.data.mongodb.CodecRegistryProvider;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,6 +32,8 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import com.mongodb.MongoClientSettings;
 
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
@@ -156,5 +163,15 @@ public class MetaClassConfiguration {
 	 @Bean
 	 public Jackson2ObjectMapperBuilder configureObjectMapper() {
 			return new Jackson2ObjectMapperBuilder();
+	 }
+	 
+	 
+	 //TODO: such bean configuration for codec registry is not working.
+	 @Bean 
+	 public CodecRegistry mongoCodecRegistry(@Autowired MappingMongoConverter mongoConverter) {
+		 return CodecRegistries.fromRegistries(
+				    CodecRegistries.fromCodecs(new BsonJavaClassCodec()),
+				    mongoConverter.getCodecRegistry());
+
 	 }
 }

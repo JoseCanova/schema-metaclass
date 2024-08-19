@@ -24,7 +24,9 @@ import schemacrawler.schema.Column;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
-
+/**
+ * @deprecated
+ */
 @Service
 public class RdbmsMetaClassService {
 
@@ -68,7 +70,7 @@ public class RdbmsMetaClassService {
 		
 		lc.forEach(c -> {
 			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
-			md.setClazz(c.getColumnDataType().getTypeMappedClass());
+			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
 			md.setColumnName(c.getName());
 			String fieldName = columnNameTranslationStrategy.processNameTranslationStrategy(c.getName());
 			md.setFieldName(fieldName);
