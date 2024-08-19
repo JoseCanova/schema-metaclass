@@ -16,6 +16,7 @@ import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
@@ -52,32 +53,41 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	}
 	
 	public List<RdbmsMetaClass> retrieveMetaClassList(){
-		List<RdbmsMetaClass> metaClassList;
+		List<RdbmsMetaClass> metaClassList = null;
 		if(metaClassRepository.count()==0) {
 			metaClassList = persistMetaClassList(getMetaClassList());			
-		}else {
-			metaClassList = metaClassRepository.findAll();
 		}
-		return metaClassList;
+		return Optional
+			.ofNullable(metaClassList)
+			.orElse(metaClassRepository.findAll());
 	}
 	
+	public RdbmsMetaClass findByTableClassName(TableClassName tcn) {
+		return metaClassRepository.findOne(getExample(tcn)).orElseThrow();
+	}
+	
+	private Example<RdbmsMetaClass> getExample(TableClassName tcn) {
+		return Example.of(Optional
+		.ofNullable(tcn)
+		.map(tc -> {
+			return new RdbmsMetaClass(tcn.tableName(),tcn.className());
+		}).orElseThrow());
+	}
+
 	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
 		return metaClassRepository.saveAll(theList);
 	}	
 	
 	public List<RdbmsMetaClass> getMetaClassList(){
-		Optional<Collection<Table>> ocTables = getCatalogTables();
-
-		
-		List<RdbmsMetaClass> metaClassList =  ocTables
+		return getCatalogTables()
 					.map(ct -> toStream(ct))
 					.orElseThrow()
 					.map(t -> createMetaClass(t))
 					.collect(Collectors.toList());
 		
-		return metaClassList;
 	}
 	
+	//TODO: refactor this method for a fluent constructor.
 	private RdbmsMetaClass createMetaClass(Table table) {
 		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , tableName , table);
