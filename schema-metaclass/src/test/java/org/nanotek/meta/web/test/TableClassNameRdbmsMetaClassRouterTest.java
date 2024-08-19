@@ -1,5 +1,6 @@
 package org.nanotek.meta.web.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.Duration;
@@ -64,7 +65,8 @@ public class TableClassNameRdbmsMetaClassRouterTest {
 	private Object processRdbmsMetaClassObjectNode(Object v) {
 		ObjectMapper om = objectMapperBuilder.build();
 		RdbmsMetaClass rmc = om.convertValue(v, RdbmsMetaClass.class);
-		//TODO: Prepare Object assertions 
+		assertEquals("areacomment", rmc.getClassName());
+		assertEquals("areacomment", rmc.getTableName());
 		return null;
 	}
 

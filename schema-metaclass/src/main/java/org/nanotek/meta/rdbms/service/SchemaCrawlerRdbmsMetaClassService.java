@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
+import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.TableClassName;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
+import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,9 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	@Autowired
 	SystemStaticMessageSource messageSource;
 	
+	@Autowired
+	RdbmsMetaClassRepository metaClassRepository;
+	
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
 
@@ -46,10 +51,18 @@ public class SchemaCrawlerRdbmsMetaClassService {
 						.collect(Collectors.toList());
 	}
 	
-	//TODO: implement this method to allow persistence over a metaclass model.
-	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
-		List<RdbmsMetaClass> metaClassList = theList;
+	public List<RdbmsMetaClass> retrieveMetaClassList(){
+		List<RdbmsMetaClass> metaClassList;
+		if(metaClassRepository.count()==0) {
+			metaClassList = persistMetaClassList(getMetaClassList());			
+		}else {
+			metaClassList = metaClassRepository.findAll();
+		}
 		return metaClassList;
+	}
+	
+	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
+		return metaClassRepository.saveAll(theList);
 	}	
 	
 	public List<RdbmsMetaClass> getMetaClassList(){

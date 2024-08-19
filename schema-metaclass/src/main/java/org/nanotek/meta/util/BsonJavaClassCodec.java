@@ -9,8 +9,11 @@ import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 
-
-//TODO: verify if possible to configure a internal codec for Mongo using Spring DatA.
+/**
+ * @deprecated
+ * 
+ * Will not be used since Converters are the proper "abstraction" for Custom Codecs using spring data.
+ */
 public class BsonJavaClassCodec implements Codec<Class<?>> {
     @Override
     public void encode(BsonWriter writer, Class<?> value, EncoderContext encoderContext) {
