@@ -153,4 +153,10 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		return metaClassRepository.findByClassName(className);
 	}
 	
+//	public Mono<RdbmsMetaClass> findByClassName(TableClassName tcn){
+//	
+//	Flux<Person> result = template.query(Person.class)
+//			  .matching(query(where("age").lt(50).and("accounts.balance").gt(1000.00d)))
+//			  .all();
+//	}
 }
