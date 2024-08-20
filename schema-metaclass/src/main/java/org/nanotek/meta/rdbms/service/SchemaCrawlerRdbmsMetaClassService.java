@@ -54,7 +54,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	
 	public List<RdbmsMetaClass> retrieveMetaClassList(){
 		List<RdbmsMetaClass> metaClassList = null;
-		if(metaClassRepository.count()==0) {
+		if(metaClassRepository.count()<=0) {
 			metaClassList = persistMetaClassList(getMetaClassList());			
 		}
 		return Optional
@@ -147,6 +147,10 @@ public class SchemaCrawlerRdbmsMetaClassService {
 				.just(getMetaClassList().stream()
 				.filter(c -> c.getClassName().equals(tcn.className()) && c.getTableName().equals(tcn.tableName()))
 				.findAny()).flatMap(Mono::justOrEmpty);
+	}
+
+	public List<RdbmsMetaClass> findByClassName(String className) {
+		return metaClassRepository.findByClassName(className);
 	}
 	
 }

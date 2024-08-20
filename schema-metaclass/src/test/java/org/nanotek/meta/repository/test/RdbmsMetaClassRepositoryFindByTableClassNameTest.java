@@ -1,6 +1,9 @@
 package org.nanotek.meta.repository.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,13 +30,17 @@ public class RdbmsMetaClassRepositoryFindByTableClassNameTest {
 		assertNotNull(schemaCrawlerRdbmsMetaClassService);	
 		TableClassName tableClassName = new TableClassName("areacomment","areacomment");
 		//prepare mongo repository
-		schemaCrawlerRdbmsMetaClassService.getMetaClassList();
-		RdbmsMetaClass areaCommentMetaClass = schemaCrawlerRdbmsMetaClassService.findByTableClassName(tableClassName);
+		List<RdbmsMetaClass> areaCommentMetaClass = schemaCrawlerRdbmsMetaClassService.findByClassName(tableClassName.className());
 		assertNotNull(areaCommentMetaClass);
+		assertTrue(areaCommentMetaClass.size()==1);
 	}
 	
 	
 	@BeforeEach
+	void addAll() {
+		assertNotNull(schemaCrawlerRdbmsMetaClassService);	
+		schemaCrawlerRdbmsMetaClassService.retrieveMetaClassList();
+	}
 	@AfterEach
 	void delete() {
 		assertNotNull(repository);	
