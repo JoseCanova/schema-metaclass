@@ -22,7 +22,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.data.mongodb.CodecRegistryProvider;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -32,8 +33,6 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
-import com.mongodb.MongoClientSettings;
 
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
@@ -167,11 +166,22 @@ public class MetaClassConfiguration {
 	 
 	 
 	 //TODO: such bean configuration for codec registry is not working.
+	 /**
+	  * @deprecated
+	  * @param mongoConverter
+	  * @return
+	  */
 	 @Bean 
 	 public CodecRegistry mongoCodecRegistry(@Autowired MappingMongoConverter mongoConverter) {
 		 return CodecRegistries.fromRegistries(
 				    CodecRegistries.fromCodecs(new BsonJavaClassCodec()),
 				    mongoConverter.getCodecRegistry());
+
+	 }
+	 
+	 @Bean
+	 public MongoTemplate mongoTemplate(@Autowired  MongoDatabaseFactory mongoDbFactory) {
+	      return new MongoTemplate(mongoDbFactory);
 
 	 }
 }

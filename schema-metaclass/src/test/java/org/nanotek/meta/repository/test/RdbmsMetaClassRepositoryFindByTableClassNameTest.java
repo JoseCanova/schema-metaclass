@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 //TODO: Understand problem and optimize find methods on Mongo repository.
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RdbmsMetaClassRepositoryFindByTableClassNameTest {
 
 	@Autowired
