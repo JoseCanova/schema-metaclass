@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 
-import { SearchContainer } from 'src/app/class-model/class-model';
+import { SearchContainer, TableClassName } from 'src/app/class-model/class-model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +48,10 @@ export class RestService {
   
   public proccessSearch(url?:any , container?:SearchContainer):Observable<any>{
 	  return this.client2.post( this.homeUrl + url ,  container  , {observe:'body' ,  headers : RestService.buildHttpHeaders ()});
+  }
+  
+  public retrieveMetaClass(url:string , bodyPost: TableClassName):Observable<any>{
+    return this.client2
+  	  	  .post( this.homeUrl + url, bodyPost ,  {observe:'body' , headers : RestService.buildHttpHeaders ()} );
   }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit , AfterViewInit } from '@angular/core';
 import { RestService } from '../services/rest.service';
 import { pipe , map } from 'rxjs';
-import { SearchContainer , Identity } from 'src/app/class-model/class-model';
-
+import { SearchContainer , Identity , TableClassName } from 'src/app/class-model/class-model';
 
 @Component({
   selector: 'app-crawler-classes',
@@ -11,7 +10,7 @@ import { SearchContainer , Identity } from 'src/app/class-model/class-model';
 })
 export class CrawlerClassesComponent implements OnInit {
 
-  classes :  IClass[];
+  classes :  TableClassName[];
 	
   first = 0;
   rows = 10;
@@ -45,7 +44,7 @@ export class CrawlerClassesComponent implements OnInit {
   }
   
   prepare(){
-	  this.classes = new Array<IClass>();
+	  this.classes = new Array<TableClassName>();
   }
   
   public prepareClasses (){
@@ -65,11 +64,11 @@ export class CrawlerClassesComponent implements OnInit {
 	  console.log('the event ' + JSON.stringify(e));
   }
   
-  public processClasses(response : any) {
+  public processClasses(response : Array<TableClassName>) {
 	  try {
 		     let i = 0;
 		     for(var key in response){
-		    	 let clazz = { classAlias: response[key].tableName , className : response[key].className};
+		    	 let clazz = { tableName: response[key].tableName , className : response[key].className};
 		    	 this.classes.push (clazz);
 		     }
 		      }catch(e){console.log('an error');}
@@ -101,9 +100,11 @@ export class CrawlerClassesComponent implements OnInit {
   }
   
   public processClassAlias(classAlias:string , className:string){
+	  let bodyPost = {tableName:classAlias , className : className};
+	  
 	  this
 	  	.restService
-	  	.proccessMetaClassUrl(classAlias.toLowerCase() + "/metaclass")
+	  	.retrieveMetaClass("/rdbms-metaclass" , bodyPost)
 	  	.subscribe({
 	  		next: theNext => this.processMetaClass(classAlias , className, theNext)
 	  	});
@@ -111,7 +112,7 @@ export class CrawlerClassesComponent implements OnInit {
   }
   
   protected processMetaClass(classAlias:string ,className:string, next:any){
-	  if (this.selectedClass && this.selectedClass.classAlias == classAlias){
+	  if (this.selectedClass && this.selectedClass.tableName == classAlias){
 	 		this.toggle = this.toggle?false:true;
 	  }else if (this.selectedClass == <IMetaClass>{}) {
 		  this.toggle = true;
@@ -126,7 +127,7 @@ export class CrawlerClassesComponent implements OnInit {
 		  let metaAttribute= <any>{
 			  clazz : a.clazz,
 			  columnName : a.columnName,
-			  fieldName: this.snakeToCamel(  a.fieldName),
+			  fieldName: this.snakeToCamel(  a.name),
 			  isId: a.isId,
 			  length: a.length,
 			  sqlType: a.sqlType,
@@ -136,7 +137,7 @@ export class CrawlerClassesComponent implements OnInit {
 	  });
 	  let identity = <Identity>next.identity;
 	  this.selectedClass = <IMetaClass>{
-		  classAlias: classAlias,
+		  tableName: classAlias,
 		  className: className,
 		  metaAttributes: selectedAttr,
 		  identity: identity
@@ -275,15 +276,15 @@ export interface IAttribute{
 	required: boolean
 }
 
-export interface IMetaClass extends IClass{
+export interface IMetaClass extends TableClassName{
 	metaAttributes : Array<IAttribute>;
 	identity?: Identity;
 }
 
-export interface IClass {
+/**export interface IClass {
 	classAlias:string; 
 	className: string;
-}
+}**/
 
 
 export interface ISearchContainer {

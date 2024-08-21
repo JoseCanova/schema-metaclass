@@ -75,8 +75,8 @@ export interface IAttribute{
 }
 
 
-export interface IClass {
-	classAlias:string; 
+export interface TableClassName {
+	tableName:string; 
 	className: string;
 }
 
@@ -95,7 +95,7 @@ export interface Identity {
 	columns?:Array<any>;
 }
 
-export interface IMetaClass extends IClass{
+export interface IMetaClass extends TableClassName{
 	metaAttributes : Array<IAttribute>;
 	identity?: Identity;
 }

@@ -3,10 +3,9 @@ import * as go from 'gojs';
 import { DataSyncService, DiagramComponent, PaletteComponent } from 'gojs-angular';
 import produce from "immer";
 import { RestService } from 'src/app/rest.service'
-import { ISearchContainer , IClass , IMetaClass , IAttribute , Identity} from 'src/app/class-model/class-model';
-import { map } from 'rxjs'
+import { ISearchContainer , TableClassName , IMetaClass , IAttribute , Identity} from 'src/app/class-model/class-model';
+import { map  , Observable} from 'rxjs';
 import {MessageService} from 'primeng/api';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-model-graph',
@@ -16,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class ModelGraphComponent implements OnInit {
 
-  classes :  IClass[];
+  classes :  TableClassName[];
   edges: Edge[];
   vertexes: Vertex[];
   model: Model;
@@ -32,7 +31,7 @@ export class ModelGraphComponent implements OnInit {
   }
   
   prepare(){
-	  this.classes = new Array<IClass>();
+	  this.classes = new Array<TableClassName>();
 	  this.edges = new Array<Edge>();
 	  this.vertexes = new Array<Vertex>();
 	  this.links = new Array<Link>();
@@ -109,8 +108,8 @@ export class ModelGraphComponent implements OnInit {
 		      }catch(e){console.log('an error');}
 }
 	public getLinkAlias(l:Link):Link{
-	  let fromName = this.classes.filter(cls => cls.className == l.from).map(cls => cls.classAlias)[0]; 	
-	  let toName = this.classes.filter(cls => cls.className == l.to).map(cls => cls.classAlias)[0];	
+	  let fromName = this.classes.filter(cls => cls.className == l.from).map(cls => cls.tableName)[0]; 	
+	  let toName = this.classes.filter(cls => cls.className == l.to).map(cls => cls.tableName)[0];	
 	  return {from: fromName , to : toName};
   	}
 
@@ -118,7 +117,7 @@ export class ModelGraphComponent implements OnInit {
 	  try {
 		     let i = 0;
 		     for(var key in response){
-		    	 let clazz = { classAlias: key , className : response[key]};
+		    	 let clazz = { tableName: response[key].tableName , className : response[key].className};
 		    	 this.classes.push (clazz);
 		     }
 		      }catch(e){console.log('an error');}
@@ -195,7 +194,7 @@ export class ModelGraphComponent implements OnInit {
   toggle:boolean = false;
   
   protected processMetaClass(classAlias:string ,className:string, next:any){
-	  if (this.selectedClass && this.selectedClass.classAlias == classAlias){
+	  if (this.selectedClass && this.selectedClass.tableName == classAlias){
 	 		this.toggle = this.toggle?false:true;
 	  }else if (this.selectedClass == <IMetaClass>{}) {
 		  this.toggle = true;
@@ -220,7 +219,7 @@ export class ModelGraphComponent implements OnInit {
 		  selectedAttr.push (metaAttribute);		  
 	  });
 	  this.selectedClass = <IMetaClass>{
-		  classAlias: classAlias,
+		  tableName: classAlias,
 		  className: className,
 		  metaAttributes: selectedAttr,
 		  idendity: identity
@@ -266,8 +265,8 @@ export class ModelGraphComponent implements OnInit {
   
   
   public processSubGrafo(){
-	  if (this.selectedClass && this.selectedClass.classAlias){
-		  let alias = this.selectedClass.classAlias;
+	  if (this.selectedClass && this.selectedClass.tableName){
+		  let alias = this.selectedClass.tableName;
 		  console.log("alias " + alias);
 		  let filteredLinks = this.model.linkDataArray.filter (l => l.from?.toLowerCase()==alias || l.to?.toLowerCase()==alias);
 		  let filteredVertex = this.model.nodeDataArray.filter (v => this.filterVertexes(filteredLinks , v));

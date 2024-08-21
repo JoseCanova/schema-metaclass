@@ -18,7 +18,7 @@
 			    </ng-template>
 			    <ng-template pTemplate="body" let-clazz>
 		        <tr>
-		            <td><p-button type="button"   label="{{clazz.classAlias}}"  (click)="processClassAlias(clazz.classAlias , clazz.className)"  styleClass="p-button-text"></p-button></td>
+		            <td><p-button type="button"   label="{{clazz.tableName}}"  (click)="processClassAlias(clazz.tableName , clazz.className)"  styleClass="p-button-text"></p-button></td>
 		            <td><p-button type="button"   label="{{clazz.className}}"  (click)="processClassAlias(clazz.classAlias , clazz.className)"  styleClass="p-button-text"></p-button></td>
 		        </tr>
 		        <tr *ngIf="selectedClass && clazz.className == selectedClass.className">
