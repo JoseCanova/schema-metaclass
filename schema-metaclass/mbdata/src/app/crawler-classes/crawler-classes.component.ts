@@ -127,7 +127,7 @@ export class CrawlerClassesComponent implements OnInit {
 		  let metaAttribute= <any>{
 			  clazz : a.clazz,
 			  columnName : a.columnName,
-			  fieldName: this.snakeToCamel(  a.name),
+			  fieldName: a.name,
 			  isId: a.isId,
 			  length: a.length,
 			  sqlType: a.sqlType,
