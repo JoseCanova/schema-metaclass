@@ -4,6 +4,10 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A "better of worlds" camelToSnake and SnakeToCamel, 
+ * it does handle (not designed for) with malformed camel or snake cases.
+ */
 public record SnakeToCamelCaseTranslator(String snakeCaseOrigin) implements Supplier<String>{
 
 	public static String from (String origin) {
