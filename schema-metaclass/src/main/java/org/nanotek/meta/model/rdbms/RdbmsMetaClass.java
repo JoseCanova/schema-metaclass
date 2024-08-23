@@ -39,6 +39,11 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 		super();
 	}
 
+	/**
+	 * @deprecated
+	 * @param tableName
+	 * @param className
+	 */
 	public RdbmsMetaClass(String tableName, String className) {
 		super();
 		this.tableName = tableName;

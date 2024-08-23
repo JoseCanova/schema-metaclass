@@ -70,7 +70,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		return Example.of(Optional
 		.ofNullable(tcn)
 		.map(tc -> {
-			return new RdbmsMetaClass(tcn.tableName(),tcn.className());
+			return new RdbmsMetaClass(tcn.tableName(),tcn.className() , null);
 		}).orElseThrow());
 	}
 
