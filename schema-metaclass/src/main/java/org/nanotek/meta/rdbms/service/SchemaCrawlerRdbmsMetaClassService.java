@@ -101,13 +101,12 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
-		List<Column> lc = rc.getTable().getColumns();
+		var lc = rc.getTable().getColumns();
 		lc.forEach(c -> {
 			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
 			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
 			md.setColumnName(c.getName());
-			var originalFieldName = columnNameTranslationStrategy.processNameTranslationStrategy(c.getName());
-			md.setFieldName(SnakeToCamelCaseTranslator.from(originalFieldName));
+			md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName()));
 			var attributes = c.getAttributes();
 			verifyAttributes(c,attributes);
 			md.setId(c.isPartOfPrimaryKey());
