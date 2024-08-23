@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
-import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.TableClassName;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
