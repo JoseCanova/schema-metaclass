@@ -16,7 +16,7 @@ public record SnakeCaseConverter(){
                 caseHolder.put(true);
             }
             if (caseHolder.get() == true && append ==true){
-                c1 = Character.toUpperCase((char)c);
+                c1 = Character.toUpperCase(c1);
                 caseHolder.put(false);
             }
             if (append == true){
