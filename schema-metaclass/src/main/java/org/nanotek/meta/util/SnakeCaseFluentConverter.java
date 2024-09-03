@@ -1,7 +1,10 @@
 package org.nanotek.meta.util;
 
-import java.util.stream.*;
 
+/**
+ * A 'Better of Worlds' snake_case camel case converter
+ * 
+ */
 
 public record SnakeCaseFluentConverter(){
     public SnakeCaseFluentConverter(){}
@@ -22,8 +25,6 @@ public record SnakeCaseFluentConverter(){
 
     private static BooleanStringPair computeRedux(BooleanStringPair c , BooleanStringPair b){
 
-        System.out.print("\t" + c.left() + "\t" + c.right());
-        System.out.println("\t" + b.left() + "\t" + b.right());
         return BooleanStringPair.from(
             
                 b.left() , 
@@ -33,9 +34,5 @@ public record SnakeCaseFluentConverter(){
 
         
         );
-    }
-
-    public static void main(String args[]){
-        System.out.println( SnakeCaseFluentConverter.from("_snake_case_fluent_converter"));
     }
 }
