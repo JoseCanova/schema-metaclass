@@ -1,0 +1,39 @@
+Version 0.1 (of the READ.ME) file.
+
+Purpose of the project.
+
+On a previous exercise which was achieved, the main objective is to construct
+a small library that should be capable to build the mapping (at first glance)
+using Object Relational Mapping based on a Relational Schema
+
+At first it should be prepared a "base data structure" that must be populated with
+the relational information to mount the ORM model intended of be the mapping between
+the serialized structured in the relational database and the object (im memory) model,
+for such purpose it's being used as a source of information
+an open source library instead of JDBC directly named schema-crawler.
+
+The reason of adoption of schema crawler is the data abstraction over specific relational
+databases. Since the RDBMS and SQL dialect differ from database to database.
+
+Rationale: 
+
+
+The reason of an "autonomous ORM" mapping, it's the understanding of some simple assumptions.
+
+1- Regarding the project it self ? If its continues feasible to mount a ORM mapping (since on previous spring versions a simple autonomous mapping worked)
+based on a autonomous orm mapping build strategy (which means expose the model as an ORM mapping before 
+the formalization of the ORM mapping it self).
+
+2- Regarding the technology : A proof of concept and a path to understand the "impedance mismatch" between ORM<->RDBMS, which means:
+what are the "impeditive" actions that lead a non-adoption of an autonomous ORM mapping or a manual implementation of the ORM mapping.
+ 
+3- Continue the understanding of autonomous ORM-Mapping which on practice could be proved of some utility
+to analyze the difference of Object Mapping (the relation of objects) and "relational mapping" (which means what
+tables aren`t used to describe objects does it makes any sense?). 
+ 
+ Future usage of the library!
+ 
+ 1 - ORM frameworks provide a normalized dialect between relational databases (for example hibernate provides HQL).
+ 
+ 2- A tool for HQL injection, using the "best practices".
+ 
