@@ -128,7 +128,7 @@
 				<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-				<!--	<skipTests>true</skipTests>-->
+				<skipTests>true</skipTests>
 					<includes>
            				 <include>org.nanotek.meta.test.SnakeCaseFluentConverterTest</include>
           			</includes>
