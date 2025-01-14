@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import schemacrawler.schema.ForeignKey;
 import schemacrawler.schema.Table;
 
+//TODO: implement verification of "duplicate values" m which means scan on indexes that will not allow 
+//duplicate values.
 @Component
 public class FirstNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair , FirstNormalFormClassificationResult> {
 
