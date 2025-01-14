@@ -35,5 +35,8 @@ tables aren`t used to describe objects does it makes any sense?).
  
  1 - ORM frameworks provide a normalized dialect between relational databases (for example hibernate provides HQL).
  
- 2- A tool for HQL injection, using the "best practices".
+ 2- A tool for HQL injection, using the "best practices". which mean an interface to verify hql queries against the generated model.
+ 
+ 3- Verify the different on-tomanmy strategies provided by the ORM mapping and which is the best use of the mapping (on to many) strategy
+ given the rdbms strategy.
  
