@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.rdbms.service.RdbmsMetaClassService;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerDataSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -45,6 +46,9 @@ public class RdbmsMetaClassTest {
 	@Autowired 
 	RdbmsMetaClassService rdbmsMetaClassService;
 	
+	@Autowired 
+	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
+	
 	public RdbmsMetaClassTest() {
 	}
 
@@ -54,10 +58,10 @@ public class RdbmsMetaClassTest {
 		prepareTest();
 		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
-		Connection connection = defaultDataSource.getConnection();
 		
 		assertNotNull(schemaCrawlerOptions);
-		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+		final Catalog  catalog = SchemaCrawlerUtility
+							.getCatalog(schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 		Collection<schemacrawler.schema.Table> tables = catalog.getTables();
 		
 		List<Table> theTablesList =  tables.parallelStream()
@@ -80,10 +84,10 @@ public class RdbmsMetaClassTest {
 		prepareTest();
 		assertNotNull(rdbmsMetaClassService);
 		assertNotNull(defaultDataSource);
-		Connection connection = defaultDataSource.getConnection();
 		
 		assertNotNull(schemaCrawlerOptions);
-		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+		final Catalog  catalog = SchemaCrawlerUtility
+								.getCatalog(schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 		Collection<schemacrawler.schema.Table> tables = catalog.getTables();
 		
 		List<Table> theTablesList =  tables.parallelStream()

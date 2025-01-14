@@ -36,8 +36,6 @@ import schemacrawler.tools.utility.SchemaCrawlerUtility;
 @Service
 public class SchemaCrawlerService {
 
-	@Autowired
-	private DataSource defaultDataSource;
 
 	@Autowired 
 	SchemaCrawlerOptions schemaCrawlerOptions;
@@ -45,10 +43,13 @@ public class SchemaCrawlerService {
 	@Autowired
 	SystemStaticMessageSource messageSource;
 	
+	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
+	
 	public Optional<Collection<Table>> getCatalogTables(){
 		Catalog  catalog;
-		try (Connection connection = defaultDataSource.getConnection()) {
-			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+		try {
+			catalog = SchemaCrawlerUtility.getCatalog(
+					schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}

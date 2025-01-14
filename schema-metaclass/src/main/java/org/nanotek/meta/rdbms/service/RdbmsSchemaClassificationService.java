@@ -23,14 +23,15 @@ import schemacrawler.tools.utility.SchemaCrawlerUtility;
 @Service
 public class RdbmsSchemaClassificationService {
 
-	@Autowired
-	private DataSource dataSource;
 	
 	@Autowired
 	private SystemStaticMessageSource messageSource;
 	
 	@Autowired 
 	SchemaCrawlerOptions schemaCrawlerOptions;
+	
+	@Autowired
+	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
 	
 	public RdbmsSchemaClassificationService() {
 	}
@@ -39,11 +40,9 @@ public class RdbmsSchemaClassificationService {
 		List<Table> tables = new ArrayList<Table>();
 		try {
 			Catalog  catalog;
-			Connection connection = dataSource.getConnection();
-			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+			catalog = SchemaCrawlerUtility.getCatalog(schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 			catalog.getTables().forEach(t ->tables.add(t));
-			connection.close();
-		}catch (SQLException se) {
+		}catch (Exception se) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , se.getCause()) ;
 		}
 		return tables;

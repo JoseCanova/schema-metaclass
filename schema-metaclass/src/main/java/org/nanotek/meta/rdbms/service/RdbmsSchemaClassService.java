@@ -34,23 +34,21 @@ public class RdbmsSchemaClassService {
 	@Autowired
 	ColumnNameTranslationStrategy columnNameTranslationStrategy; 
 	
-	@Autowired
-	DataSource defaultDataSource;
-	
 	@Autowired 
 	SchemaCrawlerOptions schemaCrawlerOptions;
 	
 	@Autowired
 	SystemStaticMessageSource messageSource;
 	
+	@Autowired
+	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
+	
 	public List<schemacrawler.schema.Table> getSchemaTables(){
 		Catalog  catalog;
 		List<schemacrawler.schema.Table> tables = new ArrayList<schemacrawler.schema.Table>();
 		try {
-			Connection connection = defaultDataSource.getConnection();
-			catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+			catalog = SchemaCrawlerUtility.getCatalog(schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 			catalog.getTables().forEach(t ->tables.add(t));
-			connection.close();
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
 		}
