@@ -17,6 +17,7 @@ import schemacrawler.schema.Schema;
 import schemacrawler.schema.Table;
 import schemacrawler.schema.TableConstraintColumn;
 import schemacrawler.schema.TableConstraintType;
+import schemacrawler.schemacrawler.Identifiers;
 
 public class MetaRelationClass implements ForeignKey{
 	/**
@@ -76,7 +77,7 @@ public class MetaRelationClass implements ForeignKey{
 	}
 
 	public List<TableConstraintColumn> getColumns() {
-		return foreignKey.getColumns();
+		return foreignKey.getConstrainedColumns();
 	}
 
 	public void setRemarks(String remarks) {
@@ -177,6 +178,11 @@ public class MetaRelationClass implements ForeignKey{
 
 	public ForeignKeyUpdateRule getUpdateRule() {
 		return foreignKey.getUpdateRule();
+	}
+
+	@Override
+	public void withQuoting(Identifiers identifiers) {
+		foreignKey.withQuoting(identifiers);
 	}
 
 }
