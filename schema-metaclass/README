@@ -46,6 +46,11 @@ tables aren`t used to describe objects does it makes any sense?).
  It`s quite interesting decompose some "internal design" into separate modules enumerating 2. 
  1.1 - Check the feasibility to move "bean creating" that is parameterized from "metaclasses" to a separate project,.
  It will be a difficult task since the "object construction" upon metaclasses (on practice when serialized a json object).
+ 1.2 - Move the "table classification" tasks to a separate project. 
+ Rationale: Understand that "provide a classification" of the tables in the database it`s a "alternate concern", 
+ it will be handy for "ORM class specialization" to understand how the database model is normalized (which level of normalization 
+ each table achieved), since full normalization it`s not a common practice not that the "model is wrong" but main means that the 
+ entire database model has not achieved full normalization model. 
  
  2- Generate a "spring-boot-starter" project for the library. 
  2.1- It will be interesting to provide a spring boot starter project for this project which will facilitate the ysage
