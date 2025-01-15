@@ -2,7 +2,6 @@ package org.nanotek.meta.config;
 
 import java.util.Optional;
 
-import org.nanotek.meta.rdbms.service.SchemaCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -71,7 +70,7 @@ public class MetaClassSpringIntegrationConfiguration {
 	
 
 	@Bean
-	public IntegrationFlow dataModelIntegrationFlow(@Autowired SchemaCrawlerService schemaCrawlerService) {
+	public IntegrationFlow dataModelIntegrationFlow() {
 		return IntegrationFlow
 				.from("initChannel")
 				.channel(firstChannel())
@@ -79,7 +78,7 @@ public class MetaClassSpringIntegrationConfiguration {
 	}
 	
 	@Bean
-	public IntegrationFlow splitModelIntegrationFlow(@Autowired SchemaCrawlerService schemaCrawlerService) {
+	public IntegrationFlow splitModelIntegrationFlow() {
 		return IntegrationFlow
 				.from("splitCatalogMessageChannel")
 				.split()
@@ -88,7 +87,7 @@ public class MetaClassSpringIntegrationConfiguration {
 	}
 	
 	@Bean
-	public IntegrationFlow thirdModelIntegrationFlow(@Autowired SchemaCrawlerService schemaCrawlerService) {
+	public IntegrationFlow thirdModelIntegrationFlow() {
 		return IntegrationFlow
 				.from("secondNormalFormChannelResultChannel")
 				.filter(Message.class , m -> {
