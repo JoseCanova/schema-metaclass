@@ -37,12 +37,12 @@ tables aren`t used to describe objects does it makes any sense?).
  
  2- A tool for HQL injection, using the "best practices". which mean an interface to verify hql queries against the generated model.
  
- 3- Verify the different on-tomanmy strategies provided by the ORM mapping and which is the best use of the mapping (on to many) strategy
+ 3- Verify the different on-tomany strategies provided by the ORM mapping and which is the best use of the mapping (on to many) strategy
  given the rdbms strategy.
  
  Next Steps
  
- 1- Decompose the library into more "subcomponents". actually there are "many responsabilities" on the current project,
+ 1- Decompose the library into more "subcomponents". actually there are "many responsibilities" on the current project,
  It`s quite interesting decompose some "internal design" into separate modules enumerating 2. 
  1.1 - Check the feasibility to move "bean creating" that is parameterized from "metaclasses" to a separate project,.
  It will be a difficult task since the "object construction" upon metaclasses (on practice when serialized a json object).
@@ -53,6 +53,12 @@ tables aren`t used to describe objects does it makes any sense?).
  entire database model has not achieved full normalization model. 
  
  2- Generate a "spring-boot-starter" project for the library. 
- 2.1- It will be interesting to provide a spring boot starter project for this project which will facilitate the ysage
+ 2.1- It will be interesting to provide a spring boot starter project for this project which will facilitate the usage
  of the library. There are several issues ahead that need to be thought, but it will be an interesting alternative.
+ 
+ 15-01-2024
+ ---- First step : refactor which means move to other subproject the "normal forms classification" because is a complex matter.
+ adopting the KISS principle, this project is merely a mapping (and bean construction) between schema-crawler and metaclass
+ (this is the name adopted) and a prototype of bean configuration, probably bean configuration will be "turned into another" subproject
+ mainly to first simplify the project steps and adopt a microservice archtecture.
  
