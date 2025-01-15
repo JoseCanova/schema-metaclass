@@ -1,9 +1,9 @@
 package org.nanotek.meta.test;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 
 /**
@@ -13,11 +13,11 @@ public class Fibonacci {
 
 	private Map<Long , Long> memo = new HashMap<>();
 	
-	
 	private  long fibo (long x)
 	{
 		var result = memo.get(x);
-		return result == null?fib(x):result;
+		Supplier<Optional<Long>> sup = () ->  Optional.of( fib(x));
+		return Optional.ofNullable(result).or(sup).get();
 	}
 	
 	private  long fib(long x)
