@@ -16,8 +16,7 @@ public class Fibonacci {
 	private  long fibo (long x)
 	{
 		var result = memo.get(x);
-		Supplier<Optional<Long>> sup = () ->  Optional.of( fib(x));
-		return Optional.ofNullable(result).or(sup).get();
+		return Optional.ofNullable(result).orElseGet(() ->  fib(x));
 	}
 	
 	private  long fib(long x)
