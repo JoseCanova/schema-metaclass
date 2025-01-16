@@ -8,6 +8,8 @@ import us.fatehi.utility.datasource.DatabaseConnectionSource;
 import us.fatehi.utility.datasource.DatabaseConnectionSourceBuilder;
 import us.fatehi.utility.datasource.MultiUseUserCredentials;
 
+//TODO: implement a sample schemacrawler datasource properties 
+//for the current RDBMS unders usage in this case POSTGRESQL
 /**
  * 
  */

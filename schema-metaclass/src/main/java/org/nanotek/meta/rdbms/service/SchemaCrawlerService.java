@@ -52,7 +52,10 @@ public class SchemaCrawlerService {
 			catalog = SchemaCrawlerUtility.getCatalog(
 					schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 		} catch (Exception e) {
-			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , new Object[]{}, LocaleContext.getCurrentLocale()) , e.getCause()) ;
+			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , 
+										new Object[]{}, 
+										LocaleContext.getCurrentLocale()) , 
+										e.getCause()) ;
 		}
 		return Optional.ofNullable(catalog.getTables());
 	}

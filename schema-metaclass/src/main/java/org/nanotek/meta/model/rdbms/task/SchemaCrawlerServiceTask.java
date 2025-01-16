@@ -15,6 +15,8 @@ public class SchemaCrawlerServiceTask<R extends Record > implements SchemaCrawle
 	public SchemaCrawlerServiceTask() {
 	}
 	
+	//TODO:review implementation since "normalization analysis scope" will be moved from 
+	//this module.
 	@Override
 	public Optional<SchemaCrawlerResult<?>> evaluate(R cd) {
 		return Optional.of(new SchemaCrawlerResult<>(schemaCrawlerService.getCatalogTables()));
