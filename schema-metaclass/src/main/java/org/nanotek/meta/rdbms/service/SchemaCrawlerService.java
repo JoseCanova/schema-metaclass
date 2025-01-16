@@ -50,7 +50,8 @@ public class SchemaCrawlerService {
 		Catalog  catalog;
 		try {
 			catalog = SchemaCrawlerUtility.getCatalog(
-					schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
+					schemaCrawlerDataSourceService.getDatabaseConnectionSource(), 
+					schemaCrawlerOptions);
 		} catch (Exception e) {
 			throw new SchemaMetaClassException(messageSource.getMessage(NONOK , 
 										new Object[]{}, 

@@ -4,6 +4,7 @@ import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 
 import schemacrawler.schema.Table;
 
+//TODO:Analyze again the need of such specialization.
 public class OrmRdbmsMetaClass extends RdbmsMetaClass {
 
 	/**
