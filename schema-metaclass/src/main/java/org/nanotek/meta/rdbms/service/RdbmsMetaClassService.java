@@ -54,7 +54,7 @@ public class RdbmsMetaClassService {
 	}
 	
 	public MetaClass createMetaClass(schemacrawler.schema.Table t) {
-		RdbmsMetaClass meta = new RdbmsMetaClass();
+		RdbmsMetaClass meta = new RdbmsMetaClass(t.getName() , t.getName());
 		meta.getRdbmsClass().setTable(t);
 		meta.setClassName(t.getFullName());	
 		return meta;
