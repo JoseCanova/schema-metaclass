@@ -43,6 +43,7 @@ public class SchemaCrawlerService {
 	@Autowired
 	SystemStaticMessageSource messageSource;
 	
+	@Autowired
 	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
 	
 	public Optional<Collection<Table>> getCatalogTables(){
