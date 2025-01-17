@@ -11,16 +11,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
+@MappedSuperclass
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
 public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T extends MetaClassAttribute<?>> extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
+	@Id
+	private String id;
+	
 	@JsonProperty("className")
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	protected String className; 
@@ -114,6 +120,14 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 
 	public void setClassifier(C classifier) {
 		this.classifier = classifier;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

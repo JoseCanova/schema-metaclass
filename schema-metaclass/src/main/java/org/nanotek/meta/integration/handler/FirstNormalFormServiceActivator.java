@@ -26,7 +26,6 @@ import schemacrawler.schema.Table;
 @Component
 public class FirstNormalFormServiceActivator {
 
-	@Autowired 
 	private FirstNormalFormClassificationTask theTask; 
 
 	public FirstNormalFormServiceActivator() {

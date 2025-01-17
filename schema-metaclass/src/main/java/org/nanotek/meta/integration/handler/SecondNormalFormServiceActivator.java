@@ -22,7 +22,6 @@ import schemacrawler.schema.Table;
 @Component
 public class SecondNormalFormServiceActivator {
 
-	@Autowired
 	SecondNormalFormClassificationTask secondNormalFormTask;
 	
 	public SecondNormalFormServiceActivator() {

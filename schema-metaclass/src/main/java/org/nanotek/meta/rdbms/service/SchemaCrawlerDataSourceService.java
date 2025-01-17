@@ -14,7 +14,7 @@ import us.fatehi.utility.datasource.MultiUseUserCredentials;
  * 
  */
 @Service
-@ConfigurationProperties(prefix = "spring.datasource") 
+@ConfigurationProperties(prefix = "schemacrawler.datasource") 
 @ConfigurationPropertiesScan 
 public class SchemaCrawlerDataSourceService {
 

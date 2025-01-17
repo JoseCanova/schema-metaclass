@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 //import org.bson.codecs.configuration.CodecRegistry;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.controller.RdbmsMetaClassHandler;
-import org.nanotek.meta.util.BsonJavaClassCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
@@ -28,12 +27,17 @@ import org.springframework.core.Ordered;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.validation.Validator;
 import schemacrawler.schemacrawler.LoadOptionsBuilder;
 import schemacrawler.schemacrawler.SchemaCrawlerOptions;
@@ -165,11 +169,6 @@ public class MetaClassConfiguration {
 	 
 	 
 	 //TODO: such bean configuration for codec registry is not working.
-	 /**
-	  * @deprecated
-	  * @param mongoConverter
-	  * @return
-	  */
 		/*
 		 * @Bean public CodecRegistry mongoCodecRegistry(@Autowired
 		 * MappingMongoConverter mongoConverter) { return
@@ -183,4 +182,25 @@ public class MetaClassConfiguration {
 		 * 
 		 * }
 		 */
+	 
+	 	@Bean
+		@Primary
+		public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+			HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+			vendorAdapter.setGenerateDdl(true);
+			LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+			factory.setJpaVendorAdapter(vendorAdapter);
+			factory.setPackagesToScan("org.nanotek");
+			factory.setPersistenceUnitName("music-brainz");
+			factory.setDataSource(defaultDataSource(defaultDataSourceProperties()));
+			return factory;
+		}
+
+		//
+		@Bean
+		public PlatformTransactionManager transactionManager(@Autowired EntityManagerFactory entityManagerFactory) { 
+			JpaTransactionManager txManager = new JpaTransactionManager();
+			txManager.setEntityManagerFactory(entityManagerFactory); 
+			return txManager; 
+		}
 }

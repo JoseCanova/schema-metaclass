@@ -11,6 +11,7 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import schemacrawler.schema.Table;
@@ -21,6 +22,7 @@ import schemacrawler.schema.Table;
 		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
 	}
  */
+@Entity
 public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClassifier,RdbmsMetaClassAttribute> implements IRdbmsClass{
 
 	private static final long serialVersionUID = -4542645486119141998L;
