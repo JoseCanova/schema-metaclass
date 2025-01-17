@@ -89,3 +89,9 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.eureka-server-port}/eureka
                      
+schemacrawler:
+    datasource:
+        jdbcUrl: jdbc:postgresql://127.0.0.1:5432/postgres
+        url: jdbc:postgresql://127.0.0.1:5432/postgres
+        username: postgres 
+        password: postgres123

@@ -1,6 +1,6 @@
 package org.nanotek.meta.test;
 
-import java.util.Date;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -22,7 +22,8 @@ public class Fibonacci {
 	
 	private  long fib(long x)
 	{ 	    
-			var result = Optional.ofNullable(x).filter(y -> y >2).map( y -> fib(y-1) + fibo(y-2)).orElseGet(() -> x>0?1L:0L);
+			var result = Optional.ofNullable(x). filter(y -> y >2).map(y -> fib(y-1) + fibo(y-2)).orElseGet(() -> x>0?1L:0L);
+			BigInteger res = BigInteger.valueOf(result);
 			memo.put(x, result);
 			System.out.println("produced fib " + x + " result x " + "  " + result);
 			return result;
