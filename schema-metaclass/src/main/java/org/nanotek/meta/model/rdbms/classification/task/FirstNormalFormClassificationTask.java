@@ -17,7 +17,7 @@ import schemacrawler.schema.Table;
 
 //TODO: implement verification of "duplicate values" m which means scan on indexes that will not allow 
 //duplicate values.
-@Component
+//@Component
 public class FirstNormalFormClassificationTask implements TableClassificationTask<ClassificationDataPair , FirstNormalFormClassificationResult> {
 
 	@Autowired

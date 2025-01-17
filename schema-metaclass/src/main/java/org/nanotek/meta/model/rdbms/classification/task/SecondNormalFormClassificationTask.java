@@ -19,7 +19,7 @@ import schemacrawler.schema.Index;
 import schemacrawler.schema.Table;
 
 
-@Component
+//@Component
 public class SecondNormalFormClassificationTask implements TableClassificationTask<ClassificationData , SecondNormalFormClassificationResult> {
 	
 	public SecondNormalFormClassificationTask() {

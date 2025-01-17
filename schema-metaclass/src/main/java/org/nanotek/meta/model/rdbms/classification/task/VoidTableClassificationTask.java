@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import schemacrawler.schema.Table;
 
-@Component
+//@Component
 public class VoidTableClassificationTask implements TableClassificationTask<ClassificationData,VoidTableClassificationResult> {
 
 	@Autowired

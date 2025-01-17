@@ -18,7 +18,7 @@ import schemacrawler.schema.Column;
 import schemacrawler.schema.Index;
 import schemacrawler.schema.Table;
 
-@Component
+//@Component
 public class ThirdNormalFormClassificationTask implements TableClassificationTask<ClassificationData , ThirdNormalFormClassificationResult>{
 
 	public ThirdNormalFormClassificationTask() {}

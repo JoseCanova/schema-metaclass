@@ -6,8 +6,8 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 import javax.sql.DataSource;
 
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
+//import org.bson.codecs.configuration.CodecRegistries;
+//import org.bson.codecs.configuration.CodecRegistry;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.controller.RdbmsMetaClassHandler;
 import org.nanotek.meta.util.BsonJavaClassCodec;
@@ -22,9 +22,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+//import org.springframework.data.mongodb.MongoDatabaseFactory;
+//import org.springframework.data.mongodb.core.MongoTemplate;
+//import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,7 +44,6 @@ import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
 @SpringBootConfiguration
 @ComponentScan(basePackages = {"org.nanotek.meta.rdbms.service" 
 								,"org.nanotek.meta.util",
-								"org.nanotek.meta.model.rdbms.classification.task",
 								"org.nanotek.meta.integration.handler", 
 								"org.nanotek.meta.repository"})
 public class MetaClassConfiguration {
@@ -171,17 +170,17 @@ public class MetaClassConfiguration {
 	  * @param mongoConverter
 	  * @return
 	  */
-	 @Bean 
-	 public CodecRegistry mongoCodecRegistry(@Autowired MappingMongoConverter mongoConverter) {
-		 return CodecRegistries.fromRegistries(
-				    CodecRegistries.fromCodecs(new BsonJavaClassCodec()),
-				    mongoConverter.getCodecRegistry());
-
-	 }
-	 
-	 @Bean
-	 public MongoTemplate mongoTemplate(@Autowired  MongoDatabaseFactory mongoDbFactory) {
-	      return new MongoTemplate(mongoDbFactory);
-
-	 }
+		/*
+		 * @Bean public CodecRegistry mongoCodecRegistry(@Autowired
+		 * MappingMongoConverter mongoConverter) { return
+		 * CodecRegistries.fromRegistries( CodecRegistries.fromCodecs(new
+		 * BsonJavaClassCodec()), mongoConverter.getCodecRegistry());
+		 * 
+		 * }
+		 * 
+		 * @Bean public MongoTemplate mongoTemplate(@Autowired MongoDatabaseFactory
+		 * mongoDbFactory) { return new MongoTemplate(mongoDbFactory);
+		 * 
+		 * }
+		 */
 }

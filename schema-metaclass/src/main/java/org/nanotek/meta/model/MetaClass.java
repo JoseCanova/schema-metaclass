@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.nanotek.Base;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +15,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
-@Document
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
 public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T extends MetaClassAttribute<?>> extends MetaBase<K,String>  implements IClass {
