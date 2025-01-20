@@ -19,7 +19,8 @@ import lombok.ToString;
 //TODO: Verify best strategy for class attribute. usage for Class.forName is preferable than alter codec for Model MongoDb persistence.
 //TODO: Implement a "className" attribute that conforms with transient attribute clazz fullName
 @ToString
-public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
+public class RdbmsMetaClassAttribute 
+extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 
 	@Id
 	private String id;
