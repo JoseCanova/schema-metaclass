@@ -68,7 +68,7 @@ public class RdbmsMetaClassTest {
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
-		List<Column> lc = rc.getTable().getColumns();
+		List<Column> lc = rc.getSchemaTable().getColumns();
 		
 		lc.forEach(c -> {
 			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();

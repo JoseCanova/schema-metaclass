@@ -102,7 +102,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
-		var lc = rc.getTable().getColumns();
+		var lc = rc.getSchemaTable().getColumns();
 		lc.forEach(c -> {
 			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
 			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());

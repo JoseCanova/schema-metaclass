@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.nanotek.meta.model.IRdbmsClass;
 import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaIdentity;
+import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 import org.springframework.data.annotation.Transient;
 
@@ -72,19 +73,19 @@ implements IRdbmsClass{
 	protected void postConstruct(Table table) {
 		Optional
 		.ofNullable(table)
+		.map(t -> new RdbmsSchemaTable(t))
 		.ifPresentOrElse(
 				t -> { 
 					this.rdbmsClass = new RdbmsClass(t);
-					verifyMetaClassIdentity(table);
+					verifyMetaClassIdentity(t);
 				}
 		, () -> this.rdbmsClass = new RdbmsClass());
 //		classifier = new RdbmsMetaClassClassifier ();
 	}
 	
 	
-	
-	private void verifyMetaClassIdentity(Table table) {
-		Optional.ofNullable(table.getPrimaryKey())
+	private void verifyMetaClassIdentity(RdbmsSchemaTable t) {
+		Optional.ofNullable(t.getPrimaryKey())
 		.ifPresent(id -> {
 			MetaIdentity mi = new MetaIdentity(id);
 			this.setIdentity(mi);
