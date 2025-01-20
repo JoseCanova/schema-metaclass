@@ -11,16 +11,17 @@ public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
 
 	@JsonProperty("name")
 	protected String fieldName;
+
+	public MetaClassAttribute() {
+	}
 	
+
 	public String getFieldName() {
 		return fieldName;
 	}
 
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
-	}
-
-	public MetaClassAttribute() {
 	}
 
 }
