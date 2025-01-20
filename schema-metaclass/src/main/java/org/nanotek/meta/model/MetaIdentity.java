@@ -1,24 +1,30 @@
 package org.nanotek.meta.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.TableConstraintColumn;
 
+@Entity
 @Data
 @EqualsAndHashCode
 @ToString
-public class MetaIdentity {
+public class MetaIdentity implements Serializable{
 
 	
 	private String definition;
 	private String shortName;
 	private String name;
+	
+	@OneToMany
 	private List<PkColumn> columns; 
 	
 	public MetaIdentity() {

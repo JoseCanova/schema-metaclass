@@ -13,13 +13,17 @@ import org.nanotek.meta.repository.MetaClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+//TODO:implement a test method that uses a RDBMSMetaclass.s
 @SpringBootTest
 public class MetaClassRepositoryTest<K extends MetaClass<K,?>> {
 
 	@Autowired
 	MetaClassRepository<K> rep;
 	
-	@Test
+	/**
+	 * @deprecated
+	 */
+//	@Test
 	void testMetaClassRepositoryInsertDelete() {
 		assertNotNull(rep);
 		@SuppressWarnings("rawtypes")

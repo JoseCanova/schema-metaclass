@@ -22,12 +22,6 @@ public interface Base<K extends Base<?>> extends Serializable , KongSupplier<K> 
 			throw new BaseException(ex);
 		}
 	}
-	//TODO: Verify Gson type adapters.
-//	default String toJson () 
-//	{ 
-//		return new Gson().toJson(this);
-//	}
-
 
 	default <T> T newAnyType(Supplier<T> supplier)
 	{ 

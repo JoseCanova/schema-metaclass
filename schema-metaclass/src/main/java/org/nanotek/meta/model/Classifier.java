@@ -1,10 +1,9 @@
 package org.nanotek.meta.model;
 
-import org.nanotek.TagInterface;
-
 import java.util.Optional;
 
 import org.nanotek.Base;
+import org.nanotek.TagInterface;
 
 @TagInterface
 @FunctionalInterface

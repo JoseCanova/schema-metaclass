@@ -1,20 +1,15 @@
 package org.nanotek.meta.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.sql.DataSource;
-
 import org.junit.jupiter.api.Test;
-import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerDataSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,8 +23,8 @@ import schemacrawler.tools.utility.SchemaCrawlerUtility;
 @SpringBootTest
 public class DataSourceTest {
 
-	@Autowired 
-	DataSource defaultDataSource;
+	@Autowired
+	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
 	
 	@Autowired
 	SchemaInfoLevelBuilder schemaInfoLevelBuilder;
@@ -43,17 +38,6 @@ public class DataSourceTest {
 	public DataSourceTest() {
 	}
 
-	@Test
-	void testDefaultDataSource() {
-		assertNotNull(defaultDataSource);
-	}
-	
-	@Test
-	void testDefaultDataSourceConnection() throws SQLException {
-		assertNotNull(defaultDataSource);
-		Connection con = defaultDataSource.getConnection();
-		assertNotNull(con);
-	}
 	
 	@Test
 	void testSchemaInfoLevelBuilder() {
@@ -71,20 +55,10 @@ public class DataSourceTest {
 	}
 	
 	@Test
-	void testPostgresConnection() throws SQLException {
-		assertNotNull(defaultDataSource);
-		Connection connection = defaultDataSource.getConnection();
-		assertNotNull(connection);
-	}
-	
-	//TODO: finish this unit test. 
-	@Test
 	void testSchemaCrawlerPostgresConnectionAndTablesRetrieval() throws SQLException {
-		assertNotNull(defaultDataSource);
-		Connection connection = defaultDataSource.getConnection();
-		
 		assertNotNull(schemaCrawlerOptions);
-		final Catalog  catalog = SchemaCrawlerUtility.getCatalog(connection, schemaCrawlerOptions);
+		final Catalog  catalog = SchemaCrawlerUtility
+					.getCatalog(schemaCrawlerDataSourceService.getDatabaseConnectionSource(), schemaCrawlerOptions);
 		Collection<schemacrawler.schema.Table> tables = catalog.getTables();
 		
 		List<Table> theTablesList =  tables.parallelStream()

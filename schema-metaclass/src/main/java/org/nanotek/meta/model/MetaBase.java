@@ -2,11 +2,10 @@ package org.nanotek.meta.model;
 
 import java.io.Serializable;
 
-import org.nanotek.Base;
 import org.nanotek.MutableIdentity;
 import org.springframework.data.annotation.Id;
 
-public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implements Base<K> , IdBase<K,ID> , MutableIdentity<ID>{
+public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implements  IdBase<K,ID> , MutableIdentity<ID>{
 
 	/**
 	 * 
@@ -15,7 +14,14 @@ public class MetaBase<K extends MetaBase<K,ID>,ID extends Serializable> implemen
 	
 	@Id
 	ID id;
+	
+	
+	public MetaBase() {
+	}
 
+	public MetaBase(ID id) {
+		this.id = id;
+	}
 	@Override
 	public ID getId() {
 		return id;

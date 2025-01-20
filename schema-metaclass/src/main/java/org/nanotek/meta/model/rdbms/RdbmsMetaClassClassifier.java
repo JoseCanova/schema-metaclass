@@ -51,5 +51,5 @@ public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass
 	public <CR extends Base<?>> Optional<CR> classify(RdbmsMetaClass classified) {
 		return null;
 	}
-
+	
 }

@@ -13,8 +13,9 @@ public class RbdmsMetaIdentityService {
 	public RbdmsMetaIdentityService() {
 	}
 	
+	
 	public MetaClass prepareIdentity(final RdbmsMetaClass metaClass) {
-		Table t  = metaClass.getRdbmsClass().getTable();
+		Table t  = metaClass.getRdbmsClass().getSchemaTable();
 		metaClass.setTableName(t.getFullName());
 		MetaIdentity mi = new MetaIdentity(t.getPrimaryKey());
 		metaClass.setIdentity(mi);

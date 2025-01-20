@@ -1,20 +1,16 @@
 package org.nanotek.meta.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @EqualsAndHashCode
-public class PkColumn {
+public class PkColumn implements Serializable {
 
 	protected String name;
 
 	public PkColumn() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PkColumn(String name) {
