@@ -11,14 +11,19 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.ToString;
 
-//TODO: Fix Class property codec for MongoDb persistence.
+@Entity
 //TODO: Verify best strategy for class attribute. usage for Class.forName is preferable than alter codec for Model MongoDb persistence.
 //TODO: Implement a "className" attribute that conforms with transient attribute clazz fullName
 @ToString
 public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 
+	@Id
+	private String id;
+	
 	@JsonProperty("isId")
 	protected boolean isId = false;
 	@JsonProperty("clazz")
@@ -46,14 +51,14 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	
 	@JsonIgnore
 	@Transient
-	private transient MetaClass<?,?,?> metaClass;
+	private transient MetaClass<?,?> metaClass;
 	
 	
 	public RdbmsMetaClassAttribute() {
 		super();
 	}
 
-	public RdbmsMetaClassAttribute(MetaClass<?,?,?> mc) {
+	public RdbmsMetaClassAttribute(MetaClass<?,?> mc) {
 		super();
 		this.metaClass=mc;
 	}
@@ -133,11 +138,11 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 		this.idAliases = idAliases;
 	}
 
-	public MetaClass<?,?,?> getMetaClass() {
+	public MetaClass<?,?> getMetaClass() {
 		return metaClass;
 	}
 
-	public void setMetaClass(MetaClass<?,?,?> metaClass) {
+	public void setMetaClass(MetaClass<?,?> metaClass) {
 		this.metaClass = metaClass;
 	}
 	
@@ -164,4 +169,13 @@ public class RdbmsMetaClassAttribute extends MetaClassAttribute<RdbmsMetaClassAt
 	public void setPartOfForeignKey(boolean partOfForeignKey) {
 		this.partOfForeignKey = partOfForeignKey;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }

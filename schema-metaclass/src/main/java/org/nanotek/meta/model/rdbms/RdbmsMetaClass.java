@@ -23,7 +23,8 @@ import schemacrawler.schema.Table;
 	}
  */
 @Entity
-public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClassifier,RdbmsMetaClassAttribute> implements IRdbmsClass{
+public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassAttribute> 
+implements IRdbmsClass{
 
 	private static final long serialVersionUID = -4542645486119141998L;
 
@@ -77,7 +78,7 @@ public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassClass
 					verifyMetaClassIdentity(table);
 				}
 		, () -> this.rdbmsClass = new RdbmsClass());
-		classifier = new RdbmsMetaClassClassifier ();
+//		classifier = new RdbmsMetaClassClassifier ();
 	}
 	
 	

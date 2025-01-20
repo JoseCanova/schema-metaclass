@@ -3,10 +3,8 @@ package org.nanotek.meta.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nanotek.Base;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +18,8 @@ import lombok.AllArgsConstructor;
 @MappedSuperclass
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
-public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T extends MetaClassAttribute<?>> extends MetaBase<K,String>  implements IClass {
+public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<?>> 
+extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
@@ -34,9 +33,12 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	protected List<T> metaAttributes = new ArrayList<>();
 
-	@JsonIgnore
-	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
-	protected C classifier;
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @NotNull(groups= {MetaClassDefaultValidationGroup.class}) protected C
+	 * classifier;
+	 */
 	
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
@@ -57,7 +59,6 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 		this.className = className;
 		this.metaAttributes = metaAttributes;
 		this.identity = identity;
-		postConstruct();
 	}
 
 //	public MetaClass(String className, 
@@ -69,10 +70,11 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 //	}
 
 	
-	@SuppressWarnings("unchecked")
-	protected void postConstruct() {
-		this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class) C) Base.newInstance(MetaClassClassifier.class).get();
-	}
+	/*
+	 * @SuppressWarnings("unchecked") protected void postConstruct() {
+	 * this.classifier = (@NotNull(groups = MetaClassDefaultValidationGroup.class)
+	 * C) Base.newInstance(MetaClassClassifier.class).get(); }
+	 */
 	
 	@Override
 	public String getClassName() {
@@ -114,13 +116,11 @@ public class MetaClass<K extends MetaClass<K,C,T> , C extends Classifier<?>,T ex
 	}
 
 
-	public C getClassifier() {
-		return classifier;
-	}
-
-	public void setClassifier(C classifier) {
-		this.classifier = classifier;
-	}
+	/*
+	 * public C getClassifier() { return classifier; }
+	 * 
+	 * public void setClassifier(C classifier) { this.classifier = classifier; }
+	 */
 
 	public String getId() {
 		return id;

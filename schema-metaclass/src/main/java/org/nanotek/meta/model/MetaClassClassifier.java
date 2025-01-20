@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.nanotek.Base;
 
-public class MetaClassClassifier<M extends MetaClass<M,?,?>> implements Base<M> , Classifier<M> {
+public class MetaClassClassifier<M extends MetaClass<M,?>> implements Base<M> , Classifier<M> {
 
 	/**
 	 * 

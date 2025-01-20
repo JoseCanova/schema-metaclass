@@ -2,8 +2,10 @@ package org.nanotek.meta.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.ToString;
 
+@MappedSuperclass
 @ToString
 public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
 

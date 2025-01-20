@@ -72,7 +72,7 @@ public class RdbmsMetaClassTest {
 						.collect(Collectors.toList());
 		assertNotNull(theTablesList);
 		assertTrue(theTablesList.size() >= 1);
-		List<MetaClass<?,?,?>> metaClassList = new ArrayList<MetaClass<?,?,?>>();
+		List<MetaClass<?,?>> metaClassList = new ArrayList<MetaClass<?,?>>();
 		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
 		assertTrue(theTablesList.size() == metaClassList.size());
 		closeTest();
@@ -98,7 +98,7 @@ public class RdbmsMetaClassTest {
 						.collect(Collectors.toList());
 		assertNotNull(theTablesList);
 		assertTrue(theTablesList.size() >= 1);
-		List<MetaClass<?,?,?>> metaClassList = new ArrayList<>();
+		List<MetaClass<?,?>> metaClassList = new ArrayList<>();
 		theTablesList.forEach(t -> metaClassList.add(rdbmsMetaClassService.createMetaClass(t)));
 		assertTrue(theTablesList.size() == metaClassList.size());
 		closeTest();

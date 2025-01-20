@@ -23,7 +23,7 @@ public class RdbmsMetaClassRepositoryTest<K extends RdbmsMetaClass> {
 	void testRdbmsMetaClassRepositoryInsertDelete() {
 		assertNotNull(rep);
 		Optional<RdbmsMetaClass> omet = Base.newInstance(RdbmsMetaClass.class);
-		MetaClass<?,?,?> met = omet.get();
+		MetaClass<?,?> met = omet.get();
 		assertNotNull(met);
 		K newMet = rep.save((K)met);
 		assertNotNull(newMet.getId());
