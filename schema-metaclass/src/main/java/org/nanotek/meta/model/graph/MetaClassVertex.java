@@ -1,4 +1,4 @@
-package org.nanotek.meta.model;
+package org.nanotek.meta.model.graph;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
