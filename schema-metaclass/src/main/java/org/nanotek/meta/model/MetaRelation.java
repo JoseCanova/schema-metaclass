@@ -7,7 +7,6 @@ public class MetaRelation {
 	protected RdbmsMetaClassAttribute from; 
 	
 	protected RdbmsMetaClassAttribute to;
-
 	
 	
 	public MetaRelation(RdbmsMetaClassAttribute from, RdbmsMetaClassAttribute to) {

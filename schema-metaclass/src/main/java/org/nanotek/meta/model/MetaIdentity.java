@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +20,8 @@ import schemacrawler.schema.TableConstraintColumn;
 @ToString
 public class MetaIdentity implements Serializable{
 
+	@Id
+	private String id;
 	
 	private String definition;
 	private String shortName;
@@ -92,5 +95,12 @@ public class MetaIdentity implements Serializable{
 		this.columns = columns;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }

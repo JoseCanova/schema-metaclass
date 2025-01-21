@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.nanotek.Base;
 import org.nanotek.meta.model.MetaRelationClass;
-import org.nanotek.meta.model.rdbms.classification.MetaClassClassifier;
+import org.nanotek.meta.model.classification.MetaClassClassifier;
 
 public class RdbmsMetaClassClassifier extends MetaClassClassifier<RdbmsMetaClass>  {
 

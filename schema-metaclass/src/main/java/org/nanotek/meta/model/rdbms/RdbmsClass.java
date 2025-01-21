@@ -11,10 +11,8 @@ import schemacrawler.schema.Table;
 
 public class RdbmsClass {
 
-	@JsonIgnore
 	protected RdbmsSchemaTable table;
 	
-	@JsonIgnore
 	private List<RdbmsSchemaTable> referencedTables;
 	
 	public RdbmsClass() {
