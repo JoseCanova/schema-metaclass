@@ -15,7 +15,8 @@ import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//TODO: Understand problem and optimize find methods on Mongo repository.
+//TODO:Refactor test to load metaclasses into metaclass rdbms repository
+//TODO:Refactor test to delete all after each test.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RdbmsMetaClassRepositoryFindByTableClassNameTest {
 
@@ -29,7 +30,6 @@ public class RdbmsMetaClassRepositoryFindByTableClassNameTest {
 	public void findByTableClassNameTest() {
 		assertNotNull(schemaCrawlerRdbmsMetaClassService);	
 		TableClassName tableClassName = new TableClassName("areacomment","areacomment");
-		//prepare mongo repository
 		List<RdbmsMetaClass> areaCommentMetaClass = schemaCrawlerRdbmsMetaClassService.findByClassName(tableClassName.className());
 		assertNotNull(areaCommentMetaClass);
 		assertTrue(areaCommentMetaClass.size()==1);

@@ -3,18 +3,23 @@ package org.nanotek.meta.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
+//TODO: replace deprecated generator strategy to @IdGeneratorType
+//as cited on https://discourse.hibernate.org/t/replacement-of-genericgenerator-native/10130/8
 @MappedSuperclass
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
@@ -23,7 +28,12 @@ extends MetaBase<K,String>  implements IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
+	@SuppressWarnings("deprecation")
 	@Id
+    @GeneratedValue(generator = "string-generator")
+    @GenericGenerator(name = "string-generator", 
+      parameters = @Parameter(name = "prefix", value = "string"), 
+      strategy = "org.nanotek.meta.util.StringIdGenerator")
 	private String id;
 	
 	@JsonProperty("className")

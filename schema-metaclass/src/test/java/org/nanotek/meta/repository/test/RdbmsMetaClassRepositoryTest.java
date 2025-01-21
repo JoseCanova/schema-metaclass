@@ -30,14 +30,13 @@ public class RdbmsMetaClassRepositoryTest {
 		assertNotNull(metaClassRepository);
 		Optional<RdbmsMetaClass> rdbmsMetaClass = getAnyRdbmsMetaClass();
 		rdbmsMetaClass.ifPresentOrElse(rdbms ->{
-			rdbms.setId("1");
 			RdbmsMetaClass newMet = metaClassRepository.save(rdbms);
 			assertNotNull(newMet);
-			assertTrue(newMet.getId().equals("1"));
-			Optional<?> nonEmptyExpectedResult = metaClassRepository.findById("1");
+			String id = newMet.getId();
+			Optional<?> nonEmptyExpectedResult = metaClassRepository.findById(id);
 			assertTrue(nonEmptyExpectedResult.isPresent());
 			metaClassRepository.delete(newMet);
-			Optional<?> emptyExpectedResult = metaClassRepository.findById("1");
+			Optional<?> emptyExpectedResult = metaClassRepository.findById(id);
 			assertTrue(emptyExpectedResult.isEmpty());
 		}, () -> new RuntimeException("not metaclass present to execute test"));
 	}
