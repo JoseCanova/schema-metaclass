@@ -1,6 +1,7 @@
 package org.nanotek.meta.repository.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -31,7 +32,13 @@ public class RdbmsMetaClassRepositoryTest {
 		rdbmsMetaClass.ifPresentOrElse(rdbms ->{
 			rdbms.setId("1");
 			RdbmsMetaClass newMet = metaClassRepository.save(rdbms);
+			assertNotNull(newMet);
+			assertTrue(newMet.getId().equals("1"));
+			Optional<?> nonEmptyExpectedResult = metaClassRepository.findById("1");
+			assertTrue(nonEmptyExpectedResult.isPresent());
 			metaClassRepository.delete(newMet);
+			Optional<?> emptyExpectedResult = metaClassRepository.findById("1");
+			assertTrue(emptyExpectedResult.isEmpty());
 		}, () -> new RuntimeException("not metaclass present to execute test"));
 	}
 
