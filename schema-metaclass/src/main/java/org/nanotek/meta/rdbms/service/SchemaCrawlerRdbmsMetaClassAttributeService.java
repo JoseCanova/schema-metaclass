@@ -1,8 +1,9 @@
 package org.nanotek.meta.rdbms.service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
@@ -17,15 +18,16 @@ public class SchemaCrawlerRdbmsMetaClassAttributeService {
 	@Autowired 
 	RdbmsMetaClassRepository repository;
 	
+	//TODO:rename metaattributes
 	public void saveMetaAttribute(RdbmsMetaClass metaClass) {
-		generateMetaAttributes(metaClass);
+		var metaAttributes = generateMetaAttributes(metaClass);
 	}
 
-	private void generateMetaAttributes(RdbmsMetaClass metaClass) {
+	private List<RdbmsMetaClassAttribute> generateMetaAttributes(RdbmsMetaClass metaClass) {
 		
 		var rc = metaClass.getRdbmsClass();
 		var lc = rc.getSchemaTable().getColumns();
-		lc.forEach(c -> {
+		return lc.stream().map(c -> {
 			var md = createMetaAttribute(c);
 			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
 			md.setColumnName(c.getName());
@@ -35,9 +37,8 @@ public class SchemaCrawlerRdbmsMetaClassAttributeService {
 			md.setIsId(c.isPartOfPrimaryKey());
 			md.setPartOfIndex(c.isPartOfIndex());
 			md.setPartOfForeignKey(c.isPartOfForeignKey());
-			metaClass.addMetaAttribute(md);
-		});
-		
+			return md;
+		}).collect(Collectors.toList());
 	}
 
 	private RdbmsMetaClassAttribute createMetaAttribute(Column c) {
