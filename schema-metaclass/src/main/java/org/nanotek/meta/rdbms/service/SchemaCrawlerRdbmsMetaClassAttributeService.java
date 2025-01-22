@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import schemacrawler.schema.Column;
 
-public class SchemaCrawlerRdbmsMetaAttributeService {
+public class SchemaCrawlerRdbmsMetaClassAttributeService {
 
 	
 	@Autowired 
