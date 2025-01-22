@@ -103,6 +103,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
 		var lc = rc.getSchemaTable().getColumns();
+		//TODO:Refactor moving attribute creation to its own service.
 		lc.forEach(c -> {
 			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
 			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
@@ -110,7 +111,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 			md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName()));
 			var attributes = c.getAttributes();
 			verifyAttributes(c,attributes);
-			md.setId(c.isPartOfPrimaryKey());
+			md.setIsId(c.isPartOfPrimaryKey());
 			md.setPartOfIndex(c.isPartOfIndex());
 			md.setPartOfForeignKey(c.isPartOfForeignKey());
 			metaClass.addMetaAttribute(md);

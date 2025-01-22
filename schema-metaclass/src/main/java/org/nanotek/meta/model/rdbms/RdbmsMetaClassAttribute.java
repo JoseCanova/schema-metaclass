@@ -70,7 +70,7 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	}
 
 
-	public void setId(boolean isId) {
+	public void setIsId(boolean isId) {
 		this.isId = isId;
 	}
 
