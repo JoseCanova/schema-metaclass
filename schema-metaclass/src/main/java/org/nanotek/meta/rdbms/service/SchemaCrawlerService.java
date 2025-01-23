@@ -2,7 +2,6 @@ package org.nanotek.meta.rdbms.service;
 
 import static org.nanotek.meta.constants.SystemStaticMessageSource.NONOK;
 
-import java.sql.Connection;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
 
 import org.nanotek.meta.constants.LocaleContext;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
@@ -21,7 +18,9 @@ import org.nanotek.meta.model.rdbms.classification.data.TableColumns;
 import org.nanotek.meta.model.rdbms.classification.data.TableForeignKeys;
 import org.nanotek.meta.model.rdbms.classification.data.TableIndexes;
 import org.nanotek.meta.model.rdbms.classification.data.TableKey;
+import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.rdbms.exception.SchemaMetaClassException;
+import org.nanotek.meta.util.RdbmsSchemaTableBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -45,6 +44,14 @@ public class SchemaCrawlerService {
 	
 	@Autowired
 	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
+	
+	//TODO:need a check if catalogtables is not empty
+	public Collection<RdbmsSchemaTable> getRdbmsMetaclassTable(){
+		return getCatalogTables()
+				.map(col -> col.stream()
+						.map(t->Table.class.cast(t)).map(t->RdbmsSchemaTableBuilder.from(t))).get()
+				.collect(Collectors.toList());
+	}
 	
 	public Optional<Collection<Table>> getCatalogTables(){
 		Catalog  catalog;
@@ -98,7 +105,7 @@ public class SchemaCrawlerService {
 			.values()
 			.stream()
 			.filter(vv -> !vv.equals(v))
-			.map(vv -> Pair.of(v,vv))
+			.map(vv -> Pair.of)(v,vv))
 			.collect(Collectors.toList()));
 		});
 		return resultList;

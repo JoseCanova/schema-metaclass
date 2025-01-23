@@ -15,7 +15,6 @@ public class SchemaCrawlerServiceTest {
 	@Autowired
 	private SchemaCrawlerService schemaCrawlerService;
 	
-	
 	@Test
 	void testSchemaMetaClassPersistence() {
 		

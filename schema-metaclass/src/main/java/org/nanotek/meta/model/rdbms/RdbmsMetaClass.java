@@ -55,6 +55,7 @@ implements IRdbmsClass{
 		this.postConstruct(null);
 	}
 	
+	//TODO:refactor constructor moving schema-crawler table to the facade and push the facade
 	public RdbmsMetaClass(String tableName, String className, Table table) {
 		super();
 		this.tableName = tableName;
@@ -62,6 +63,7 @@ implements IRdbmsClass{
 		this.postConstruct(table);
 	}
 	
+	//TODO:refactor constructor moving schema-crawler table to the facade and push the facade
 	public RdbmsMetaClass(String id , String tableName, String className, Table table) {
 		super(id);
 		this.tableName = tableName;
