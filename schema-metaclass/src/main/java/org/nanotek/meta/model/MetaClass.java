@@ -1,8 +1,5 @@
 package org.nanotek.meta.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.nanotek.meta.util.UUIDStringId;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
@@ -34,9 +31,6 @@ extends MetaBase<K,String>  implements IClass {
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	protected String className; 
 	
-	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
-	protected List<T> metaAttributes = new ArrayList<>();
-
 	/*
 	 * @JsonIgnore
 	 * 
@@ -57,11 +51,9 @@ extends MetaBase<K,String>  implements IClass {
 
 	
 	public MetaClass(@NotEmpty(groups = MetaClassDefaultValidationGroup.class) String className,
-			@NotEmpty(groups = MetaClassDefaultValidationGroup.class) List<T> metaAttributes,
 			@NotNull(groups = MetaClassDefaultValidationGroup.class) MetaIdentity identity) {
 		super();
 		this.className = className;
-		this.metaAttributes = metaAttributes;
 		this.identity = identity;
 	}
 
@@ -90,14 +82,6 @@ extends MetaBase<K,String>  implements IClass {
 		this.className = className;
 	}
 
-	public List<T> getMetaAttributes() {
-		return metaAttributes;
-	}
-
-	public boolean  addMetaAttribute(T attr) {
-		return metaAttributes.add(attr);
-	}
-
 	/*
 	 * public void addMetaRelationClass(MetaRelationClass mrc) {
 	 * this.classifier.addMetaRelationClass(mrc);
@@ -115,11 +99,7 @@ extends MetaBase<K,String>  implements IClass {
 		this.identity = identity;
 	}
 
-	public void setMetaAttributes(List<T> metaAttributes) {
-		this.metaAttributes = metaAttributes;
-	}
-
-
+	
 	/*
 	 * public C getClassifier() { return classifier; }
 	 * 

@@ -104,10 +104,9 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	}
 
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
-		final RdbmsMetaClass mc = metaClass;
-		RdbmsClass rc = mc.getRdbmsClass();
-		var lc = rc.getSchemaTable().getColumns();
-		schemaCrawlerRdbmsMetaClassAttributeService.saveMetaAttributes(metaClass);
+		List<RdbmsMetaClassAttribute> attributes =  schemaCrawlerRdbmsMetaClassAttributeService.generateMetaAttributes(metaClass);
+		metaClass.setMetaAttributes(attributes);
+		//schemaCrawlerRdbmsMetaClassAttributeService.saveMetaAttributes(metaClass);
 		//TODO:Refactor moving attribute creation to its own service.
 		/*
 		 * lc.forEach(c -> { RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
@@ -157,11 +156,33 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public List<RdbmsMetaClass> findByClassName(String className) {
 		return metaClassRepository.findByClassName(className);
 	}
+
+	public <S extends RdbmsMetaClass> S save(S entity) {
+		return metaClassRepository.save(entity);
+	}
+
+	public void flush() {
+		metaClassRepository.flush();
+	}
+
+	public <S extends RdbmsMetaClass> S saveAndFlush(S entity) {
+		return metaClassRepository.saveAndFlush(entity);
+	}
+
+	public List<RdbmsMetaClass> findAll() {
+		return metaClassRepository.findAll();
+	}
+
+	public void deleteById(String id) {
+		metaClassRepository.deleteById(id);
+	}
+
+	public void delete(RdbmsMetaClass entity) {
+		metaClassRepository.delete(entity);
+	}
+
+	public void deleteAll() {
+		metaClassRepository.deleteAll();
+	}
 	
-//	public Mono<RdbmsMetaClass> findByClassName(TableClassName tcn){
-//	
-//	Flux<Person> result = template.query(Person.class)
-//			  .matching(query(where("age").lt(50).and("accounts.balance").gt(1000.00d)))
-//			  .all();
-//	}
 }

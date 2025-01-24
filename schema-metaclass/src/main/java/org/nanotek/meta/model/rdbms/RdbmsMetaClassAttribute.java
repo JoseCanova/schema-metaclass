@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.ToString;
 
 @Entity
@@ -47,16 +48,15 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	
 	private List<String> idAliases;
 	
-	@JsonIgnore
-	@Transient
-	private transient MetaClass<?,?> metaClass;
+	@ManyToOne
+	protected RdbmsMetaClass metaClass;
 	
 	
 	public RdbmsMetaClassAttribute() {
 		super();
 	}
 
-	public RdbmsMetaClassAttribute(MetaClass<?,?> mc) {
+	public RdbmsMetaClassAttribute(RdbmsMetaClass mc) {
 		super();
 		this.metaClass=mc;
 	}
@@ -127,11 +127,11 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 		this.idAliases = idAliases;
 	}
 
-	public MetaClass<?,?> getMetaClass() {
+	public RdbmsMetaClass getMetaClass() {
 		return metaClass;
 	}
 
-	public void setMetaClass(MetaClass<?,?> metaClass) {
+	public void setMetaClass(RdbmsMetaClass metaClass) {
 		this.metaClass = metaClass;
 	}
 	
@@ -175,6 +175,5 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 		this.isPartOfId = isPartOfId;
 	}
 	
-	
-	
+
 }
