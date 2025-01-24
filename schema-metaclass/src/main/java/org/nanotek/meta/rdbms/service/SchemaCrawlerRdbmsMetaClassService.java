@@ -9,13 +9,11 @@ import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.TableClassName;
-import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
-import org.nanotek.meta.util.SnakeToCamelCaseTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
@@ -28,7 +26,8 @@ import schemacrawler.schema.Table;
 //TODO: implement a metaclass method to provide information about a single metaclass present on "metaclass list".
 //TODO: implement persistence on relational db for model_relation classes.
 @Component
-public class SchemaCrawlerRdbmsMetaClassService {
+public class SchemaCrawlerRdbmsMetaClassService 
+extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,String>{
 
 	@Autowired
 	ColumnNameTranslationStrategy columnNameTranslationStrategy; 
@@ -40,14 +39,17 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	SystemStaticMessageSource messageSource;
 	
 	@Autowired
-	RdbmsMetaClassRepository metaClassRepository;
-	
-	@Autowired
 	SchemaCrawlerRdbmsMetaClassAttributeService schemaCrawlerRdbmsMetaClassAttributeService;
 	
 	public SchemaCrawlerRdbmsMetaClassService() {
+		super(null);
 	}
 
+	public SchemaCrawlerRdbmsMetaClassService(@Autowired
+			RdbmsMetaClassRepository repository) {
+		super(repository);
+	}
+	
 	//TODO:Verify pagination for large set of TableClasses if necessary.
 	public List<TableClassName> getTableClassNameList(){
 			return getMetaClassList()
@@ -59,16 +61,16 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	//TODO:refactor method for jpa or jdbc template.
 	public List<RdbmsMetaClass> retrieveMetaClassList(){
 		List<RdbmsMetaClass> metaClassList = null;
-		if(metaClassRepository.count()<=0) {
+		if(repository.count()<=0) {
 			metaClassList = persistMetaClassList(getMetaClassList());			
 		}
 		return Optional
 			.ofNullable(metaClassList)
-			.orElse(metaClassRepository.findAll());
+			.orElse(repository.findAll());
 	}
 	
 	public RdbmsMetaClass findByTableClassName(TableClassName tcn) {
-		return metaClassRepository.findOne(getExample(tcn)).orElseThrow();
+		return repository.findOne(getExample(tcn)).orElseThrow();
 	}
 	
 	private Example<RdbmsMetaClass> getExample(TableClassName tcn) {
@@ -82,7 +84,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	public List<RdbmsMetaClass> persistMetaClassList(List<RdbmsMetaClass> theList){
 		return theList
 		.stream()
-		.map(r -> metaClassRepository.save(r))
+		.map(r -> repository.save(r))
 		.collect(Collectors.toList());
 	}	
 	
@@ -154,35 +156,7 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	}
 
 	public List<RdbmsMetaClass> findByClassName(String className) {
-		return metaClassRepository.findByClassName(className);
+		return repository.findByClassName(className);
 	}
 
-	public <S extends RdbmsMetaClass> S save(S entity) {
-		return metaClassRepository.save(entity);
-	}
-
-	public void flush() {
-		metaClassRepository.flush();
-	}
-
-	public <S extends RdbmsMetaClass> S saveAndFlush(S entity) {
-		return metaClassRepository.saveAndFlush(entity);
-	}
-
-	public List<RdbmsMetaClass> findAll() {
-		return metaClassRepository.findAll();
-	}
-
-	public void deleteById(String id) {
-		metaClassRepository.deleteById(id);
-	}
-
-	public void delete(RdbmsMetaClass entity) {
-		metaClassRepository.delete(entity);
-	}
-
-	public void deleteAll() {
-		metaClassRepository.deleteAll();
-	}
-	
 }
