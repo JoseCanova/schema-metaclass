@@ -25,7 +25,6 @@ import schemacrawler.schema.Table;
 //TODO: implement a "symbolic package name" and the classname strategy for camel case.
 //TODO: implement a metaclass method to provide information about a single metaclass present on "metaclass list".
 //TODO: implement persistence on relational db for model_relation classes.
-@Component
 public class SchemaCrawlerRdbmsMetaClassService 
 extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,String>{
 
@@ -41,11 +40,7 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	@Autowired
 	SchemaCrawlerRdbmsMetaClassAttributeService schemaCrawlerRdbmsMetaClassAttributeService;
 	
-	public SchemaCrawlerRdbmsMetaClassService() {
-		super(null);
-	}
-
-	public SchemaCrawlerRdbmsMetaClassService(@Autowired
+	public SchemaCrawlerRdbmsMetaClassService(
 			RdbmsMetaClassRepository repository) {
 		super(repository);
 	}

@@ -10,6 +10,10 @@ import javax.sql.DataSource;
 //import org.bson.codecs.configuration.CodecRegistry;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.controller.RdbmsMetaClassHandler;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassAttributeService;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
+import org.nanotek.meta.repository.RbdmsMetaAttributeRepository;
+import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringBootConfiguration;
@@ -203,4 +207,19 @@ public class MetaClassConfiguration {
 			txManager.setEntityManagerFactory(entityManagerFactory); 
 			return txManager; 
 		}
+		
+		@Bean
+		public SchemaCrawlerRdbmsMetaClassService schemaCrawlerRdbmsMetaClassService
+		(@Autowired RdbmsMetaClassRepository repository ) {
+			return new SchemaCrawlerRdbmsMetaClassService(repository);
+		}
+		
+		@Bean
+		public SchemaCrawlerRdbmsMetaClassAttributeService 
+		schemaCrawlerRdbmsMetaClassAttributeService
+		(@Autowired RbdmsMetaAttributeRepository repository)
+		{ 
+			return new SchemaCrawlerRdbmsMetaClassAttributeService(repository);
+		}
+
 }

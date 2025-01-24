@@ -8,17 +8,18 @@ import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.repository.RbdmsMetaAttributeRepository;
 import org.nanotek.meta.util.SnakeToCamelCaseTranslator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Column;
 
-@Service
-public class SchemaCrawlerRdbmsMetaClassAttributeService {
+public class SchemaCrawlerRdbmsMetaClassAttributeService
+extends MetaClassPersistenceService<RbdmsMetaAttributeRepository , RdbmsMetaClassAttribute,String>{
 
 	
-	@Autowired 
-	RbdmsMetaAttributeRepository repository;
+	public SchemaCrawlerRdbmsMetaClassAttributeService(RbdmsMetaAttributeRepository repository)
+	{ 
+		super (repository);
+	}
 	
 	public void saveMetaAttributes(RdbmsMetaClass metaClass) {
 		var metaAttributes = generateMetaAttributes(metaClass);

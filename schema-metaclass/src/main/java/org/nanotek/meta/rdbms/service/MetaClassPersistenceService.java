@@ -4,16 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
-import org.nanotek.meta.repository.MetaRepository;
+import org.nanotek.MetaRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
-import org.springframework.stereotype.Service;
 
-@Service
 public class MetaClassPersistenceService<R extends MetaRepository<T , ID> , T , ID> {
 
 	protected R repository;
