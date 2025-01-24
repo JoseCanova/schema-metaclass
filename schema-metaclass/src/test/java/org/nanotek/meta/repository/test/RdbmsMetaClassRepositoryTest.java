@@ -26,7 +26,7 @@ public class RdbmsMetaClassRepositoryTest {
 	
 	
 	@Test
-	public void testRdbmsMetaClassMetaClassRepository() {
+	public void testRdbmsMetaClassRepository() {
 		assertNotNull(metaClassRepository);
 		Optional<RdbmsMetaClass> rdbmsMetaClass = getAnyRdbmsMetaClass();
 		rdbmsMetaClass.ifPresentOrElse(rdbms ->{

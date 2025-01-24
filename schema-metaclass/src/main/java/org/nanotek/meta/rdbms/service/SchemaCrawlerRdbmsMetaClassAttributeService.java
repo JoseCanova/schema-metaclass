@@ -27,7 +27,7 @@ public class SchemaCrawlerRdbmsMetaClassAttributeService {
 		metaClass.setMetaAttributes(metaAttributes);
 	}
 
-	private List<RdbmsMetaClassAttribute> generateMetaAttributes(RdbmsMetaClass metaClass) {
+	public List<RdbmsMetaClassAttribute> generateMetaAttributes(RdbmsMetaClass metaClass) {
 		
 		var rc = metaClass.getRdbmsClass();
 		var lc = rc.getSchemaTable().getColumns();
@@ -42,7 +42,7 @@ public class SchemaCrawlerRdbmsMetaClassAttributeService {
 		md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName()));
 		var attributes = c.getAttributes();
 		verifyAttributes(c,attributes);
-		md.setIsId(c.isPartOfPrimaryKey());
+		md.setPartOfId(c.isPartOfPrimaryKey());
 		md.setPartOfIndex(c.isPartOfIndex());
 		md.setPartOfForeignKey(c.isPartOfForeignKey());
 		return md;

@@ -14,7 +14,7 @@ public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
 
 	@Id
 	@UUIDStringId
-	private String id;
+	protected String id;
 	
 	@JsonProperty("name")
 	protected String fieldName;

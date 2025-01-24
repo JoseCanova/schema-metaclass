@@ -22,11 +22,8 @@ import lombok.ToString;
 public class RdbmsMetaClassAttribute 
 extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 
-	@Id
-	private String id;
-	
 	@JsonProperty("isId")
-	protected boolean isId = false;
+	protected boolean isPartOfId;
 	@JsonProperty("clazz")
 	protected String clazz;
 //	protected Class<?> clazz;
@@ -65,15 +62,6 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	}
 	
 	
-	public boolean isId() {
-		return isId;
-	}
-
-
-	public void setIsId(boolean isId) {
-		this.isId = isId;
-	}
-
 	public String getColumnName() {
 		return columnName;
 	}
@@ -178,5 +166,15 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public boolean isPartOfId() {
+		return isPartOfId;
+	}
+
+	public void setPartOfId(boolean isPartOfId) {
+		this.isPartOfId = isPartOfId;
+	}
+	
+	
 	
 }

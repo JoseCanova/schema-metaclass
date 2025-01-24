@@ -49,8 +49,9 @@ public class SchemaCrawlerService {
 	public Collection<RdbmsSchemaTable> getRdbmsMetaclassTable(){
 		return getCatalogTables()
 				.map(col -> col.stream()
-						.map(t->Table.class.cast(t)).map(t->RdbmsSchemaTableBuilder.from(t))).get()
-				.collect(Collectors.toList());
+						.map(t->Table.class.cast(t))
+						.map(t->RdbmsSchemaTableBuilder.from(t))).get()
+						.collect(Collectors.toList());
 	}
 	
 	public Optional<Collection<Table>> getCatalogTables(){
@@ -105,7 +106,7 @@ public class SchemaCrawlerService {
 			.values()
 			.stream()
 			.filter(vv -> !vv.equals(v))
-			.map(vv -> Pair.of)(v,vv))
+			.map(vv -> Pair.of(v,vv))
 			.collect(Collectors.toList()));
 		});
 		return resultList;

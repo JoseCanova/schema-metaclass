@@ -12,6 +12,7 @@ import org.nanotek.meta.model.TableClassName;
 import org.nanotek.meta.model.rdbms.RdbmsClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
+import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.nanotek.meta.util.SnakeToCamelCaseTranslator;
@@ -40,6 +41,9 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	
 	@Autowired
 	RdbmsMetaClassRepository metaClassRepository;
+	
+	@Autowired
+	SchemaCrawlerRdbmsMetaClassAttributeService schemaCrawlerRdbmsMetaClassAttributeService;
 	
 	public SchemaCrawlerRdbmsMetaClassService() {
 	}
@@ -84,15 +88,15 @@ public class SchemaCrawlerRdbmsMetaClassService {
 	
 	public List<RdbmsMetaClass> getMetaClassList(){
 		return getCatalogTables()
-					.map(ct -> toStream(ct))
-					.orElseThrow()
+				.stream()
 					.map(t -> createMetaClass(t))
 					.collect(Collectors.toList());
 		
 	}
 	
 	//TODO: refactor this method for a fluent constructor.
-	private RdbmsMetaClass createMetaClass(Table table) {
+	private RdbmsMetaClass createMetaClass(RdbmsSchemaTable schemaTable) {
+		Table table = schemaTable.getSchemaTable();
 		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , tableName , table);
 		populateMetaClassAttributes(metaClass);
@@ -103,19 +107,18 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		final RdbmsMetaClass mc = metaClass;
 		RdbmsClass rc = mc.getRdbmsClass();
 		var lc = rc.getSchemaTable().getColumns();
+		schemaCrawlerRdbmsMetaClassAttributeService.saveMetaAttributes(metaClass);
 		//TODO:Refactor moving attribute creation to its own service.
-		lc.forEach(c -> {
-			RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
-			md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
-			md.setColumnName(c.getName());
-			md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName()));
-			var attributes = c.getAttributes();
-			verifyAttributes(c,attributes);
-			md.setIsId(c.isPartOfPrimaryKey());
-			md.setPartOfIndex(c.isPartOfIndex());
-			md.setPartOfForeignKey(c.isPartOfForeignKey());
-			metaClass.addMetaAttribute(md);
-		});
+		/*
+		 * lc.forEach(c -> { RdbmsMetaClassAttribute md = new RdbmsMetaClassAttribute();
+		 * md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
+		 * md.setColumnName(c.getName());
+		 * md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName())); var attributes
+		 * = c.getAttributes(); verifyAttributes(c,attributes);
+		 * md.setPartOfId(c.isPartOfPrimaryKey()); md.setPartOfIndex(c.isPartOfIndex());
+		 * md.setPartOfForeignKey(c.isPartOfForeignKey());
+		 * metaClass.addMetaAttribute(md); });
+		 */
 		processMetaAttributesIds(metaClass);
 	}
 	
@@ -133,8 +136,8 @@ public class SchemaCrawlerRdbmsMetaClassService {
 		return ct.stream();
 	}
 
-	private Optional<Collection<Table>> getCatalogTables(){
-		return schemaCrawlerService.getCatalogTables();
+	private Collection<RdbmsSchemaTable> getCatalogTables(){
+		return schemaCrawlerService.getRdbmsMetaclassTable();
 	}
 
 	public Mono<RdbmsMetaClass> getRdbmsMetaClass(Mono<TableClassName> tableClassNameMono) {
