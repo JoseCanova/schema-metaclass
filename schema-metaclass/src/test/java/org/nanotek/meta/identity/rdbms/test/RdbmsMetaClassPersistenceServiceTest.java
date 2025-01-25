@@ -23,7 +23,7 @@ public class RdbmsMetaClassPersistenceServiceTest {
 
 	@Test
 	void testSimpleRdbmsMetaClassPersistence() {
-		RdbmsMetaClass metaClass = RdbmsMetaClassBuilder.buildRdbmsMetaClass();
+		RdbmsMetaClass metaClass = RdbmsMetaClassBuilder.buildSimpleRdbmsMetaClass();
 		assertNotNull(schemaCrawlerRdbmsMetaClassService);
 		
 		RdbmsMetaClassAttribute att = RdbmsMetaClassAttributeBuilder.buildSimpleAttribute();

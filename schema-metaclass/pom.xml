@@ -18,6 +18,7 @@
 		<log4j2.version>2.17.1</log4j2.version>
 		<admin.version>2.6.7</admin.version>
 		<querydsl.version>5.0.0</querydsl.version>
+		<instancio.version>5.2.1</instancio.version>
 		<schema-crawler-version>16.25.1</schema-crawler-version>
 	</properties>
 	<dependencies>
@@ -130,6 +131,18 @@
 			<artifactId>spring-integration-test-support</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.instancio</groupId>
+		    <artifactId>instancio-core</artifactId>
+		    <version>${instancio.version}</version>
+            <scope>test</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio-junit</artifactId>
+            <version>${instancio.version}</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>	
 	<build>
 		<plugins>
