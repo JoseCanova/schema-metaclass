@@ -1,8 +1,9 @@
 package org.nanotek.meta.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.util.UUIDStringId;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
@@ -125,7 +126,10 @@ extends MetaBase<K,String>  implements IClass {
 	}
 
 	public boolean  addMetaAttribute(T attr) {
-		return metaAttributes.add(attr);
+		return  Optional
+				.ofNullable(metaAttributes)
+				.orElse(metaAttributes = new ArrayList<>())
+				.add(attr);
 	}
 	
 	public void setMetaAttributes(List<T> metaAttributes) {

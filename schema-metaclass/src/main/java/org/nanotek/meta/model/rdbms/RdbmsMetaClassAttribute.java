@@ -153,5 +153,4 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 		this.isPartOfId = isPartOfId;
 	}
 	
-
 }

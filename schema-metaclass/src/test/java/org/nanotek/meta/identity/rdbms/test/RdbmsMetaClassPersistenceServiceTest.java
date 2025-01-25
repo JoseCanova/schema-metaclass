@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +23,11 @@ public class RdbmsMetaClassPersistenceServiceTest {
 
 	@Test
 	void testSimpleRdbmsMetaClassPersistence() {
-		RdbmsMetaClassBuilder builder = new RdbmsMetaClassBuilder();
-		RdbmsMetaClass metaClass = builder.buildRdbmsMetaClass();
+		RdbmsMetaClass metaClass = RdbmsMetaClassBuilder.buildRdbmsMetaClass();
 		assertNotNull(schemaCrawlerRdbmsMetaClassService);
+		
+		RdbmsMetaClassAttribute att = RdbmsMetaClassAttributeBuilder.buildSimpleAttribute();
+		metaClass.addMetaAttribute(att);
 		
 		RdbmsMetaClass persistedMetaClass = schemaCrawlerRdbmsMetaClassService.save(metaClass);
 		assertNotNull(persistedMetaClass.getId());

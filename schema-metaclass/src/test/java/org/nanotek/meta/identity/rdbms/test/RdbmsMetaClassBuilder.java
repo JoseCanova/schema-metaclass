@@ -10,7 +10,7 @@ public class RdbmsMetaClassBuilder {
 	}
 
 	
-	public RdbmsMetaClass buildRdbmsMetaClass() {
+	public static RdbmsMetaClass buildRdbmsMetaClass() {
 		
 		Table schemaTable = new SchemaCrawlerSimpleTable();
 		return
