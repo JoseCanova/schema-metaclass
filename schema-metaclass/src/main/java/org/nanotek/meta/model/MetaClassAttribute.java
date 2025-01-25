@@ -19,6 +19,7 @@ public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
 	@JsonProperty("name")
 	protected String fieldName;
 	
+	
 	public MetaClassAttribute() {
 	}
 	

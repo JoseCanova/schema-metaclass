@@ -16,7 +16,6 @@ import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
 import schemacrawler.schema.Column;

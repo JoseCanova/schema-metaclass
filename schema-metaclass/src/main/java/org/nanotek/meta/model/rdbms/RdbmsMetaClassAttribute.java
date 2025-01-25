@@ -4,16 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.nanotek.meta.model.MetaClass;
 import org.nanotek.meta.model.MetaClassAttribute;
 import org.springframework.data.annotation.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.ToString;
 
 @Entity
@@ -48,20 +44,10 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	
 	private List<String> idAliases;
 	
-	@ManyToOne
-	protected RdbmsMetaClass metaClass;
-	
-	
 	public RdbmsMetaClassAttribute() {
 		super();
 	}
 
-	public RdbmsMetaClassAttribute(RdbmsMetaClass mc) {
-		super();
-		this.metaClass=mc;
-	}
-	
-	
 	public String getColumnName() {
 		return columnName;
 	}
@@ -127,14 +113,6 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 		this.idAliases = idAliases;
 	}
 
-	public RdbmsMetaClass getMetaClass() {
-		return metaClass;
-	}
-
-	public void setMetaClass(RdbmsMetaClass metaClass) {
-		this.metaClass = metaClass;
-	}
-	
 	public boolean isPartOfIndex() {
 		return partOfIndex;
 	}

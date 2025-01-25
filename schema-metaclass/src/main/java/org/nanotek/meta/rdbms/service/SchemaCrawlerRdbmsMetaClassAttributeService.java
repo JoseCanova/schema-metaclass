@@ -8,7 +8,6 @@ import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.repository.RbdmsMetaAttributeRepository;
 import org.nanotek.meta.util.SnakeToCamelCaseTranslator;
-import org.springframework.stereotype.Service;
 
 import schemacrawler.schema.Column;
 

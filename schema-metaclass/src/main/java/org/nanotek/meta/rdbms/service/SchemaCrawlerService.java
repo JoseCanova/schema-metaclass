@@ -45,12 +45,12 @@ public class SchemaCrawlerService {
 	@Autowired
 	SchemaCrawlerDataSourceService schemaCrawlerDataSourceService;
 	
-	//TODO:need a check if catalogtables is not empty
+	//TODO:need a check if catalog tables is not empty
 	public Collection<RdbmsSchemaTable> getRdbmsMetaclassTable(){
 		return getCatalogTables()
 				.map(col -> col.stream()
 						.map(t->Table.class.cast(t))
-						.map(t->RdbmsSchemaTableBuilder.from(t))).get()
+						.map(t->RdbmsSchemaTableBuilder.on().apply(t))).get()
 						.collect(Collectors.toList());
 	}
 	

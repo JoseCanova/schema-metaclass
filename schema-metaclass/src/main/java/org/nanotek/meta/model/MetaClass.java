@@ -1,5 +1,8 @@
 package org.nanotek.meta.model;
 
+import java.util.List;
+
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.util.UUIDStringId;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
@@ -7,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
-//TODO: replace deprecated generator strategy to @IdGeneratorType
-//as cited on https://discourse.hibernate.org/t/replacement-of-genericgenerator-native/10130/8
 @MappedSuperclass
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
@@ -40,6 +43,9 @@ extends MetaBase<K,String>  implements IClass {
 	
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	protected MetaIdentity identity;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	protected List<T> metaAttributes;
 	
 	public MetaClass() {
 		super();
@@ -114,5 +120,16 @@ extends MetaBase<K,String>  implements IClass {
 		this.id = id;
 	}
 
+	public List<T> getMetaAttributes() {
+		return metaAttributes;
+	}
+
+	public boolean  addMetaAttribute(T attr) {
+		return metaAttributes.add(attr);
+	}
+	
+	public void setMetaAttributes(List<T> metaAttributes) {
+		this.metaAttributes = metaAttributes;
+	}
 	
 }

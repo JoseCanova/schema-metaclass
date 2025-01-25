@@ -1,6 +1,5 @@
 package org.nanotek.meta.model.rdbms;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.meta.model.IRdbmsClass;
@@ -13,9 +12,7 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import schemacrawler.schema.Table;
@@ -42,9 +39,6 @@ implements IRdbmsClass{
 	@Transient
 	protected transient RdbmsClass rdbmsClass;
 	
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	protected List<RdbmsMetaClassAttribute> metaAttributes;
 	
 	public RdbmsMetaClass() {
 		super();
@@ -127,15 +121,4 @@ implements IRdbmsClass{
 			return  this.identity !=null;
 	}
 	
-	public List<RdbmsMetaClassAttribute> getMetaAttributes() {
-		return metaAttributes;
-	}
-
-	public boolean  addMetaAttribute(RdbmsMetaClassAttribute attr) {
-		return metaAttributes.add(attr);
-	}
-	
-	public void setMetaAttributes(List<RdbmsMetaClassAttribute> metaAttributes) {
-		this.metaAttributes = metaAttributes;
-	}
 }
