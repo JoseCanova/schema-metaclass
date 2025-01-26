@@ -64,9 +64,15 @@ implements IRdbmsClass{
 		this.postConstruct(table);
 	}
 	
+	/**
+	 * @deprecated
+	 * @param id
+	 * @param tableName
+	 * @param className
+	 * @param table
+	 */
 	//TODO:refactor constructor moving schema-crawler table to the facade and push the facade
 	public RdbmsMetaClass(String id , String tableName, String className, Table table) {
-		super(id);
 		this.tableName = tableName;
 		this.className=className;
 		this.postConstruct(table);
@@ -120,5 +126,13 @@ implements IRdbmsClass{
 	public boolean isHasPrimaryKey() {
 			return  this.identity !=null;
 	}
+
+	@Override
+	public String toString() {
+		return "RdbmsMetaClass [tableName=" + tableName + ", rdbmsClass=" + rdbmsClass + ", className=" + className
+				+ "]";
+	}
+	
+	
 	
 }

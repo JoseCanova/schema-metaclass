@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.nanotek.MutableIdentity;
 import org.nanotek.meta.util.UUIDStringId;
 import org.nanotek.meta.validation.MetaClassDefaultValidationGroup;
 
@@ -23,7 +24,7 @@ import lombok.AllArgsConstructor;
 @JsonInclude(value = Include.NON_NULL)
 @AllArgsConstructor
 public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<?>> 
-extends MetaBase<K,String>  implements IClass {
+ implements  IdBase<K,String> , MutableIdentity<String> , IClass {
 
 	private static final long serialVersionUID = -6730971114783577367L;
 
@@ -51,11 +52,6 @@ extends MetaBase<K,String>  implements IClass {
 	public MetaClass() {
 		super();
 	}
-
-	public MetaClass(String id) {
-		super(id);
-	}
-
 	
 	public MetaClass(@NotEmpty(groups = MetaClassDefaultValidationGroup.class) String className,
 			@NotNull(groups = MetaClassDefaultValidationGroup.class) MetaIdentity identity) {

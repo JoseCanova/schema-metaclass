@@ -39,7 +39,6 @@ public class RdbmsMetaClassPersistenceServiceTest {
 		
 		Optional<?> opt1 = schemaCrawlerRdbmsMetaClassService.findById(persistedMetaClass.getId());
 		assertTrue(opt1.isEmpty());
-
 		
 	}
 }
