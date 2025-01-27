@@ -14,12 +14,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 
 @MappedSuperclass
@@ -46,8 +50,12 @@ public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<
 	 * classifier;
 	 */
 	
-	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
-	@OneToOne(cascade=CascadeType.ALL)
+	@Null(groups= {MetaClassDefaultValidationGroup.class})
+	@OneToOne(cascade = CascadeType.ALL , optional = true , fetch = FetchType.LAZY)
+	@JoinTable(
+			  name = "metaclass_metaidentity_join", 
+			  joinColumns = @JoinColumn(name = "metaclass_id" , referencedColumnName = "id"), 
+			  inverseJoinColumns = @JoinColumn(name = "metaidentity_id",referencedColumnName = "id") )
 	protected MetaIdentity identity;
 	
 	@OneToMany(cascade=CascadeType.ALL)

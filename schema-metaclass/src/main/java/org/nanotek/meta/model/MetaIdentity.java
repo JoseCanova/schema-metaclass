@@ -1,10 +1,10 @@
 package org.nanotek.meta.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.nanotek.MutableIdentity;
 import org.nanotek.meta.util.UUIDStringId;
 
 import jakarta.persistence.CascadeType;
@@ -22,7 +22,8 @@ import schemacrawler.schema.TableConstraintColumn;
 @Data
 @EqualsAndHashCode
 @ToString
-public class MetaIdentity implements Serializable{
+public class MetaIdentity implements 
+IdBase<MetaIdentity,String> , MutableIdentity<String>{
 
 	@Id
 	@UUIDStringId

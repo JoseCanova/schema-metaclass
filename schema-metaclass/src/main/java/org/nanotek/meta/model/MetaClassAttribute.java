@@ -1,5 +1,6 @@
 package org.nanotek.meta.model;
 
+import org.nanotek.MutableIdentity;
 import org.nanotek.meta.util.UUIDStringId;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,8 @@ import lombok.ToString;
 
 @MappedSuperclass
 @ToString
-public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
+public class MetaClassAttribute<T extends MetaClassAttribute<T>>
+implements IdBase<T,String> , MutableIdentity<String> {
 
 	@Id
 	@UUIDStringId
@@ -32,4 +34,12 @@ public class MetaClassAttribute<T extends MetaClassAttribute<T>> {
 		this.fieldName = fieldName;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }

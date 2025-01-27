@@ -91,7 +91,7 @@ eureka:
                      
 schemacrawler:
     datasource:
-        jdbcUrl: jdbc:postgresql://127.0.0.1:5432/simpledb
-        url: jdbc:postgresql://127.0.0.1:5432/simpledb
+        jdbcUrl: jdbc:postgresql://127.0.0.1:5432/postgres
+        url: jdbc:postgresql://127.0.0.1:5432/postgres
         username: postgres 
         password: postgres123
