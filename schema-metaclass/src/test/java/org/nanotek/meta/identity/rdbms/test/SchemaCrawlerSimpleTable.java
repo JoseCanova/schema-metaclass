@@ -274,4 +274,22 @@ public class SchemaCrawlerSimpleTable implements Table {
 		return Optional.empty();
 	}
 
+	@Override
+	public String toString() {
+		return "SchemaCrawlerSimpleTable [getSchema()=" + getSchema() + ", getFullName()=" + getFullName()
+				+ ", getName()=" + getName() + ", key()=" + key() + ", getAttributes()=" + getAttributes()
+				+ ", getRemarks()=" + getRemarks() + ", hasRemarks()=" + hasRemarks() + ", getType()=" + getType()
+				+ ", getDefinition()=" + getDefinition() + ", hasDefinition()=" + hasDefinition()
+				+ ", getAlternateKeys()=" + getAlternateKeys() + ", getColumns()=" + getColumns()
+				+ ", getExportedForeignKeys()=" + getExportedForeignKeys() + ", getForeignKeys()=" + getForeignKeys()
+				+ ", getHiddenColumns()=" + getHiddenColumns() + ", getImportedForeignKeys()="
+				+ getImportedForeignKeys() + ", getIndexes()=" + getIndexes() + ", getPrimaryKey()=" + getPrimaryKey()
+				+ ", getPrivileges()=" + getPrivileges() + ", getTableConstraints()=" + getTableConstraints()
+				+ ", getTableType()=" + getTableType() + ", getTriggers()=" + getTriggers() + ", getWeakAssociations()="
+				+ getWeakAssociations() + ", hasForeignKeys()=" + hasForeignKeys() + ", hasPrimaryKey()="
+				+ hasPrimaryKey() + "]";
+	}
+
+	
+	
 }

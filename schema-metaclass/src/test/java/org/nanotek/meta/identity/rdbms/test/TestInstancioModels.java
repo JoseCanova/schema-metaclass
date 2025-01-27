@@ -5,6 +5,8 @@ import org.instancio.Model;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;
 
+import schemacrawler.schema.Table;
+
 public class TestInstancioModels {
 
 	public TestInstancioModels() {
@@ -29,6 +31,15 @@ public class TestInstancioModels {
 			System.out.println(personWithoutAge.toString());
 	}
 	
+	@Test
+	void testInstancioSchemaCrawler() {
+		
+		Model<SchemaCrawlerSimpleTable> tableModel = Instancio.of(SchemaCrawlerSimpleTable.class)
+			    .toModel();
+		Table tableInstance = Instancio.of(tableModel)
+			    .create();
+		System.out.println(tableInstance.toString());
+	}
 	
 	class Person {
 		private String firstName; 
@@ -58,4 +69,6 @@ public class TestInstancioModels {
 		}
 		
 	}
+	
+	
 }

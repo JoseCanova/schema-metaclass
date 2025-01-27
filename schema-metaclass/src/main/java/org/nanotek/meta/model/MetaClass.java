@@ -13,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,7 @@ public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<
 	
 	@JsonProperty("className")
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
+	@Column (name="class_name" , length=1000)
 	protected String className; 
 	
 	/*
@@ -44,6 +47,7 @@ public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<
 	 */
 	
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
+	@OneToOne(cascade=CascadeType.ALL)
 	protected MetaIdentity identity;
 	
 	@OneToMany(cascade=CascadeType.ALL)
