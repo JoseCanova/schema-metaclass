@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
@@ -36,6 +37,8 @@ public class MetaClass<K extends MetaClass<K, T> , T extends MetaClassAttribute<
 
 	@Id
     @UUIDStringId
+    @Column(length=36)
+	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	private String id;
 	
 	@JsonProperty("className")

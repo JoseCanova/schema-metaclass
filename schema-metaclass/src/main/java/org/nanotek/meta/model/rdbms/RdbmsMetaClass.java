@@ -12,6 +12,7 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ implements IRdbmsClass{
 
 	@NotEmpty(groups= {MetaClassDefaultValidationGroup.class})
 	@JsonProperty("tableName")
+	@Column (name="table_name" , length=1000)
 	protected String tableName;
 	
 	//TODO: Refactor RdbmsClass to permits to be a persistent class on Spring Data Model.
