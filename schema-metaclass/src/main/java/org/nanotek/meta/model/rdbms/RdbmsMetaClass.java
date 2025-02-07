@@ -20,9 +20,6 @@ import schemacrawler.schema.Table;
 
 
 /**
- * public boolean isHasPrimaryKey() {
-		return  metaAttributes !=null && metaAttributes.stream().filter(a -> a.isId()).count() > 0;
-	}
  */
 @Entity
 public class RdbmsMetaClass extends MetaClass<RdbmsMetaClass,RdbmsMetaClassAttribute> 

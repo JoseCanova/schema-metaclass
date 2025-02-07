@@ -40,11 +40,13 @@ extends MetaClassPersistenceService<RbdmsMetaAttributeRepository , RdbmsMetaClas
 		md.setClazz(c.getColumnDataType().getTypeMappedClass().getName());
 		md.setColumnName(c.getName());
 		md.setFieldName(SnakeToCamelCaseTranslator.from(c.getName()));
+		md.setSqlType(c.getColumnDataType().getDatabaseSpecificTypeName());
 		var attributes = c.getAttributes();
 		verifyAttributes(c,attributes);
 		md.setPartOfId(c.isPartOfPrimaryKey());
 		md.setPartOfIndex(c.isPartOfIndex());
 		md.setPartOfForeignKey(c.isPartOfForeignKey());
+		md.setLength(String.valueOf(c.getSize()));
 		return md;
 	}
 
