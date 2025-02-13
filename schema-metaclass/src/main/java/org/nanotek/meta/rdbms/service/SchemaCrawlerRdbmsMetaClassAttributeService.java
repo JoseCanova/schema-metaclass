@@ -47,6 +47,8 @@ extends MetaClassPersistenceService<RbdmsMetaAttributeRepository , RdbmsMetaClas
 		md.setPartOfIndex(c.isPartOfIndex());
 		md.setPartOfForeignKey(c.isPartOfForeignKey());
 		md.setLength(String.valueOf(c.getSize()));
+		md.setScale(c.getDecimalDigits());
+		md.setRequired(!c.isNullable());
 		return md;
 	}
 

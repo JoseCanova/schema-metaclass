@@ -41,6 +41,8 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	protected boolean generated;
 	@JsonProperty("isPartOfForeignKey")
 	protected boolean partOfForeignKey;
+	@JsonProperty("scale")
+	protected Integer scale;
 	
 	private List<String> idAliases;
 	
@@ -152,5 +154,14 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	public void setPartOfId(boolean isPartOfId) {
 		this.isPartOfId = isPartOfId;
 	}
+
+	public Integer getScale() {
+		return scale;
+	}
+
+	public void setScale(Integer scale) {
+		this.scale = scale;
+	}
+	
 	
 }
