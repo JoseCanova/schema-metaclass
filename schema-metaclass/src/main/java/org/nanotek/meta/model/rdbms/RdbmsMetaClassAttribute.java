@@ -13,8 +13,6 @@ import jakarta.persistence.Entity;
 import lombok.ToString;
 
 @Entity
-//TODO: Verify best strategy for class attribute. usage for Class.forName is preferable than alter codec for Model MongoDb persistence.
-//TODO: Implement a "className" attribute that conforms with transient attribute clazz fullName
 @ToString
 public class RdbmsMetaClassAttribute 
 extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
@@ -23,7 +21,6 @@ extends MetaClassAttribute<RdbmsMetaClassAttribute> implements Serializable {
 	protected boolean isPartOfId;
 	@JsonProperty("clazz")
 	protected String clazz;
-//	protected Class<?> clazz;
 	@JsonProperty("columnName")
 	protected String columnName;
 	@JsonProperty("length")
