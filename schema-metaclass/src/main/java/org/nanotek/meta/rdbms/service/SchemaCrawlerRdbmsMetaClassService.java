@@ -14,6 +14,7 @@ import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
+import org.nanotek.meta.util.SnakeCaseFluentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 
@@ -90,15 +91,18 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 		
 	}
 	
-	//TODO: refactor this method for a fluent constructor.
+	//TODO: Prepare service to populate foreign key - relation attributes.
+	//TODO: Prepare a properties to manage the case when to use snake_case converter
+	//TODO: Create a class to manage removal of special characteres as being done on previous version.
 	private RdbmsMetaClass createMetaClass(RdbmsSchemaTable schemaTable) {
 		Table table = schemaTable.getSchemaTable();
 		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
-		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , tableName , table);
+		String className = tableName.substring(0, 1).toUpperCase().concat(SnakeCaseFluentConverter.from(tableName).substring(1));
+		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , className , table);
 		populateMetaClassAttributes(metaClass);
 		return metaClass;
 	}
-
+	
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		List<RdbmsMetaClassAttribute> attributes =  schemaCrawlerRdbmsMetaClassAttributeService.generateMetaAttributes(metaClass);
 		metaClass.setMetaAttributes(attributes);

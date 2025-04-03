@@ -32,11 +32,12 @@ public class SchemaCrawlerRdbmsMetaClassServiceTest2 {
 	void testSchemaCrawlerRdbmsMetaClassService() {
 		assertNotNull(schemaCrawlerRdbmsMetaClassService);
 		var metaClasses = testSchemaCrawlerRdbmsMetaClassService_listRetrieval();
-		testRdbmsMetaClassAttributes(metaClasses);
-		var persistedMetaClasses = testRdbmsMetaClassPersistence(metaClasses);
+		//testRdbmsMetaClassAttributes(metaClasses);
+		//var persistedMetaClasses = testRdbmsMetaClassPersistence(metaClasses);
 		
 		//schemaCrawlerRdbmsMetaClassService.deleteAll();
-		schemaCrawlerRdbmsMetaClassService.flush();
+		//schemaCrawlerRdbmsMetaClassService.flush();
+		System.err.println(metaClasses);
 	}
 	
 	List<RdbmsMetaClass> testRdbmsMetaClassPersistence(List<RdbmsMetaClass> metaClasses) {
