@@ -6,12 +6,13 @@ package org.nanotek.meta.model.rdbms;
  * jointable.
  * 
  */
-//TODO: implement a builder that construct a RdbmsForeignKey based on a schema.crawler MutableForeignKey
 public class RdbmsForeignKey {
 
 	protected RdbmsMetaClass metaClass; 
 	
 	protected RdbmsMetaClassAttribute metaClassAttribute;
+	
+	protected RdbmsMetaClassAttribute referenceMetaClassAttribute;
 	
 	public RdbmsForeignKey() {}
 
@@ -35,6 +36,14 @@ public class RdbmsForeignKey {
 
 	public void setMetaClassAttribute(RdbmsMetaClassAttribute metaClassAttribute) {
 		this.metaClassAttribute = metaClassAttribute;
+	}
+
+	public RdbmsMetaClassAttribute getReferenceMetaClassAttribute() {
+		return referenceMetaClassAttribute;
+	}
+
+	public void setReferenceMetaClassAttribute(RdbmsMetaClassAttribute referenceMetaClassAttribute) {
+		this.referenceMetaClassAttribute = referenceMetaClassAttribute;
 	}
 	
 }
