@@ -49,5 +49,13 @@ extends MetaClassRelation<RdbmsForeignKey,RdbmsMetaClass>{
 	public void setReferenceMetaClassAttribute(RdbmsMetaClassAttribute referenceMetaClassAttribute) {
 		this.referenceMetaClassAttribute = referenceMetaClassAttribute;
 	}
+
+	@Override
+	public String toString() {
+		return "RdbmsForeignKey [metaClassAttribute=" + metaClassAttribute.getColumnName() + ", referenceMetaClassAttribute="
+				+ referenceMetaClassAttribute.getColumnName() + ", metaClass=" + metaClass.getTableName() + "]";
+	}
+	
+	
 	
 }
