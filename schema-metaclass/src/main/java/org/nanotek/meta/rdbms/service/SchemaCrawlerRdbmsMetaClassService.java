@@ -100,9 +100,13 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 		String className = tableName.substring(0, 1).toUpperCase().concat(SnakeCaseFluentConverter.from(tableName).substring(1));
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , className , table);
 		populateMetaClassAttributes(metaClass);
+		populateMetaClassForeignKeys(metaClass);
 		return metaClass;
 	}
 	
+	private void populateMetaClassForeignKeys(RdbmsMetaClass metaClass) {
+	}
+
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
 		List<RdbmsMetaClassAttribute> attributes =  schemaCrawlerRdbmsMetaClassAttributeService.generateMetaAttributes(metaClass);
 		metaClass.setMetaAttributes(attributes);
