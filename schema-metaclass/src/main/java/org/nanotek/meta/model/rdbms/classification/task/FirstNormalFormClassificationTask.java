@@ -15,6 +15,12 @@ import org.springframework.stereotype.Component;
 import schemacrawler.schema.ForeignKey;
 import schemacrawler.schema.Table;
 
+/**
+ * First normal form verification requires table scan
+ * for atomicity verification.
+ * It is not pratical on classification tasks based only on the schema
+ * @deprecated
+ */
 //TODO: implement verification of "duplicate values" m which means scan on indexes that will not allow 
 //duplicate values.
 //@Component
