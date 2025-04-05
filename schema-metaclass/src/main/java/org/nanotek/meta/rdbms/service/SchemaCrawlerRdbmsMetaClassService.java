@@ -88,7 +88,6 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 				.stream()
 					.map(t -> createMetaClass(t))
 					.collect(Collectors.toList());
-		
 	}
 	
 	//TODO: Prepare service to populate foreign key - relation attributes.
@@ -97,14 +96,17 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	private RdbmsMetaClass createMetaClass(RdbmsSchemaTable schemaTable) {
 		Table table = schemaTable.getSchemaTable();
 		String tableName = Optional.ofNullable(table.getName()).orElse(table.getFullName());
-		String className = tableName.substring(0, 1).toUpperCase().concat(SnakeCaseFluentConverter.from(tableName).substring(1));
+		String className = tableName
+								.toLowerCase()
+								.substring(0, 1)
+								.toUpperCase()
+								.concat(SnakeCaseFluentConverter.from(tableName).substring(1));
 		RdbmsMetaClass metaClass = new RdbmsMetaClass(tableName , className , table);
 		populateMetaClassAttributes(metaClass);
-		populateMetaClassForeignKeys(metaClass);
 		return metaClass;
 	}
 	
-	private void populateMetaClassForeignKeys(RdbmsMetaClass metaClass) {
+	private void populateMetaClassForeignKeys(RdbmsMetaClass metaClass,List<RdbmsMetaClass>metaClasses) {
 	}
 
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {

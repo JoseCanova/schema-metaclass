@@ -1,6 +1,6 @@
 package org.nanotek.meta.model.rdbms;
 
-import org.nanotek.meta.model.MetaClassRelation;
+import org.nanotek.meta.model.MetaClassReference;
 
 /**
  * Implementation of a foreign key considering that is a imported key,
@@ -9,14 +9,12 @@ import org.nanotek.meta.model.MetaClassRelation;
  * 
  */
 public class RdbmsForeignKey 
-extends MetaClassRelation<RdbmsForeignKey,RdbmsMetaClass>{
+extends MetaClassReference<RdbmsForeignKey,RdbmsMetaClass>{
 
 	protected RdbmsMetaClassAttribute metaClassAttribute;
 	
 	protected RdbmsMetaClassAttribute referenceMetaClassAttribute;
 	
-	public RdbmsForeignKey() {}
-
 	public RdbmsForeignKey(RdbmsMetaClass metaClass, RdbmsMetaClassAttribute metaClassAttribute,
 			RdbmsMetaClassAttribute referenceMetaClassAttribute) {
 		super(metaClass);
@@ -24,7 +22,6 @@ extends MetaClassRelation<RdbmsForeignKey,RdbmsMetaClass>{
 		this.metaClassAttribute = metaClassAttribute;
 		this.referenceMetaClassAttribute = referenceMetaClassAttribute;
 	}
-
 
 	public RdbmsMetaClass getMetaClass() {
 		return metaClass;
@@ -55,7 +52,5 @@ extends MetaClassRelation<RdbmsForeignKey,RdbmsMetaClass>{
 		return "RdbmsForeignKey [metaClassAttribute=" + metaClassAttribute.getColumnName() + ", referenceMetaClassAttribute="
 				+ referenceMetaClassAttribute.getColumnName() + ", metaClass=" + metaClass.getTableName() + "]";
 	}
-	
-	
 	
 }

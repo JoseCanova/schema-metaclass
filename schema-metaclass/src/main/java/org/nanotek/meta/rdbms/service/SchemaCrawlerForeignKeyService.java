@@ -26,6 +26,8 @@ public class SchemaCrawlerForeignKeyService {
 	public List<RdbmsForeignKey> getMetaClassForeignKeys
 			(RdbmsMetaClass metaClass, List<RdbmsMetaClass> metaClasses){
 		
+		System.err.println("MetaClass to analyze " + metaClass.getTableName());
+		
 		List<RdbmsForeignKey> rdbmsMetaClassFks = new ArrayList<>();
 		
 		Collection <ForeignKey> fks = metaClass
