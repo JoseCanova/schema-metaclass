@@ -93,19 +93,15 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	
 	public List<RdbmsMetaClass> getMetaClassList(){
 		 List<RdbmsMetaClass>  rdbmsMetaClassList = getCatalogTables()
-				.stream()
-					.map(t -> createMetaClass(t))
-					.collect(Collectors.toList());
+												 	.stream()
+													.map(t -> createMetaClass(t))
+													.collect(Collectors.toList());
 		 
-		 rdbmsMetaClassList.forEach(r ->{
-			List<RdbmsForeignKey> fks =   schemaCrawlerForeignKeyService
-							.getMetaClassForeignKeys(r, rdbmsMetaClassList); 
-			
-			r.setRdbmsForeignKeys(fks);
-			
-			List<RdbmsIndex>indexes=  schemaCrawlerRbmsIndexService.getRdbmsIndexList(r);
-			r.setRdbmsIndexes(indexes);
-		 });
+		 rdbmsMetaClassList
+		 					.forEach(r ->{
+			 						populateMetaClassForeignKeys(r,rdbmsMetaClassList);
+			 						populateMetaClassIndexes(r);
+		 					});
 		 
 		 return rdbmsMetaClassList;
 	}
@@ -127,6 +123,14 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	}
 	
 	private void populateMetaClassForeignKeys(RdbmsMetaClass metaClass,List<RdbmsMetaClass>metaClasses) {
+		List<RdbmsForeignKey> fks =   schemaCrawlerForeignKeyService
+						.getMetaClassForeignKeys(metaClass, metaClasses); 
+		metaClass.setRdbmsForeignKeys(fks);
+	}
+	
+	private void populateMetaClassIndexes(RdbmsMetaClass metaClass) {
+		List<RdbmsIndex>indexes=  schemaCrawlerRbmsIndexService.getRdbmsIndexList(metaClass);
+		metaClass.setRdbmsIndexes(indexes);
 	}
 
 	private void populateMetaClassAttributes(RdbmsMetaClass metaClass) {
