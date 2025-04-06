@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.TableClassName;
+import org.nanotek.meta.model.rdbms.RdbmsForeignKey;
+import org.nanotek.meta.model.rdbms.RdbmsIndex;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
 import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
@@ -39,6 +41,12 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	
 	@Autowired
 	SchemaCrawlerRdbmsMetaClassAttributeService schemaCrawlerRdbmsMetaClassAttributeService;
+	
+	@Autowired
+	SchemaCrawlerRbmsIndexService schemaCrawlerRbmsIndexService;
+	
+	@Autowired
+	SchemaCrawlerForeignKeyService schemaCrawlerForeignKeyService;
 	
 	public SchemaCrawlerRdbmsMetaClassService(
 			RdbmsMetaClassRepository repository) {
@@ -84,10 +92,22 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	}	
 	
 	public List<RdbmsMetaClass> getMetaClassList(){
-		return getCatalogTables()
+		 List<RdbmsMetaClass>  rdbmsMetaClassList = getCatalogTables()
 				.stream()
 					.map(t -> createMetaClass(t))
 					.collect(Collectors.toList());
+		 
+		 rdbmsMetaClassList.forEach(r ->{
+			List<RdbmsForeignKey> fks =   schemaCrawlerForeignKeyService
+							.getMetaClassForeignKeys(r, rdbmsMetaClassList); 
+			
+			r.setRdbmsForeignKeys(fks);
+			
+			List<RdbmsIndex>indexes=  schemaCrawlerRbmsIndexService.getRdbmsIndexList(r);
+			r.setRdbmsIndexes(indexes);
+		 });
+		 
+		 return rdbmsMetaClassList;
 	}
 	
 	//TODO: Prepare service to populate foreign key - relation attributes.

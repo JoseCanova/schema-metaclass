@@ -1,5 +1,6 @@
 package org.nanotek.meta.model.rdbms;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.nanotek.meta.model.IRdbmsClass;
@@ -37,7 +38,12 @@ implements IRdbmsClass{
 	@Transient
 	protected transient RdbmsClass rdbmsClass;
 	
-	
+	@Transient
+	protected transient List<RdbmsForeignKey> rdbmsForeignKeys;
+
+	@Transient
+	protected transient List<RdbmsIndex> rdbmsIndexes;
+
 	public RdbmsMetaClass() {
 		super();
 	}
@@ -129,6 +135,22 @@ implements IRdbmsClass{
 	public String toString() {
 		return "RdbmsMetaClass [tableName=" + tableName + ", rdbmsClass=" + rdbmsClass + ", className=" + className
 				+ "]";
+	}
+
+	public List<RdbmsForeignKey> getRdbmsForeignKeys() {
+		return rdbmsForeignKeys;
+	}
+
+	public void setRdbmsForeignKeys(List<RdbmsForeignKey> rdbmsForeignKeys) {
+		this.rdbmsForeignKeys = rdbmsForeignKeys;
+	}
+
+	public List<RdbmsIndex> getRdbmsIndexes() {
+		return rdbmsIndexes;
+	}
+
+	public void setRdbmsIndexes(List<RdbmsIndex> rdbmsIndexes) {
+		this.rdbmsIndexes = rdbmsIndexes;
 	}
 	
 	
