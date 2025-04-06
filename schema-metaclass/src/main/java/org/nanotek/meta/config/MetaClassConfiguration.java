@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.controller.RdbmsMetaClassHandler;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerForeignKeyService;
+import org.nanotek.meta.rdbms.service.SchemaCrawlerRbmsIndexService;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassAttributeService;
 import org.nanotek.meta.rdbms.service.SchemaCrawlerRdbmsMetaClassService;
 import org.nanotek.meta.repository.RbdmsMetaAttributeRepository;
@@ -207,6 +208,11 @@ public class MetaClassConfiguration {
 			JpaTransactionManager txManager = new JpaTransactionManager();
 			txManager.setEntityManagerFactory(entityManagerFactory); 
 			return txManager; 
+		}
+		
+		@Bean
+		public SchemaCrawlerRbmsIndexService schemaCrawlerRbmsIndexService () {
+			return new SchemaCrawlerRbmsIndexService();
 		}
 		
 		@Bean 

@@ -3,9 +3,13 @@ package org.nanotek.meta.model.rdbms;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import schemacrawler.schema.Index;
 import schemacrawler.schema.IndexColumn;
 
+@JsonInclude(value = Include.NON_NULL)
 public class RdbmsIndex{
 
 	protected  String name;
@@ -21,10 +25,10 @@ public class RdbmsIndex{
 	private void postConstruct(Index index) {
 		name = index.getName();
 		fullName = index.getFullName();
-		getColumnName(index.getColumns());
+		getColumnNames(index.getColumns());
 	}
 
-	private void getColumnName(List<IndexColumn> columns) {
+	private void getColumnNames(List<IndexColumn> columns) {
 		columnNames  = columns
 						.stream().map(c ->  c.getName())
 						.collect(Collectors.toList());
@@ -38,5 +42,9 @@ public class RdbmsIndex{
 		return columnNames;
 	}
 
+	@Override
+	public String toString() {
+		return "RdbmsIndex [name=" + name + ", fullName=" + fullName + ", columnNames=" + columnNames + "]";
+	}
 
 }

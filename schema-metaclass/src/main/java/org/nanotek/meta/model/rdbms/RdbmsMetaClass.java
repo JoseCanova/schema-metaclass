@@ -32,7 +32,6 @@ implements IRdbmsClass{
 	@Column (name="table_name" , length=1000)
 	protected String tableName;
 	
-	//TODO: Refactor RdbmsClass to permits to be a persistent class on Spring Data Model.
 	@JsonIgnore
 	@NotNull(groups= {MetaClassDefaultValidationGroup.class})
 	@Transient

@@ -3,16 +3,20 @@ package org.nanotek.meta.model.rdbms;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RdbmsMetaClassForeignKey {
 
 	@JsonIgnore
 	RdbmsForeignKey foreignKey;
 	
+	@JsonProperty("tableName")
 	private String tableName;
 	
+	@JsonProperty("columnName")
 	private String columnName;
 	
+	@JsonProperty("joinColumnName")
 	private String joinColumnName;
 	
 	public RdbmsMetaClassForeignKey(RdbmsForeignKey foreignKey) {
