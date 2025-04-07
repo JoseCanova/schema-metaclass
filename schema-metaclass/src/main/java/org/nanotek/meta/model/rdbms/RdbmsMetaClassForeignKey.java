@@ -27,10 +27,10 @@ public class RdbmsMetaClassForeignKey {
 	private void postConstruct() {
 		this.tableName = foreignKey.getMetaClass().getTableName();
 		this.columnName= Optional
-						.ofNullable(foreignKey.referenceMetaClassAttribute)
+						.ofNullable(foreignKey.metaClassAttribute )
 						.map(a -> a.getColumnName()).orElse(null);
 		this.joinColumnName=Optional
-							.ofNullable(foreignKey.metaClassAttribute)
+							.ofNullable(foreignKey.referenceMetaClassAttribute)
 							.map(a -> a.getColumnName()).orElse(null);;
 	}
 
@@ -44,6 +44,12 @@ public class RdbmsMetaClassForeignKey {
 
 	public String getJoinColumnName() {
 		return joinColumnName;
+	}
+
+	@Override
+	public String toString() {
+		return "RdbmsMetaClassForeignKey [tableName=" + tableName + ", columnName=" + columnName + ", joinColumnName="
+				+ joinColumnName + "]";
 	}
 
 }

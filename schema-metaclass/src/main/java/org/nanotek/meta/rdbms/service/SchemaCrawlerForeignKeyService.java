@@ -7,6 +7,7 @@ import java.util.List;
 import org.nanotek.meta.model.rdbms.RdbmsForeignKey;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassForeignKey;
 
 import schemacrawler.schema.Column;
 import schemacrawler.schema.ColumnReference;
@@ -23,12 +24,12 @@ public class SchemaCrawlerForeignKeyService {
 	 * 
 	 */
 	//TODO: implement multi-column support
-	public List<RdbmsForeignKey> getMetaClassForeignKeys
+	public List<RdbmsMetaClassForeignKey> getMetaClassForeignKeys
 			(RdbmsMetaClass metaClass, List<RdbmsMetaClass> metaClasses){
 		
 		System.err.println("MetaClass to analyze " + metaClass.getTableName());
 		
-		List<RdbmsForeignKey> rdbmsMetaClassFks = new ArrayList<>();
+		List<RdbmsMetaClassForeignKey> rdbmsMetaClassFks = new ArrayList<>();
 		
 		Collection <ForeignKey> fks = metaClass
 										.getRdbmsClass()
@@ -38,15 +39,20 @@ public class SchemaCrawlerForeignKeyService {
 		fks.forEach(fk ->{
 			Table table = fk.getPrimaryKeyTable();
 			String tableName = table.getName();
-			RdbmsMetaClass fkMetaClass = findMetaClass(metaClasses,tableName);
+			RdbmsMetaClass tableMetaClass = findMetaClass(metaClasses,tableName);
 			ColumnReference columnReference = fk.getColumnReferences().get(0);
+			List<RdbmsMetaClassAttribute> attributes =  tableMetaClass.getMetaAttributes();
+			RdbmsMetaClassAttribute attribute = findMetaAttribute(attributes , columnReference.getPrimaryKeyColumn());
+			
+			Table fkTable = fk.getForeignKeyTable();
+			String fkTableName = fkTable.getName();
+			RdbmsMetaClass fkMetaClass = findMetaClass(metaClasses,fkTableName);
 			List<RdbmsMetaClassAttribute> fkattributes =  fkMetaClass.getMetaAttributes();
-			RdbmsMetaClassAttribute fkAttribute = findMetaAttribute(fkattributes , columnReference.getPrimaryKeyColumn());
-			List<RdbmsMetaClassAttribute> attributes =  fkMetaClass.getMetaAttributes();
 			Column fkColumn = columnReference.getForeignKeyColumn();
-			RdbmsMetaClassAttribute atttribute = findMetaAttribute(attributes , fkColumn);
-			RdbmsForeignKey rdbmsfk = new RdbmsForeignKey(fkMetaClass, fkAttribute, atttribute);
-			rdbmsMetaClassFks.add(rdbmsfk);
+			RdbmsMetaClassAttribute fkAttribute = findMetaAttribute(fkattributes , fkColumn);
+			RdbmsForeignKey rdbmsfk = new RdbmsForeignKey(tableMetaClass,attribute, fkAttribute);
+			RdbmsMetaClassForeignKey rf = new RdbmsMetaClassForeignKey(rdbmsfk);
+			rdbmsMetaClassFks.add(rf);
 			});
 		
 		return rdbmsMetaClassFks;

@@ -39,7 +39,7 @@ implements IRdbmsClass{
 	protected transient RdbmsClass rdbmsClass;
 	
 	@Transient
-	protected transient List<RdbmsForeignKey> rdbmsForeignKeys;
+	protected transient List<RdbmsMetaClassForeignKey> rdbmsForeignKeys;
 
 	@Transient
 	protected transient List<RdbmsIndex> rdbmsIndexes;
@@ -137,11 +137,11 @@ implements IRdbmsClass{
 				+ "]";
 	}
 
-	public List<RdbmsForeignKey> getRdbmsForeignKeys() {
+	public List<RdbmsMetaClassForeignKey> getRdbmsForeignKeys() {
 		return rdbmsForeignKeys;
 	}
 
-	public void setRdbmsForeignKeys(List<RdbmsForeignKey> rdbmsForeignKeys) {
+	public void setRdbmsForeignKeys(List<RdbmsMetaClassForeignKey> rdbmsForeignKeys) {
 		this.rdbmsForeignKeys = rdbmsForeignKeys;
 	}
 

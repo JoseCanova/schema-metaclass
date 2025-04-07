@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 import org.nanotek.meta.constants.SystemStaticMessageSource;
 import org.nanotek.meta.model.TableClassName;
-import org.nanotek.meta.model.rdbms.RdbmsForeignKey;
 import org.nanotek.meta.model.rdbms.RdbmsIndex;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClass;
 import org.nanotek.meta.model.rdbms.RdbmsMetaClassAttribute;
+import org.nanotek.meta.model.rdbms.RdbmsMetaClassForeignKey;
 import org.nanotek.meta.model.rdbms.table.RdbmsSchemaTable;
 import org.nanotek.meta.repository.RdbmsMetaClassRepository;
 import org.nanotek.meta.util.ColumnNameTranslationStrategy;
@@ -123,8 +123,8 @@ extends MetaClassPersistenceService<RdbmsMetaClassRepository , RdbmsMetaClass,St
 	}
 	
 	private void populateMetaClassForeignKeys(RdbmsMetaClass metaClass,List<RdbmsMetaClass>metaClasses) {
-		List<RdbmsForeignKey> fks =   schemaCrawlerForeignKeyService
-						.getMetaClassForeignKeys(metaClass, metaClasses); 
+		List<RdbmsMetaClassForeignKey> fks =   schemaCrawlerForeignKeyService
+											.getMetaClassForeignKeys(metaClass, metaClasses); 
 		metaClass.setRdbmsForeignKeys(fks);
 	}
 	
