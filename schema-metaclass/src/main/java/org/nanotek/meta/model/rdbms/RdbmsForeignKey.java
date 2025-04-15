@@ -14,12 +14,17 @@ extends MetaClassReference<RdbmsForeignKey,RdbmsMetaClass>{
 	protected RdbmsMetaClassAttribute metaClassAttribute;
 	
 	protected RdbmsMetaClassAttribute referenceMetaClassAttribute;
+
+	protected RdbmsMetaClass referenceMetaClass;
 	
-	public RdbmsForeignKey(RdbmsMetaClass metaClass, RdbmsMetaClassAttribute metaClassAttribute,
+	public RdbmsForeignKey(RdbmsMetaClass metaClass, 
+			RdbmsMetaClassAttribute metaClassAttribute,
+			RdbmsMetaClass referenceMetaClass,
 			RdbmsMetaClassAttribute referenceMetaClassAttribute) {
 		super(metaClass);
 		this.metaClass = metaClass;
 		this.metaClassAttribute = metaClassAttribute;
+		this.referenceMetaClass=referenceMetaClass;
 		this.referenceMetaClassAttribute = referenceMetaClassAttribute;
 	}
 
@@ -47,10 +52,14 @@ extends MetaClassReference<RdbmsForeignKey,RdbmsMetaClass>{
 		this.referenceMetaClassAttribute = referenceMetaClassAttribute;
 	}
 
+	public RdbmsMetaClass getReferenceMetaClass() {
+		return referenceMetaClass;
+	}
+	
 	@Override
 	public String toString() {
 		return "RdbmsForeignKey [metaClassAttribute=" + metaClassAttribute.getColumnName() + ", referenceMetaClassAttribute="
 				+ referenceMetaClassAttribute.getColumnName() + ", metaClass=" + metaClass.getTableName() + "]";
 	}
-	
+
 }

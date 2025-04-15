@@ -50,7 +50,7 @@ public class SchemaCrawlerForeignKeyService {
 			List<RdbmsMetaClassAttribute> fkattributes =  fkMetaClass.getMetaAttributes();
 			Column fkColumn = columnReference.getForeignKeyColumn();
 			RdbmsMetaClassAttribute fkAttribute = findMetaAttribute(fkattributes , fkColumn);
-			RdbmsForeignKey rdbmsfk = new RdbmsForeignKey(tableMetaClass,attribute, fkAttribute);
+			RdbmsForeignKey rdbmsfk = new RdbmsForeignKey(tableMetaClass,attribute,  fkMetaClass, fkAttribute);
 			RdbmsMetaClassForeignKey rf = new RdbmsMetaClassForeignKey(rdbmsfk);
 			rdbmsMetaClassFks.add(rf);
 			});

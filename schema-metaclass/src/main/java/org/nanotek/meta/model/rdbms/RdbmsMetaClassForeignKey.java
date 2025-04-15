@@ -16,6 +16,10 @@ public class RdbmsMetaClassForeignKey {
 	@JsonProperty("columnName")
 	private String columnName;
 	
+
+	@JsonProperty("joinTableName")
+	private String joinTableName;
+	
 	@JsonProperty("joinColumnName")
 	private String joinColumnName;
 	
@@ -26,6 +30,7 @@ public class RdbmsMetaClassForeignKey {
 
 	private void postConstruct() {
 		this.tableName = foreignKey.getMetaClass().getTableName();
+		this.joinTableName=foreignKey.getReferenceMetaClass().getTableName();
 		this.columnName= Optional
 						.ofNullable(foreignKey.metaClassAttribute )
 						.map(a -> a.getColumnName()).orElse(null);

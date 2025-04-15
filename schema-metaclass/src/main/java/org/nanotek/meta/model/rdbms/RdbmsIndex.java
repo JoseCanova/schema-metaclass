@@ -18,6 +18,8 @@ public class RdbmsIndex{
 	
 	protected  List<String> columnNames;
 	
+	protected Boolean isUnique;
+	
 	public RdbmsIndex(Index index) {
 		postConstruct(index);
 	}
@@ -26,7 +28,7 @@ public class RdbmsIndex{
 		name = index.getName();
 		fullName = index.getFullName();
 		getColumnNames(index.getColumns());
-	}
+		isUnique = index.isUnique();}
 
 	private void getColumnNames(List<IndexColumn> columns) {
 		columnNames  = columns
@@ -40,6 +42,11 @@ public class RdbmsIndex{
 
 	public List<String> getColumnNames() {
 		return columnNames;
+	}
+	
+
+	public Boolean getIsUnique() {
+		return isUnique;
 	}
 
 	@Override
